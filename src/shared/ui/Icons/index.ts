@@ -1,0 +1,8 @@
+export {default as Apple} from './Apple';
+export {default as Challenge} from './Challenge';
+export {default as Google} from './Google';
+export {default as Home} from './Home';
+export {default as Kakao} from './Kakao';
+export {default as Map} from './Map';
+export {default as My} from './My';
+export {default as Naver} from './Naver';

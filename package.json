@@ -7,12 +7,14 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "icons:create": "npx @svgr/cli ./assets/icons --config-file ./scripts/icons/svgr-config.json --template ./scripts/icons/svg-template.js --svgo-config ./scripts/icons/svgo-config.json && node ./scripts/icons/setIcon"
   },
   "dependencies": {
     "react": "18.2.0",
     "react-native": "0.74.3",
-    "react-native-code-push": "^8.2.2"
+    "react-native-code-push": "^8.2.2",
+    "react-native-svg": "^15.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

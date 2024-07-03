@@ -1,0 +1,15 @@
+{
+  "typescript": true,
+  "params": {},
+  "replaceAttrValues": {},
+  "svgProps": {
+    "width": "{props.width || 24}",
+    "height": "{props.height || 24}",
+    "style": "{props.style || {}}"
+  },
+  "filenameCase": "pascal",
+  "dimensions": false,
+  "ignoreExisting": true,
+  "outDir": "src/shared/ui/Icons",
+  "native": true
+}
