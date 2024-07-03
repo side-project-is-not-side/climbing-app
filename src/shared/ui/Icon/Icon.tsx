@@ -1,9 +1,9 @@
 import React from 'react';
 import * as Icons from '../Icons';
 
-type IconName = keyof typeof Icons;
-type IconsProps = (typeof Icons)[IconName];
-type IconProps = Omit<IconsProps, 'size' | 'color'> & {
+export type IconName = keyof typeof Icons;
+export type IconsProps = (typeof Icons)[IconName];
+export type IconProps = Omit<IconsProps, 'size' | 'color'> & {
   name: IconName;
   size?: number;
   onClick?: (...args: any) => void;
