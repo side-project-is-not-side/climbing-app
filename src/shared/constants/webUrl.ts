@@ -12,10 +12,12 @@ const BASE_URL = isDev
 export const LINKING_URI = {
   MY: 'my',
   CHALLENGE: 'challenge',
+  MAP: 'map',
 } as const;
 
 export const WEB_URL = {
   HOME: `${BASE_URL}/`,
   MY: `${BASE_URL}/${LINKING_URI.MY}`,
   CHALLENGE: `${BASE_URL}/${LINKING_URI.CHALLENGE}`,
+  MAP: `${BASE_URL}/${LINKING_URI.MAP}`,
 } as const;
