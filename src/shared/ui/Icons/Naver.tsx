@@ -16,12 +16,12 @@ const SvgNaver = (props: SvgProps) => (
       />
       <Path
         d="M13.56 12.3087L10.3143 7.65723H7.62286V16.3429H10.44V11.6915L13.6857 16.3429H16.3771V7.65723H13.56V12.3087Z"
-        fill="white"
+        fill={props.color || 'white'}
       />
     </G>
     <Defs>
       <ClipPath id="clip0_1249_1734">
-        <Rect width={24} height={24} fill="white" />
+        <Rect width={24} height={24} fill={props.color || 'white'} />
       </ClipPath>
     </Defs>
   </Svg>
