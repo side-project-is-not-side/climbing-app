@@ -21,7 +21,7 @@ const SvgKakao = (props: SvgProps) => (
     </G>
     <Defs>
       <ClipPath id="clip0_1249_2915">
-        <Rect width={24} height={24} fill="white" />
+        <Rect width={24} height={24} fill={props.color || 'white'} />
       </ClipPath>
     </Defs>
   </Svg>
