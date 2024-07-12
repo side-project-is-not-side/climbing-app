@@ -3,7 +3,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Text} from 'react-native';
 import {ROOT_ROUTES} from '../constants/routes';
-import {HomeScreen, MapScreen} from '../../../screens';
+import {HomeScreen, MapScreen, ChallengeScreen} from '../../../screens';
 import TabIcon from '../../../shared/ui/TabIcon';
 import {NavigationContainer} from '@react-navigation/native';
 import MyScreen from '../../../screens/ui/MyScreen';
@@ -75,7 +75,7 @@ const Navigation = () => {
         />
         <Screen
           name={ROOT_ROUTES.CHALLENGE}
-          component={MapScreen}
+          component={ChallengeScreen}
           options={{
             tabBarLabel: ({focused}) => {
               return (
