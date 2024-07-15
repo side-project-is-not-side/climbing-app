@@ -1,20 +1,46 @@
 import React from 'react';
 
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Text} from 'react-native';
-import {ROOT_ROUTES} from '../constants/routes';
-import {HomeScreen, MapScreen} from '../../../screens';
-import TabIcon from '../../../shared/ui/TabIcon';
 import {NavigationContainer} from '@react-navigation/native';
-import MyScreen from '../../../screens/ui/MyScreen';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+import TabIcon from '../../../shared/ui/TabIcon';
+import {
+  HomeScreen,
+  MapScreen,
+  ChallengeScreen,
+  ChallengeDetailScreen,
+  MyScreen,
+} from '../../../screens';
+
+import {CHALLENGE_ROUTES, ROOT_ROUTES} from '../constants/routes';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+const ChallengeNavigator = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name={CHALLENGE_ROUTES.CHALLENGE}
+        component={ChallengeScreen}
+      />
+      <Stack.Screen
+        name={CHALLENGE_ROUTES.CHALLENGE_DETAIL}
+        component={ChallengeDetailScreen}
+        options={{
+          title: '',
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const Navigation = () => {
-  const {Navigator, Screen} = Tab;
   return (
     <NavigationContainer>
-      <Navigator
+      <Tab.Navigator
         initialRouteName={ROOT_ROUTES.HOME}
         screenOptions={{
           lazy: true,
@@ -35,7 +61,7 @@ const Navigation = () => {
             justifyContent: 'center',
           },
         }}>
-        <Screen
+        <Tab.Screen
           name={ROOT_ROUTES.HOME}
           component={HomeScreen}
           options={{
@@ -55,7 +81,7 @@ const Navigation = () => {
             ),
           }}
         />
-        <Screen
+        <Tab.Screen
           name={ROOT_ROUTES.MAP}
           component={MapScreen}
           options={{
@@ -73,10 +99,11 @@ const Navigation = () => {
             tabBarIcon: ({focused}) => <TabIcon name="Map" focused={focused} />,
           }}
         />
-        <Screen
-          name={ROOT_ROUTES.CHALLENGE}
-          component={MapScreen}
+        <Tab.Screen
+          name={'challenge_group'}
+          component={ChallengeNavigator}
           options={{
+            headerShown: false,
             tabBarLabel: ({focused}) => {
               return (
                 <Text
@@ -93,7 +120,7 @@ const Navigation = () => {
             ),
           }}
         />
-        <Screen
+        <Tab.Screen
           name={ROOT_ROUTES.MY_PAGE}
           component={MyScreen}
           options={{
@@ -111,7 +138,7 @@ const Navigation = () => {
             tabBarIcon: ({focused}) => <TabIcon name="My" focused={focused} />,
           }}
         />
-      </Navigator>
+      </Tab.Navigator>
     </NavigationContainer>
   );
 };

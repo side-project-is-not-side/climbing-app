@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">grabbers</string>
+    <string name="CodePushDeploymentKey">dd7b884757022d0a142b2784fecac2e749490128</string>
 </resources>
