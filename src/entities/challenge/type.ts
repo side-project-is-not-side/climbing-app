@@ -1,8 +1,12 @@
 export type Challenge = {
   id: number;
-  type: string;
+  activityType: 'PICTURE' | 'VIDEO' | 'LOCATION';
   title: string;
-  description: string;
-  solved: number;
-  total: number;
+  summary: string;
+  activityCount: number;
+  successCount: number;
+  imageUrl: {
+    black: string;
+    color: string;
+  };
 };

@@ -1,10 +1,29 @@
+'use client';
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {Challenge} from '../type';
+import {useNavigation} from '@react-navigation/native';
+import {CHALLENGE_ROUTES, ChallengeRoute} from '../../../app/navigation';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {Badge} from '../../../shared';
+
+const activityTypes = {
+  PICTURE: '사진 챌린지',
+  VIDEO: '레벨도전',
+  LOCATION: '암장도전',
+};
 
 const Card = ({challenge}: {challenge: Challenge}) => {
+  const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
+
+  const handlePressCard = () => {
+    navigation.navigate(CHALLENGE_ROUTES.CHALLENGE_DETAIL, {
+      challengeId: challenge.id,
+    });
+  };
+
   return (
-    <View style={styles.cardContainer}>
+    <Pressable style={styles.cardContainer} onPress={handlePressCard}>
       <View style={styles.imageContainer}>
         <Image
           source={require('../../../../assets/images/fire_full.png')}
@@ -14,18 +33,15 @@ const Card = ({challenge}: {challenge: Challenge}) => {
         />
       </View>
       <View style={styles.contentContainer}>
-        <Text style={styles.type}>
-          {challenge.type === 'climbing' ? '암장도전' : '레벨도전'}
-        </Text>
+        <Text style={styles.type}>{activityTypes[challenge.activityType]}</Text>
         <Text style={styles.title}>{challenge.title}</Text>
-        <Text style={styles.description}>{challenge.description}</Text>
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>
-            {challenge.solved}/{challenge.total}
-          </Text>
-        </View>
+        <Text>{challenge.summary}</Text>
+        <Badge
+          text={`${challenge.activityCount}/${challenge.successCount}`}
+          style={{badge: {marginTop: 8}}}
+        />
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -53,16 +69,5 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: '700',
-  },
-  description: {},
-  badge: {
-    marginTop: 8,
-    padding: 4,
-    width: 86,
-    borderRadius: 200,
-    backgroundColor: '#eee',
-  },
-  badgeText: {
-    textAlign: 'center',
   },
 });
