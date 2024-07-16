@@ -3,39 +3,14 @@ import React from 'react';
 import {Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import TabIcon from '../../../shared/ui/TabIcon';
-import {
-  HomeScreen,
-  MapScreen,
-  ChallengeScreen,
-  ChallengeDetailScreen,
-  MyScreen,
-} from '../../../screens';
+import {HomeScreen, MapScreen, MyScreen} from '../../../screens';
 
-import {CHALLENGE_ROUTES, ROOT_ROUTES} from '../constants/routes';
+import {ROOT_ROUTES} from '../constants/routes';
+import ChallengeNavigation from './ChallengeNavigation';
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
-
-const ChallengeNavigator = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name={CHALLENGE_ROUTES.CHALLENGE}
-        component={ChallengeScreen}
-      />
-      <Stack.Screen
-        name={CHALLENGE_ROUTES.CHALLENGE_DETAIL}
-        component={ChallengeDetailScreen}
-        options={{
-          title: '',
-        }}
-      />
-    </Stack.Navigator>
-  );
-};
 
 const Navigation = () => {
   return (
@@ -101,7 +76,7 @@ const Navigation = () => {
         />
         <Tab.Screen
           name={'challenge_group'}
-          component={ChallengeNavigator}
+          component={ChallengeNavigation}
           options={{
             headerShown: false,
             tabBarLabel: ({focused}) => {

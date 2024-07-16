@@ -1,39 +1,38 @@
 'use client';
-import React, {useEffect, useRef, useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
+import SquareImage from '../../../shared/ui/SquareImage';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {ChallengeRoute} from '../../../app/navigation';
 
 const VerificationHistoryPreview = () => {
-  let ref: React.ElementRef<typeof Image> | null = null;
-  const imageRef: React.LegacyRef<Image> = (element: Image) => (ref = element);
+  const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
 
-  const [height, setHeight] = useState(0);
+  const handlePressMoreHistory = (enabled: boolean) => {
+    enabled && navigation.navigate('verification_history');
+  };
 
-  useEffect(() => {
-    if (ref) {
-      ref.measure((x, y, width) => {
-        setHeight(width);
-      });
-    }
-  }, [ref]);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>인증 기록</Text>
       <View style={styles.recentHistories}>
         {Array(3)
           .fill(0)
-          .map((v, i) => (
+          .map((_, i) => (
             <View key={i} style={styles.imageContainer}>
-              <Image
-                ref={imageRef}
-                source={require('../../../../assets/images/fire_full.png')}
-                alt={'verification photo'}
-                style={[styles.image, {height}]}
-              />
-              {i === 2 && (
-                <View style={styles.more}>
-                  <Text style={styles.moreInnerText}>더보기</Text>
-                </View>
-              )}
+              <Pressable onPress={() => handlePressMoreHistory(i === 2)}>
+                <SquareImage
+                  source={require('../../../../assets/images/fire_full.png')}
+                  alt={'verification photo'}
+                  style={styles.image}
+                />
+                {i === 2 && (
+                  <View style={styles.more}>
+                    <Text style={styles.moreInnerText}>더보기</Text>
+                  </View>
+                )}
+              </Pressable>
             </View>
           ))}
       </View>

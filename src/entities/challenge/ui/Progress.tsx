@@ -1,5 +1,7 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
+
+import {ProgressSlide} from '.';
 
 import {Badge} from '../../../shared';
 import ScrollViewCarousel from '../../../shared/ui/ScrollViewCarousel';
@@ -13,46 +15,17 @@ const Progress = () => {
     <>
       <View style={styles.titleContainer}>
         <Text>진행률</Text>
-        <Badge text={`13/20`} />
+        <Badge text={`${activityCount}/${successCount}`} />
       </View>
       <View>
         <ScrollViewCarousel
           data={Array(pages)
             .fill(0)
-            .map((v, i) => i)}
+            .map((_, i) => i)}
           keyExtractor={data => data}
-          render={(_, page) => {
-            const isInProgressPage = page === 0 && activityCount % 10 !== 0;
-            const progressGrapCount = activityCount % 10;
-
-            const complatedPageSize =
-              Math.floor(activityCount / 10) - Number(activityCount % 10 === 0);
-            const isComplated = page <= complatedPageSize;
-            return (
-              <View style={styles.progressIcons}>
-                {Array(10)
-                  .fill(0)
-                  .map((_, index) => (
-                    <View key={index} style={{width: 40, height: 40}}>
-                      <Image
-                        source={
-                          isInProgressPage
-                            ? index < progressGrapCount
-                              ? require('../../../../assets/icons/hold_grab.png')
-                              : require('../../../../assets/icons/hold_empty.png')
-                            : isComplated
-                            ? require('../../../../assets/icons/hold_grab.png')
-                            : require('../../../../assets/icons/hold_empty.png')
-                        }
-                        alt="progress"
-                        width={40}
-                        height={40}
-                      />
-                    </View>
-                  ))}
-              </View>
-            );
-          }}
+          render={(_, index) => (
+            <ProgressSlide page={index} activityCount={activityCount} />
+          )}
         />
       </View>
     </>
