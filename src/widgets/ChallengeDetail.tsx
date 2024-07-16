@@ -1,12 +1,22 @@
-import {RouteProp, useRoute} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {Text, View, StyleSheet, Image, ScrollView} from 'react-native';
-import {Progress, VerificationHistoryPreview} from '../entities/challenge/ui';
-import {ChallengeRoute} from '../app/navigation';
+import {Progress} from '../entities/challenge/ui';
+import {VerificationHistoryPreview} from '../entities/verification/ui';
+import {CHALLENGE_ROUTES, ChallengeRoute} from '../app/navigation';
 import Button from '../shared/ui/Button';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const ChallengeDetail = () => {
   const route = useRoute<RouteProp<ChallengeRoute, 'challenge_detail'>>();
+  const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
+
+  const handleNavigateVerify = () => {
+    navigation.navigate(CHALLENGE_ROUTES.VERIFY_PHOTO, {
+      challengeTitle: '챌린지 명',
+    });
+  };
+
   return (
     <ScrollView>
       <View style={styles.pageContainer}>
@@ -26,7 +36,7 @@ const ChallengeDetail = () => {
         </View>
         <Progress />
         <VerificationHistoryPreview />
-        <Button>인증하기</Button>
+        <Button onPress={handleNavigateVerify}>인증하기</Button>
       </View>
     </ScrollView>
   );

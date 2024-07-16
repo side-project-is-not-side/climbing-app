@@ -1,9 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
+import {ProgressSlide} from '.';
+
 import {Badge} from '../../../shared';
 import ScrollViewCarousel from '../../../shared/ui/ScrollViewCarousel';
-import ProgressSlide from './ProgressSlide';
 
 const Progress = () => {
   const activityCount = 13;
