@@ -21,7 +21,7 @@ const ChallengeDetail = () => {
           <Text style={styles.title}>암장의 고인물</Text>
           <Text>
             같은 암장을 20번이나 갔더니 생긴 변화, {'\n'}이 암장의 고인물이
-            되었다.
+            되었다.!!!!!!
           </Text>
         </View>
         <Progress />
