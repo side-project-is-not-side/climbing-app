@@ -1,7 +1,7 @@
 export const ROOT_ROUTES = {
   HOME: 'home',
   MAP: 'map',
-  MY_PAGE: 'mypage',
+  MY_PAGE: 'my',
 } as const;
 
 export const CHALLENGE_ROUTES = {
@@ -11,11 +11,17 @@ export const CHALLENGE_ROUTES = {
   VERIFY_PHOTO: 'verify_photo',
 } as const;
 
+export const AUTH_ROUTES = {
+  ONBOARDING: 'onboarding',
+  LOGIN: 'login',
+} as const;
+
 export type RootRoute = {
   home: undefined;
   map: undefined;
+  my: undefined;
   challenge_group: undefined;
-  mypage: undefined;
+  auth_group: undefined;
 };
 
 export type ChallengeRoute = {
@@ -28,3 +34,10 @@ export type ChallengeRoute = {
     challengeTitle: string;
   };
 };
+
+export type AuthRoute = {
+  onboarding: undefined;
+  login: undefined;
+};
+
+export type AllRoute = RootRoute & ChallengeRoute & AuthRoute;

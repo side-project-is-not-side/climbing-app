@@ -6,34 +6,22 @@ import {VerificationHistoryPreview} from '../entities/verification/ui';
 import {CHALLENGE_ROUTES, ChallengeRoute} from '../app/navigation';
 import Button from '../shared/ui/Button';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import ChallengeInfo from '../entities/challenge/ui/ChallengeInfo';
 
 const ChallengeDetail = () => {
   const route = useRoute<RouteProp<ChallengeRoute, 'challenge_detail'>>();
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
 
   const handleNavigateVerify = () => {
-    navigation.navigate(CHALLENGE_ROUTES.VERIFY_PHOTO, {
-      challengeTitle: '챌린지 명',
-    });
+    // navigation.navigate(CHALLENGE_ROUTES.VERIFY_PHOTO, {
+    //   challengeTitle: '챌린지 명',
+    // });
   };
 
   return (
     <ScrollView>
       <View style={styles.pageContainer}>
-        <View style={styles.progressImageContainer}>
-          <Image
-            source={require('../../assets/images/fire_full.png')}
-            alt="challenge progress image"
-          />
-        </View>
-        <View style={styles.challengeInfoContainer}>
-          <Text style={styles.type}>암장 도전</Text>
-          <Text style={styles.title}>암장의 고인물</Text>
-          <Text>
-            같은 암장을 20번이나 갔더니 생긴 변화, {'\n'}이 암장의 고인물이
-            되었다.!!!!!!
-          </Text>
-        </View>
+        <ChallengeInfo />
         <Progress />
         <VerificationHistoryPreview />
         <Button onPress={handleNavigateVerify}>인증하기</Button>

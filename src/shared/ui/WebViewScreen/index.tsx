@@ -2,7 +2,10 @@ import React from 'react';
 import WebViewComponent from 'react-native-webview';
 import DeviceInfo from 'react-native-device-info';
 import {Platform, ViewStyle, NativeModules, Linking} from 'react-native';
-import {WEB_URL} from '../../constants';
+import {AllRoute, BASE_URL, LINKING_URI, WEB_URL} from '../../constants';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useAuthContext} from '../../../app/AuthContextProvider';
 
 type WebViewProps = {
   uri?: string;
@@ -13,9 +16,12 @@ type WebViewProps = {
 
 const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
   const {uri, html, style, token, ...rest} = props;
+
   const [ua, setUa] = React.useState('');
+  const authContext = useAuthContext();
 
   const _webview = React.useRef<WebViewComponent>(null);
+  const navigation = useNavigation<NativeStackNavigationProp<AllRoute>>();
 
   const localeURI = React.useMemo(() => {
     if (/(\:3000)|(grabbers\.co\.kr)/.test(uri ?? '')) {
@@ -57,7 +63,7 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
       // source={{uri: uri ?? WEB_URL.HOME}}
       scalesPageToFit={true}
       source={{
-        ...(html ? {html} : {uri: uri ? localeURI ?? uri : WEB_URL.HOME}),
+        ...(html ? {html} : {uri: uri ? uri : WEB_URL.HOME}),
         headers: {
           Cookie: `accessToken=${token}; native-os=${Platform.OS};`,
         },
@@ -77,13 +83,44 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
 
         return true;
       }}
+      onNavigationStateChange={event => {
+        const navLinks = Object.values(LINKING_URI);
+        const path = event.url.replace(`${BASE_URL}/`, '').split('?')[0];
+        if (navLinks.includes(path as any) && path !== 'login') {
+          navigation.navigate(path as any);
+        }
+        if (path === '') {
+          navigation.navigate('home');
+        }
+      }}
+      onMessage={event => {
+        const data = JSON.parse(event.nativeEvent.data);
+
+        if (data.type === 'STORAGE_DATA') {
+          const {key, data: item} = data.data;
+
+          if (key === 'accessToken') {
+            return authContext?.setToken(item);
+          }
+          if (key === 'isFirstVisit') {
+            return authContext?.setIsFirstVisit(item);
+          }
+        }
+
+        if (data.type === 'LOGOUT') {
+          authContext?.setToken(null);
+        }
+      }}
       style={[{flex: 1}, style]}
       webviewDebuggingEnabled={true}
       userAgent={ua}
       sharedCookiesEnabled={false}
       originWhitelist={['*']}
       allowsInlineMediaPlayback={true}
-      setSupportMultipleWindows={false}
+      setSupportMultipleWindows={true}
+      javaScriptEnabled={true}
+      javaScriptCanOpenWindowsAutomatically={true}
+      domStorageEnabled={true}
       {...rest}
     />
   );
