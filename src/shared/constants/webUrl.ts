@@ -3,7 +3,7 @@ import Config from 'react-native-config';
 
 const isDev = false ?? Config.NODE_ENV === 'development';
 
-const BASE_URL = isDev
+export const BASE_URL = isDev
   ? Platform.OS === 'android'
     ? 'http://10.0.2.2:3000'
     : 'http://localhost:3000'
@@ -13,6 +13,8 @@ export const LINKING_URI = {
   MY: 'my',
   CHALLENGE: 'challenge',
   MAP: 'map',
+  LOGIN: 'login',
+  ONBOARDING: 'onboarding',
 } as const;
 
 export const WEB_URL = {
@@ -20,4 +22,6 @@ export const WEB_URL = {
   MY: `${BASE_URL}/${LINKING_URI.MY}`,
   CHALLENGE: `${BASE_URL}/${LINKING_URI.CHALLENGE}`,
   MAP: `${BASE_URL}/${LINKING_URI.MAP}`,
+  LOGIN: `${BASE_URL}/${LINKING_URI.LOGIN}`,
+  ONBOARDING: `${BASE_URL}/${LINKING_URI.ONBOARDING}`,
 } as const;

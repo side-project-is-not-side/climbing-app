@@ -1,11 +1,11 @@
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
-import {Text, View, StyleSheet, Image, ScrollView} from 'react-native';
-import {Progress} from '../entities/challenge/ui';
-import {VerificationHistoryPreview} from '../entities/verification/ui';
-import {CHALLENGE_ROUTES, ChallengeRoute} from '../app/navigation';
-import Button from '../shared/ui/Button';
+import {View, StyleSheet, ScrollView} from 'react-native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {Progress, ChallengeInfo} from '../entities/challenge/ui';
+import {VerificationHistoryPreview} from '../entities/verification/ui';
+import {ChallengeRoute, CHALLENGE_ROUTES} from '../shared/constants';
+import {Button} from '../shared/ui';
 
 const ChallengeDetail = () => {
   const route = useRoute<RouteProp<ChallengeRoute, 'challenge_detail'>>();
@@ -20,20 +20,7 @@ const ChallengeDetail = () => {
   return (
     <ScrollView>
       <View style={styles.pageContainer}>
-        <View style={styles.progressImageContainer}>
-          <Image
-            source={require('../../assets/images/fire_full.png')}
-            alt="challenge progress image"
-          />
-        </View>
-        <View style={styles.challengeInfoContainer}>
-          <Text style={styles.type}>암장 도전</Text>
-          <Text style={styles.title}>암장의 고인물</Text>
-          <Text>
-            같은 암장을 20번이나 갔더니 생긴 변화, {'\n'}이 암장의 고인물이
-            되었다.!!!!!!
-          </Text>
-        </View>
+        <ChallengeInfo />
         <Progress />
         <VerificationHistoryPreview />
         <Button onPress={handleNavigateVerify}>인증하기</Button>

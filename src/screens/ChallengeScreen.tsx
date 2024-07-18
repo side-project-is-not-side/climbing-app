@@ -1,6 +1,6 @@
 import React from 'react';
 // import {WEB_URL, WebViewScreen} from '../../shared';
-import { Challenges } from '../../widgets';
+import {Challenges} from '../widgets';
 import {StyleSheet, Text, View} from 'react-native';
 
 const ChallengeScreen = () => {

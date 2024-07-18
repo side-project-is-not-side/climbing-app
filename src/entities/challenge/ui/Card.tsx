@@ -3,9 +3,9 @@ import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {Challenge} from '../type';
 import {useNavigation} from '@react-navigation/native';
-import {CHALLENGE_ROUTES, ChallengeRoute} from '../../../app/navigation';
+import {CHALLENGE_ROUTES, ChallengeRoute} from '../../../shared/constants';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {Badge} from '../../../shared';
+import {Badge} from '../../../shared/ui';
 
 const activityTypes = {
   PICTURE: '사진 챌린지',
