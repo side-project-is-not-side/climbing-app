@@ -1,21 +1,20 @@
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
-import {Text, View, StyleSheet, Image, ScrollView} from 'react-native';
-import {Progress} from '../entities/challenge/ui';
-import {VerificationHistoryPreview} from '../entities/verification/ui';
-import {CHALLENGE_ROUTES, ChallengeRoute} from '../app/navigation';
-import Button from '../shared/ui/Button';
+import {View, StyleSheet, ScrollView} from 'react-native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import ChallengeInfo from '../entities/challenge/ui/ChallengeInfo';
+import {Progress, ChallengeInfo} from '../entities/challenge/ui';
+import {VerificationHistoryPreview} from '../entities/verification/ui';
+import {ChallengeRoute, CHALLENGE_ROUTES} from '../shared/constants';
+import {Button} from '../shared/ui';
 
 const ChallengeDetail = () => {
   const route = useRoute<RouteProp<ChallengeRoute, 'challenge_detail'>>();
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
 
   const handleNavigateVerify = () => {
-    // navigation.navigate(CHALLENGE_ROUTES.VERIFY_PHOTO, {
-    //   challengeTitle: '챌린지 명',
-    // });
+    navigation.navigate(CHALLENGE_ROUTES.VERIFY_PHOTO, {
+      challengeTitle: '챌린지 명',
+    });
   };
 
   return (

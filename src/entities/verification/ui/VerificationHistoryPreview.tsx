@@ -1,10 +1,10 @@
 'use client';
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import SquareImage from '../../../shared/ui/SquareImage';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {ChallengeRoute} from '../../../app/navigation';
+import {SquareImage} from '../../../shared/ui';
+import {ChallengeRoute} from '../../../shared/constants';
 
 const VerificationHistoryPreview = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();

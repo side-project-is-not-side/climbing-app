@@ -1,5 +1,17 @@
-import WebViewScreen from './WebViewScreen';
 import {Icon} from './Icon/Icon';
+import TabIcon from './TabIcon';
+import WebViewScreen from './WebViewScreen';
 import Badge from './Badge';
+import Button from './Button';
+import ScrollViewCarousel from './ScrollViewCarousel';
+import SquareImage from './SquareImage';
 
-export {WebViewScreen, Icon, Badge};
+export {
+  WebViewScreen,
+  Icon,
+  TabIcon,
+  Badge,
+  Button,
+  ScrollViewCarousel,
+  SquareImage,
+};

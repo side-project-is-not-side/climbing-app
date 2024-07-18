@@ -1,5 +1,6 @@
 import React from 'react';
-import {WEB_URL, WebViewScreen} from '../../shared';
+import {WebViewScreen} from '../shared/ui';
+import {WEB_URL} from '../shared/constants';
 
 const MyScreen = () => {
   return <WebViewScreen uri={WEB_URL.MY} />;

@@ -3,8 +3,8 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import RootNavigation from './RootNavigation';
 import AuthNavigation from './AuthNavigation';
-import {AUTH_ROUTES} from '../../../shared';
-import {useAuthContext} from '../../AuthContextProvider';
+import {AUTH_ROUTES} from '../../shared/constants';
+import {useAuthContext} from '../AuthContextProvider';
 
 const Navigation = () => {
   const authContext = useAuthContext();

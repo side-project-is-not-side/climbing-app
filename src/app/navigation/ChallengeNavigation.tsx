@@ -6,9 +6,9 @@ import {
   ChallengeDetailScreen,
   VerificationHistoryScreen,
   VerifyPhotoScreen,
-} from '../../../screens';
+} from '../../screens';
 
-import {CHALLENGE_ROUTES, ChallengeRoute} from '../../../shared/constants';
+import {CHALLENGE_ROUTES, ChallengeRoute} from '../../shared/constants';
 
 const Stack = createNativeStackNavigator<ChallengeRoute>();
 

@@ -1,7 +1,7 @@
-import TabIcon from '../../../shared/ui/TabIcon';
-import {HomeScreen, MapScreen, MyScreen} from '../../../screens';
+import TabIcon from '../../shared/ui/TabIcon';
+import {HomeScreen, MapScreen, MyScreen} from '../../screens';
 
-import {ROOT_ROUTES, RootRoute} from '../../../shared/constants';
+import {ROOT_ROUTES, RootRoute} from '../../shared/constants';
 import ChallengeNavigation from './ChallengeNavigation';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Text} from 'react-native';
