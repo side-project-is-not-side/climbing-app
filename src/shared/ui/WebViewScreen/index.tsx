@@ -15,13 +15,15 @@ type WebViewProps = {
 } & React.ComponentProps<typeof WebViewComponent>;
 
 const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
-  const {uri, html, style, token, ...rest} = props;
-
-  const [ua, setUa] = React.useState('');
-  const authContext = useAuthContext();
+  const {uri, html, style, ...rest} = props;
 
   const _webview = React.useRef<WebViewComponent>(null);
   const navigation = useNavigation<NativeStackNavigationProp<AllRoute>>();
+  const authContext = useAuthContext();
+
+  const [ua, setUa] = React.useState('');
+
+  const token = authContext?.token;
 
   const localeURI = React.useMemo(() => {
     if (/(\:3000)|(grabbers\.co\.kr)/.test(uri ?? '')) {
@@ -41,7 +43,7 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
 
   React.useEffect(() => {
     if (Platform.OS === 'android' && token) {
-      NativeModules.CookieManager.setCookie(
+      NativeModules.CookieManager?.setCookie(
         uri || '',
         `accessToken=${token};`,
         (error: any) => {

@@ -1,7 +1,14 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import {Challenge} from '../type';
 
-const ChallengeInfo = () => {
+const activityTypes = {
+  PICTURE: '사진 챌린지',
+  VIDEO: '레벨도전',
+  LOCATION: '암장도전',
+};
+
+const ChallengeInfo = ({challenge}: {challenge: Challenge}) => {
   return (
     <>
       <View style={styles.progressImageContainer}>
@@ -11,12 +18,9 @@ const ChallengeInfo = () => {
         />
       </View>
       <View style={styles.challengeInfoContainer}>
-        <Text style={styles.type}>암장 도전</Text>
-        <Text style={styles.title}>암장의 고인물</Text>
-        <Text>
-          같은 암장을 20번이나 갔더니 생긴 변화, {'\n'}이 암장의 고인물이
-          되었다.!!!!!!
-        </Text>
+        <Text style={styles.type}>{activityTypes[challenge.activityType]}</Text>
+        <Text style={styles.title}>{challenge.title}</Text>
+        <Text>{challenge.summary}</Text>
       </View>
     </>
   );

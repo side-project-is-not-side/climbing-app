@@ -5,9 +5,13 @@ import {ProgressSlide} from '.';
 
 import {Badge, ScrollViewCarousel} from '../../../shared/ui';
 
-const Progress = () => {
-  const activityCount = 13;
-  const successCount = 20;
+const Progress = ({
+  activityCount,
+  successCount,
+}: {
+  activityCount: number;
+  successCount: number;
+}) => {
   const pages = Math.ceil(successCount / 10);
 
   return (

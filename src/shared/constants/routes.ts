@@ -1,3 +1,5 @@
+import {Challenge} from '../../entities/challenge/type';
+
 export const ROOT_ROUTES = {
   HOME: 'home',
   MAP: 'map',
@@ -27,7 +29,8 @@ export type RootRoute = {
 export type ChallengeRoute = {
   challenge: undefined;
   challenge_detail: {
-    challengeId: string | number;
+    // challengeId: string | number;
+    challenge: Challenge;
   };
   verification_history: undefined;
   verify_photo: {

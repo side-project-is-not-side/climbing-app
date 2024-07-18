@@ -1,10 +1,13 @@
+export type ChallengeStatus = 'SUCCESS' | 'ONGOING' | 'NOT_STARTED';
+export type ActivityType = 'PICTURE' | 'VIDEO' | 'LOCATION';
+
 export type Challenge = {
   id: number;
-  activityType: 'PICTURE' | 'VIDEO' | 'LOCATION';
   title: string;
   summary: string;
   activityCount: number;
   successCount: number;
+  activityType: ActivityType;
   imageUrl: {
     black: string;
     color: string;
