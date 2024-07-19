@@ -1,4 +1,4 @@
-import TabIcon from '../../shared/ui/TabIcon';
+import {TabIcon} from '../../shared/ui';
 import {HomeScreen, MapScreen, MyScreen} from '../../screens';
 
 import {ROOT_ROUTES, RootRoute} from '../../shared/constants';

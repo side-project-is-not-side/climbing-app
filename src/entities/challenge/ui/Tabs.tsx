@@ -1,15 +1,20 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {TabState, useTab} from '../hooks';
+import {ChallengeStatus} from '../type';
 
-const TABS: {value: TabState; text: string}[] = [
+const TABS: {value: ChallengeStatus; text: string}[] = [
   {value: 'NOT_STARTED', text: '챌린지'},
   {value: 'ONGOING', text: '진행중'},
   {value: 'SUCCESS', text: '완료'},
 ];
 
-const Tabs = () => {
-  const {tabState, handleTabPress} = useTab();
+const Tabs = ({
+  tabState,
+  handleTabPress,
+}: {
+  tabState: ChallengeStatus;
+  handleTabPress: (tab: ChallengeStatus) => void;
+}) => {
   return (
     <View style={styles.tabContainer}>
       {TABS.map(tab => (

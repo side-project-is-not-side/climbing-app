@@ -3,7 +3,7 @@ import React from 'react';
 import {StatusBar, Text} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {HomeScreen} from '../../screens';
-import TabIcon from '../../shared/ui/TabIcon';
+import {TabIcon} from '../../shared/ui';
 import {ROOT_ROUTES} from '../../shared/constants';
 
 const Tab = createBottomTabNavigator();

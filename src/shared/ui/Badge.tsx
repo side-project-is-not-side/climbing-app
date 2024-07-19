@@ -6,6 +6,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
+import {colors} from '../constants';
 
 type Props = {
   text: string | React.ReactNode;
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     padding: 2,
     width: 86,
     borderRadius: 200,
-    backgroundColor: '#222',
+    backgroundColor: colors.primary400,
   },
   badgeText: {
     textAlign: 'center',

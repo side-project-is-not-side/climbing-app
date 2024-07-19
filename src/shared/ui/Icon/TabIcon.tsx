@@ -1,5 +1,5 @@
 import React from 'react';
-import {Icon, IconProps} from './Icon/Icon';
+import {Icon, IconProps} from './Icon';
 
 const TabIcon = React.memo((props: IconProps) => {
   const {name, focused} = props;

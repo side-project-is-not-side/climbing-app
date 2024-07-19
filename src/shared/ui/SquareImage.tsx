@@ -16,7 +16,7 @@ const SquareImage = ({...props}: Props) => {
       });
     }
   }, [ref]);
-  return <Image {...props} ref={imageRef} style={[props.style, {height}]} />;
+  return <Image {...props} ref={imageRef} style={[{height}, props.style]} />;
 };
 
 export default SquareImage;

@@ -1,5 +1,5 @@
 import {Icon} from './Icon/Icon';
-import TabIcon from './TabIcon';
+import TabIcon from './Icon/TabIcon';
 import WebViewScreen from './WebViewScreen';
 import Badge from './Badge';
 import Button from './Button';

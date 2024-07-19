@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
+import {colors} from '../../../shared/constants';
 
 const ProgressSlide = ({
   page,
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
     paddingVertical: 35,
     paddingHorizontal: 20,
     borderRadius: 20,
-    backgroundColor: '#222',
+    backgroundColor: colors.beige300,
   },
   grabIcon: {
     width: 40,

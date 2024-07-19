@@ -11,17 +11,22 @@ const ChallengeDetail = () => {
   const route = useRoute<RouteProp<ChallengeRoute, 'challenge_detail'>>();
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
 
+  const challenge = route.params.challenge;
+
   const handleNavigateVerify = () => {
     navigation.navigate(CHALLENGE_ROUTES.VERIFY_PHOTO, {
-      challengeTitle: '챌린지 명',
+      challengeTitle: challenge.title,
     });
   };
 
   return (
     <ScrollView>
       <View style={styles.pageContainer}>
-        <ChallengeInfo />
-        <Progress />
+        <ChallengeInfo challenge={challenge} />
+        <Progress
+          activityCount={challenge.activityCount}
+          successCount={challenge.successCount}
+        />
         <VerificationHistoryPreview />
         <Button onPress={handleNavigateVerify}>인증하기</Button>
       </View>
