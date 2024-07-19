@@ -2,15 +2,14 @@ import React, {useMemo, useState} from 'react';
 import {CardList, Tabs} from '../entities/challenge/ui';
 import {useTab} from '../entities/challenge/hooks';
 import {useGetChallenge} from '../entities/challenge/api/useGetChallenge';
-import {Button} from 'react-native';
+
+const PAGE_SIZE = 10;
 
 const Challenges = () => {
   const [page, setPage] = useState(0);
   const {tabState, handleTabPress} = useTab();
-  // const {data} = useGetChallenge(tabState, page);
-  // const challenges = data;
 
-  const {data} = useGetChallenge(tabState, page);
+  const {data} = useGetChallenge(tabState, page, PAGE_SIZE);
 
   const challenges = useMemo(() => {
     const reduced = data
@@ -19,17 +18,15 @@ const Challenges = () => {
     return reduced;
   }, [data]);
 
+  const handlePaging = () => {
+    if (!data || data[data?.length - 1]?.length < PAGE_SIZE) return;
+    setPage(page => page + 1);
+  };
+
   return (
     <>
       <Tabs tabState={tabState} handleTabPress={handleTabPress} />
-      <CardList data={challenges} />
-      {/* <Button
-        title="+"
-        onPress={() => {
-          if (!data || data[data?.length - 1]?.length < 10) return;
-          setPage(page + 1);
-        }}
-      /> */}
+      <CardList data={challenges} handlePaging={handlePaging} />
     </>
   );
 };

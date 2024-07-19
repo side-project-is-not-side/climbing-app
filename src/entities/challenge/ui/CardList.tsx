@@ -3,13 +3,22 @@ import {FlatList, StyleSheet} from 'react-native';
 import {Card} from '.';
 import {Challenge} from '../type';
 
-const CardList = ({data = []}: {data: Challenge[]}) => {
+const CardList = ({
+  data = [],
+  handlePaging,
+}: {
+  data: Challenge[];
+  handlePaging: () => void;
+}) => {
   return (
     <FlatList
       contentContainerStyle={styles.cardList}
       data={data}
       keyExtractor={item => `${item.id}`}
       renderItem={({item}) => <Card challenge={item} />}
+      onEndReached={handlePaging}
+      onEndReachedThreshold={0.05}
+      // ListFooterComponent={}
     />
   );
 };
