@@ -4,7 +4,7 @@ import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {SquareImage} from '../../../shared/ui';
-import {ChallengeRoute} from '../../../shared/constants';
+import {ChallengeRoute, colors} from '../../../shared/constants';
 
 const VerificationHistoryPreview = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
@@ -48,6 +48,9 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 10,
+    color: colors.black,
+    fontSize: 14,
+    fontWeight: '700',
   },
   recentHistories: {
     flexDirection: 'row',
@@ -63,7 +66,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    backgroundColor: '#222',
+    backgroundColor: colors.beige300,
     resizeMode: 'contain',
   },
   more: {
@@ -77,6 +80,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#0007',
   },
   moreInnerText: {
-    color: '#fff',
+    color: colors.white,
   },
 });

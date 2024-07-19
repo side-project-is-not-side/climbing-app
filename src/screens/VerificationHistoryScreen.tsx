@@ -1,8 +1,8 @@
 import React from 'react';
-import {View} from 'react-native';
+import {VerificationHistory} from '../entities/verification/ui';
 
 const VerificationHistoryScreen = () => {
-  return <View></View>;
+  return <VerificationHistory />;
 };
 
 export default VerificationHistoryScreen;

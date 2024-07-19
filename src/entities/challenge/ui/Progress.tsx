@@ -4,20 +4,22 @@ import {StyleSheet, Text, View} from 'react-native';
 import {ProgressSlide} from '.';
 
 import {Badge, ScrollViewCarousel} from '../../../shared/ui';
+import {colors} from '../../../shared/constants';
 
-const Progress = ({
-  activityCount,
-  successCount,
-}: {
+const Progress = ({}: // activityCount,
+// successCount,
+{
   activityCount: number;
   successCount: number;
 }) => {
+  const activityCount = 5;
+  const successCount = 20;
   const pages = Math.ceil(successCount / 10);
 
   return (
     <>
-      <View style={styles.titleContainer}>
-        <Text>진행률</Text>
+      <View style={styles.progressInfo}>
+        <Text style={styles.title}>진행률</Text>
         <Badge text={`${activityCount}/${successCount}`} />
       </View>
       <View>
@@ -38,27 +40,15 @@ const Progress = ({
 export default Progress;
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  progressInfo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
   },
-  progressIcons: {
-    gap: 22,
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 35,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    backgroundColor: '#222',
+  title: {
+    color: colors.black,
+    fontSize: 14,
+    fontWeight: '700',
   },
-  indicators: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 4,
-  },
-  indicator: {},
-  indicatorActive: {},
 });

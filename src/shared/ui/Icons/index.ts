@@ -6,3 +6,4 @@ export {default as Kakao} from './Kakao';
 export {default as Map} from './Map';
 export {default as My} from './My';
 export {default as Naver} from './Naver';
+export {default as EllipsisVertical} from './EllipsisVertical';

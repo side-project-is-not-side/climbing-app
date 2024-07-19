@@ -1,6 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {Challenge} from '../type';
+import {colors} from '../../../shared/constants';
 
 const activityTypes = {
   PICTURE: '사진 챌린지',
@@ -20,7 +21,7 @@ const ChallengeInfo = ({challenge}: {challenge: Challenge}) => {
       <View style={styles.challengeInfoContainer}>
         <Text style={styles.type}>{activityTypes[challenge.activityType]}</Text>
         <Text style={styles.title}>{challenge.title}</Text>
-        <Text>{challenge.summary}</Text>
+        <Text style={styles.summary}>{challenge.summary}</Text>
       </View>
     </>
   );
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   challengeInfoContainer: {
+    minHeight: 100,
     marginVertical: 20,
   },
   type: {
@@ -47,8 +49,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   title: {
-    fontSize: 18,
+    color: colors.black,
+    fontSize: 24,
     fontWeight: '700',
     lineHeight: 34,
+  },
+  summary: {
+    color: colors.gray400,
   },
 });

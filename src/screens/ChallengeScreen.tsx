@@ -2,6 +2,7 @@ import React from 'react';
 // import {WEB_URL, WebViewScreen} from '../../shared';
 import {Challenges} from '../widgets';
 import {StyleSheet, Text, View} from 'react-native';
+import {colors} from '../shared/constants';
 
 const ChallengeScreen = () => {
   // return <WebViewScreen uri={WEB_URL.CHALLENGE} />;
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   heading: {
+    color: colors.black,
     fontSize: 24,
     fontWeight: '700',
   },
