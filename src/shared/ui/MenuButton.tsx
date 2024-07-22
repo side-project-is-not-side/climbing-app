@@ -1,17 +1,10 @@
 import React from 'react';
+import ContextMenu, {ContextMenuProps} from 'react-native-context-menu-view';
 import {Icon} from '.';
-import ContextMenu from 'react-native-context-menu-view';
 
-const MenuButton = () => {
+const MenuButton = (props: ContextMenuProps) => {
   return (
-    <ContextMenu
-      actions={[{title: 'Title 1'}, {title: 'Title 2'}]}
-      onPress={e => {
-        console.warn(
-          `Pressed ${e.nativeEvent.name} at index ${e.nativeEvent.index}`,
-        );
-      }}
-      dropdownMenuMode={true}>
+    <ContextMenu dropdownMenuMode={props.dropdownMenuMode || true} {...props}>
       <Icon name="EllipsisVertical" size={24} />
     </ContextMenu>
   );

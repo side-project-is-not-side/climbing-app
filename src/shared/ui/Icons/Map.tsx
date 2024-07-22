@@ -11,9 +11,6 @@ const SvgMap = (props: SvgProps) => (
     {...props}>
     <Mask
       id="mask0_1249_2374"
-      style={{
-        maskType: 'alpha',
-      }}
       maskUnits="userSpaceOnUse"
       x={0}
       y={0}

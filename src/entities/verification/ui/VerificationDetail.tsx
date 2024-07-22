@@ -1,22 +1,28 @@
 import React, {useLayoutEffect} from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
-import {Icon, SquareImage} from '../../../shared/ui';
-import {ChallengeRoute, colors} from '../../../shared/constants';
-import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import MenuButton from '../../../shared/ui/MenuButton';
+import {useNavigation} from '@react-navigation/native';
+import {SquareImage, MenuButton} from '../../../shared/ui';
+import {ChallengeRoute, colors} from '../../../shared/constants';
 
-const deviceWidth = Dimensions.get('window').width; // 상태표시줄을 제외한 화면의 너비
+const deviceWidth = Dimensions.get('window').width;
 
 const VerificationDetail = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => <MenuButton />,
-      // headerRight: () => <Icon name="EllipsisVertical" size={24} />,
+      headerRight: () => (
+        <MenuButton
+          actions={[{title: '삭제하기'}, {title: '인증 내보내기'}]}
+          onPress={e => {
+            console.log(e.nativeEvent);
+          }}
+        />
+      ),
     });
   }, []);
+
   return (
     <View style={styles.pageContainer}>
       <View style={styles.imageContainer}>

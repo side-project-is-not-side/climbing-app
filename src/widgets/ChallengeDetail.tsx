@@ -14,9 +14,18 @@ const ChallengeDetail = () => {
   const challenge = route.params.challenge;
 
   const handleNavigateVerify = () => {
-    navigation.navigate(CHALLENGE_ROUTES.VERIFY_PHOTO, {
-      challengeTitle: challenge.title,
-    });
+    switch (challenge.activityType) {
+      case 'PICTURE':
+        return navigation.navigate(CHALLENGE_ROUTES.VERIFY_GUIDE, {
+          challengeTitle: challenge.title,
+          challengeId: challenge.id,
+        });
+      case 'LOCATION':
+        return navigation.navigate(CHALLENGE_ROUTES.VERIFY_LOCATION, {
+          challengeTitle: challenge.title,
+          challengeId: challenge.id,
+        });
+    }
   };
 
   return (
