@@ -12,6 +12,8 @@ export const CHALLENGE_ROUTES = {
   VERIFICATION_HISTORY: 'verification_history',
   VERIFICATION_DETAIL: 'verification_detail',
   VERIFY_PHOTO: 'verify_photo',
+  VERIFY_LOCATION: 'verify_location',
+  VERIFY_GUIDE: 'verify_guide',
 } as const;
 
 export const AUTH_ROUTES = {
@@ -36,6 +38,15 @@ export type ChallengeRoute = {
   verification_detail: {};
   verify_photo: {
     challengeTitle: string;
+    challengeId: number;
+  };
+  verify_location: {
+    challengeTitle: string;
+    challengeId: number;
+  };
+  verify_guide: {
+    challengeTitle: string;
+    challengeId: number;
   };
 };
 
