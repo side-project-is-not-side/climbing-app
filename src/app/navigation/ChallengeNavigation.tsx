@@ -9,11 +9,12 @@ import {
   VerificationDetailScreen,
   VerifyLocationScreen,
   VerifyGuideScreen,
+  VerifyCompleteScreen,
 } from '../../screens';
 
 import {CHALLENGE_ROUTES, ChallengeRoute} from '../../shared/constants';
 import {colors} from '../../shared/constants';
-import {Button, Image, Pressable} from 'react-native';
+import {Image} from 'react-native';
 
 const Stack = createNativeStackNavigator<ChallengeRoute>();
 
@@ -22,7 +23,7 @@ const ChallengeNavigation = () => {
     <Stack.Navigator
       screenOptions={{
         headerTitleAlign: 'center',
-        headerTitleStyle: {fontSize: 16},
+        headerTitleStyle: {fontSize: 18, fontWeight: '700'},
         headerBackground: () => <></>,
         animation: 'fade_from_bottom',
       }}>
@@ -59,14 +60,22 @@ const ChallengeNavigation = () => {
           name={CHALLENGE_ROUTES.VERIFY_PHOTO}
           component={VerifyPhotoScreen}
           options={({route}) => ({
-            title: route.params?.challengeTitle + ' 사진인증',
+            title: route.params?.challengeTitle,
           })}
         />
         <Stack.Screen
           name={CHALLENGE_ROUTES.VERIFY_LOCATION}
           component={VerifyLocationScreen}
           options={({route}) => ({
-            title: route.params?.challengeTitle + ' 위치 인증',
+            title: route.params?.challengeTitle,
+          })}
+        />
+        <Stack.Screen
+          name={CHALLENGE_ROUTES.VERIFY_COMPLETE}
+          component={VerifyCompleteScreen}
+          options={({route}) => ({
+            title: '',
+            headerLeft: () => <></>,
           })}
         />
       </Stack.Group>

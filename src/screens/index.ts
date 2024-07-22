@@ -8,5 +8,6 @@ export {default as VerificationDetailScreen} from './VerificationDetailScreen';
 export {default as VerifyPhotoScreen} from './VerifyPhotoScreen';
 export {default as VerifyLocationScreen} from './VerifyLocationScreen';
 export {default as VerifyGuideScreen} from './VerifyGuideScreen';
+export {default as VerifyCompleteScreen} from './VerifyCompleteScreen';
 export {default as LoginScreen} from './LoginScreen';
 export {default as OnboardingScreen} from './OnboardingScreen';

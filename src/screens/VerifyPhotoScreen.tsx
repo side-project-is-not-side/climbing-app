@@ -1,8 +1,8 @@
 import React from 'react';
-import {View} from 'react-native';
+import {VerifyPhoto} from '../features/verification/ui';
 
 const VerifyPhotoScreen = () => {
-  return <View></View>;
+  return <VerifyPhoto />;
 };
 
 export default VerifyPhotoScreen;

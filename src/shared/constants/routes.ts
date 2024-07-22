@@ -1,3 +1,4 @@
+import {Asset} from 'react-native-image-picker';
 import {Challenge} from '../../entities/challenge/type';
 
 export const ROOT_ROUTES = {
@@ -14,6 +15,7 @@ export const CHALLENGE_ROUTES = {
   VERIFY_PHOTO: 'verify_photo',
   VERIFY_LOCATION: 'verify_location',
   VERIFY_GUIDE: 'verify_guide',
+  VERIFY_COMPLETE: 'verify_complete',
 } as const;
 
 export const AUTH_ROUTES = {
@@ -47,6 +49,10 @@ export type ChallengeRoute = {
   verify_guide: {
     challengeTitle: string;
     challengeId: number;
+  };
+  verify_complete: {
+    challengeId: number;
+    image: Asset;
   };
 };
 
