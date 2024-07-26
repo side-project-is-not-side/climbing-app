@@ -73,6 +73,7 @@ android {
     ndkVersion rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
     namespace "com.grabbers"
     defaultConfig {
@@ -82,6 +83,7 @@ android {
         versionCode 1
         versionName "1.0"
         resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
+        resValue "string", "naver_maps_client_id", project.properties['NAVER_MAPS_CLIENT_ID'] ?: "\"xk9h76bg46\""
     }
     signingConfigs {
         debug {
@@ -117,10 +119,12 @@ dependencies {
     implementation("com.facebook.react:react-android")
 
     if (hermesEnabled.toBoolean()) {
-        implementation("com.facebook.react:hermes-android")
+        implementation("com.facebook.react:hermes-android:0.74.3")
     } else {
         implementation jscFlavor
     }
+
+    implementation("com.naver.maps:map-sdk:3.19.0")
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)

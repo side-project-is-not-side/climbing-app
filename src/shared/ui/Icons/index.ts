@@ -8,3 +8,7 @@ export {default as My} from './My';
 export {default as Naver} from './Naver';
 export {default as X} from './X';
 export {default as EllipsisVertical} from './EllipsisVertical';
+export {default as MarkerDisabled} from './MarkerDisabled';
+export {default as MarkerInactive} from './MarkerInactive';
+export {default as MarkerActive} from './MarkerActive';
+export {default as MarkerCircle} from './MarkerCircle';
