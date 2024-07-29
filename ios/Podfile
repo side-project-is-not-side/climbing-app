@@ -37,4 +37,5 @@ target 'grabbers' do
       # :ccache_enabled => true
     )
   end
+  pod 'NMapsMap'
 end
