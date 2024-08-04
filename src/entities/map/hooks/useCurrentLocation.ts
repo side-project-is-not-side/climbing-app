@@ -6,18 +6,19 @@ import {
   request,
   requestLocationAccuracy,
 } from 'react-native-permissions';
+import {getLatLongDelta} from '../utils';
+import {INITIAL_CENTER} from '../constants/location';
 
-// 위치를 불러오지 못하면 강남역 기준으로 위치를 잡습니다.
-const INITIAL_CENTER = {
-  latitude: 37.4979517,
-  longitude: 127.0276188,
-};
+export const useCurrentLocation = (zoomLevel: number) => {
+  const [latitudeDelta, longitudeDelta] = getLatLongDelta(
+    zoomLevel,
+    INITIAL_CENTER.latitude,
+  );
 
-export const useCurrentLocation = () => {
   const [currentLocation, setCurrentLocation] = useState({
     ...INITIAL_CENTER,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    latitudeDelta,
+    longitudeDelta,
   });
 
   useEffect(() => {
@@ -49,7 +50,16 @@ export const useCurrentLocation = () => {
         const {latitude, longitude} = position.coords;
         // currentLocation에 위도, 경도 저장
         if (latitude && longitude) {
-          setCurrentLocation({latitude, longitude});
+          const [latitudeDelta, longitudeDelta] = getLatLongDelta(
+            zoomLevel,
+            latitude,
+          );
+          setCurrentLocation({
+            latitude,
+            longitude,
+            latitudeDelta,
+            longitudeDelta,
+          });
         }
       },
       error => {
