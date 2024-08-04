@@ -2,7 +2,13 @@ import React from 'react';
 import WebViewComponent from 'react-native-webview';
 import DeviceInfo from 'react-native-device-info';
 import {Platform, ViewStyle, NativeModules, Linking} from 'react-native';
-import {AllRoute, BASE_URL, LINKING_URI, WEB_URL} from '../../constants';
+import {
+  AllRoute,
+  BASE_URL,
+  LINKING_URI,
+  ROOT_ROUTES,
+  WEB_URL,
+} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useAuthContext} from '../../../app/AuthContextProvider';
@@ -78,7 +84,7 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
       })();true;
       `}
       onShouldStartLoadWithRequest={event => {
-        if (event.url.startsWith('tethermax://')) {
+        if (event.url.startsWith('grabbers://')) {
           Linking.openURL(event.url);
           return false;
         }
@@ -92,7 +98,7 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
           navigation.navigate(path as any);
         }
         if (path === '') {
-          navigation.navigate('홈');
+          navigation.navigate(ROOT_ROUTES.HOME);
         }
       }}
       onMessage={event => {
