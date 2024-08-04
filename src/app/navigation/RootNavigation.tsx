@@ -69,6 +69,7 @@ const RootNavigation = () => {
         name={ROOT_ROUTES.MAP}
         component={MapScreen}
         options={{
+          title: '지도',
           tabBarLabel: ({focused}) => {
             return (
               <Text
