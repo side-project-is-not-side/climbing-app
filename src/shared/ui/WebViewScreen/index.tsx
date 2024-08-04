@@ -92,7 +92,7 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
           navigation.navigate(path as any);
         }
         if (path === '') {
-          navigation.navigate('home');
+          navigation.navigate('홈');
         }
       }}
       onMessage={event => {

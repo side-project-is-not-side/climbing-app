@@ -14,7 +14,7 @@ import {
 
 import {CHALLENGE_ROUTES, ChallengeRoute} from '../../shared/constants';
 import {colors} from '../../shared/constants';
-import {Image} from 'react-native';
+import {LogoIcon} from '../../shared/ui';
 
 const Stack = createNativeStackNavigator<ChallengeRoute>();
 
@@ -37,11 +37,7 @@ const ChallengeNavigation = () => {
           component={ChallengeScreen}
           options={{
             title: '',
-            headerLeft: () => (
-              <Image
-                source={require('../../../assets/icons/logo_grabbers.png')}
-              />
-            ),
+            headerLeft: LogoIcon,
           }}
         />
         <Stack.Screen

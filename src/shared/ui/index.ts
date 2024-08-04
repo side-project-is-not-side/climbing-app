@@ -7,6 +7,7 @@ import MenuButton from './MenuButton';
 import ScrollViewCarousel from './ScrollViewCarousel';
 import SquareImage from './SquareImage';
 import ModalLayout from './ModalLayout';
+import LogoIcon from './Icon/LogoIcon';
 
 export {
   WebViewScreen,
@@ -18,4 +19,5 @@ export {
   ScrollViewCarousel,
   SquareImage,
   ModalLayout,
+  LogoIcon,
 };

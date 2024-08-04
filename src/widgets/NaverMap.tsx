@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import Geolocation from 'react-native-geolocation-service';
-import NaverMapView, {Coord, Marker} from '@wayne-kim/react-native-nmap';
+// import NaverMapView, {Coord, Marker} from '@wayne-kim/react-native-nmap';
 
 import {Icon} from '../shared/ui';
 import {PermissionsAndroid, Platform} from 'react-native';
@@ -48,48 +48,50 @@ const NaverMap = () => {
     };
   }, []);
 
-  return (
-    <NaverMapView
-      style={{width: '100%', height: '100%'}}
-      showsMyLocationButton={true}
-      center={{...currentLocation, zoom: 16}}
-      onMapClick={e => console.log('onMapClick', JSON.stringify(e))}>
-      {currentLocation && (
-        <Marker
-          caption={{text: '내 위치', textSize: 14}}
-          coordinate={currentLocation}>
-          <Icon name="MarkerCircle" size={24} />
-        </Marker>
-      )}
-      <Marker
-        coordinate={{
-          latitude: currentLocation.latitude - 0.001,
-          longitude: currentLocation.longitude + 0.002,
-        }}
-        onClick={() => console.log('onClick! p0')}>
-        <Icon name="MarkerActive" size={32} />
-      </Marker>
-      <Marker
-        coordinate={{
-          latitude: currentLocation.latitude + 0.001,
-          longitude: currentLocation.longitude + 0.001,
-        }}
-        pinColor="blue"
-        onClick={() => console.log('onClick! p1')}>
-        <Icon name="MarkerDisabled" size={32} />
-      </Marker>
-      <Marker
-        caption={{text: '여기에요!!!', textSize: 14}}
-        coordinate={{
-          latitude: currentLocation.latitude - 0.001,
-          longitude: currentLocation.longitude - 0.001,
-        }}
-        pinColor="red"
-        onClick={() => console.log('onClick! p2')}>
-        <Icon name="MarkerInactive" size={32} />
-      </Marker>
-    </NaverMapView>
-  );
+  return null;
+
+  // return (
+  //   <NaverMapView
+  //     style={{width: '100%', height: '100%'}}
+  //     showsMyLocationButton={true}
+  //     center={{...currentLocation, zoom: 16}}
+  //     onMapClick={e => console.log('onMapClick', JSON.stringify(e))}>
+  //     {currentLocation && (
+  //       <Marker
+  //         caption={{text: '내 위치', textSize: 14}}
+  //         coordinate={currentLocation}>
+  //         <Icon name="MarkerCircle" size={24} />
+  //       </Marker>
+  //     )}
+  //     <Marker
+  //       coordinate={{
+  //         latitude: currentLocation.latitude - 0.001,
+  //         longitude: currentLocation.longitude + 0.002,
+  //       }}
+  //       onClick={() => console.log('onClick! p0')}>
+  //       <Icon name="MarkerActive" size={32} />
+  //     </Marker>
+  //     <Marker
+  //       coordinate={{
+  //         latitude: currentLocation.latitude + 0.001,
+  //         longitude: currentLocation.longitude + 0.001,
+  //       }}
+  //       pinColor="blue"
+  //       onClick={() => console.log('onClick! p1')}>
+  //       <Icon name="MarkerDisabled" size={32} />
+  //     </Marker>
+  //     <Marker
+  //       caption={{text: '여기에요!!!', textSize: 14}}
+  //       coordinate={{
+  //         latitude: currentLocation.latitude - 0.001,
+  //         longitude: currentLocation.longitude - 0.001,
+  //       }}
+  //       pinColor="red"
+  //       onClick={() => console.log('onClick! p2')}>
+  //       <Icon name="MarkerInactive" size={32} />
+  //     </Marker>
+  //   </NaverMapView>
+  // );
 };
 
 export default NaverMap;
