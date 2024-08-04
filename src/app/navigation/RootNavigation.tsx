@@ -1,4 +1,4 @@
-import {TabIcon} from '../../shared/ui';
+import {LogoIcon, TabIcon} from '../../shared/ui';
 import {HomeScreen, MapScreen, MyScreen} from '../../screens';
 
 import {ROOT_ROUTES, RootRoute} from '../../shared/constants';
@@ -14,6 +14,17 @@ const RootNavigation = () => {
       initialRouteName={ROOT_ROUTES.HOME}
       screenOptions={{
         lazy: true,
+        headerStyle: {
+          backgroundColor: '#070707',
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        },
+        headerTitleStyle: {
+          color: '#fff',
+          fontSize: 16,
+          fontWeight: 700,
+        },
         tabBarStyle: {
           flexDirection: 'row',
           alignItems: 'center',
@@ -23,6 +34,9 @@ const RootNavigation = () => {
           backgroundColor: '#191B1D',
           paddingTop: 11,
           paddingBottom: 30,
+          elevation: 0,
+          shadowOpacity: 0,
+          borderTopWidth: 0,
         },
         tabBarItemStyle: {
           height: 40,
@@ -35,6 +49,8 @@ const RootNavigation = () => {
         name={ROOT_ROUTES.HOME}
         component={HomeScreen}
         options={{
+          headerTitle: '',
+          headerLeft: LogoIcon,
           tabBarLabel: ({focused}) => {
             return (
               <Text

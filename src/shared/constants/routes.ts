@@ -2,9 +2,9 @@ import {Asset} from 'react-native-image-picker';
 import {Challenge} from '../../entities/challenge/type';
 
 export const ROOT_ROUTES = {
-  HOME: 'home',
-  MAP: 'map',
-  MY_PAGE: 'my',
+  HOME: '홈',
+  MAP: '지도',
+  MY_PAGE: '마이페이지',
 } as const;
 
 export const CHALLENGE_ROUTES = {
@@ -24,9 +24,9 @@ export const AUTH_ROUTES = {
 } as const;
 
 export type RootRoute = {
-  home: undefined;
-  map: undefined;
-  my: undefined;
+  홈: undefined;
+  지도: undefined;
+  마이페이지: undefined;
   challenge_group: undefined;
   auth_group: undefined;
 };
