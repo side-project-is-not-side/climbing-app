@@ -12,6 +12,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useAuthContext} from '../../../app/AuthContextProvider';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 type WebViewProps = {
   uri?: string;
@@ -77,12 +78,12 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
         },
       }}
       injectedJavaScript={`
-        (function() {
-          document.cookie = "accessToken=${token};"
-          document.cookie = "native-os=${Platform.OS};"
+      (function() {
+        document.cookie = "accessToken=${token};"
+        document.cookie = "native-os=${Platform.OS};"
 
-      })();true;
-      `}
+    })();true;
+    `}
       onShouldStartLoadWithRequest={event => {
         if (event.url.startsWith('grabbers://')) {
           Linking.openURL(event.url);
