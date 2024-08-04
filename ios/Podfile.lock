@@ -1253,6 +1253,8 @@ PODS:
     - React-Core
   - RNDeviceInfo (11.1.0):
     - React-Core
+  - RNPermissions (4.1.5):
+    - React-Core
   - RNScreens (3.32.0):
     - DoubleConversion
     - glog
@@ -1290,7 +1292,6 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - "mj-studio-react-native-naver-map (from `../node_modules/@mj-studio/react-native-naver-map`)"
-  - NMapsMap
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
@@ -1348,6 +1349,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -1489,6 +1491,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNSVG:
@@ -1564,12 +1568,13 @@ SPEC CHECKSUMS:
   ReactCommon: f00e436b3925a7ae44dfa294b43ef360fbd8ccc4
   RNCAsyncStorage: ec53e44dc3e75b44aa2a9f37618a49c3bc080a7a
   RNDeviceInfo: b899ce37a403a4dea52b7cb85e16e49c04a5b88e
+  RNPermissions: fdeab83cb5e1d49fd53b14b7070b081c1d7dba7a
   RNScreens: 5aeecbb09aa7285379b6e9f3c8a3c859bb16401c
   RNSVG: a48668fd382115bc89761ce291a81c4ca5f2fd2e
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Yoga: 88480008ccacea6301ff7bf58726e27a72931c8d
 
-PODFILE CHECKSUM: 2e55f862770fc1a60668d17a8ca5904a427ac3af
+PODFILE CHECKSUM: 2d40e153d651ada08571e9161d6da7b0267b173b
 
 COCOAPODS: 1.15.2
