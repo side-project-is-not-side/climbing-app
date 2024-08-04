@@ -1,8 +1,5 @@
 import {useEffect, useState} from 'react';
 import Geolocation from 'react-native-geolocation-service';
-// import NaverMapView, {Coord, Marker} from '@wayne-kim/react-native-nmap';
-
-import {Icon} from '../shared/ui';
 import {PermissionsAndroid, Platform} from 'react-native';
 
 const P0 = {latitude: 37.564362, longitude: 126.977011};
