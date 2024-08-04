@@ -15,7 +15,7 @@ PODS:
   - hermes-engine/Pre-built (0.74.3)
   - JWT (3.0.0-beta.14):
     - Base64 (~> 1.1.2)
-  - mj-studio-react-native-naver-map (2.1.1):
+  - mj-studio-react-native-naver-map (1.5.9):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1510,7 +1510,7 @@ SPEC CHECKSUMS:
   glog: fdfdfe5479092de0c4bdbebedd9056951f092c4f
   hermes-engine: 1f547997900dd0752dc0cc0ae6dd16173c49e09b
   JWT: ef71dfb03e1f842081e64dc42eef0e164f35d251
-  mj-studio-react-native-naver-map: 6f99977f631d3231259451c295456dd972761b2e
+  mj-studio-react-native-naver-map: c6722b2818010ab937a4185c22b8aaaa2594d9ee
   NMapsGeometry: 4e02554fa9880ef02ed96b075dc84355d6352479
   NMapsMap: 36dc18a1f5f315121b33fccd2398c7a702bf0fc8
   RCT-Folly: 02617c592a293bd6d418e0a88ff4ee1f88329b47

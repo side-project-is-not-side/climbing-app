@@ -2283,15 +2283,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mj-studio/react-native-naver-map@npm:^2.1.1":
-  version: 2.1.1
-  resolution: "@mj-studio/react-native-naver-map@npm:2.1.1"
+"@mj-studio/react-native-naver-map@npm:1.5.9":
+  version: 1.5.9
+  resolution: "@mj-studio/react-native-naver-map@npm:1.5.9"
   dependencies:
     object-hash: ^3.0.0
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 2624384c528e434aa3a428b877d100bd642b7a9337dce7556fc6d0832653969d31fa42623948870b0994f26e9f6457ff7209112e1f18a99a533cf9d1e2e34f06
+  checksum: 3977611ca0919f6169dbe97b66eef7bd5c5ad67b18c8426920d9591026538a31a7c193416be459786ec2fa84ec1595e037703273eb6a3c7baf20fde3ff4e74c5
   languageName: node
   linkType: hard
 
@@ -6202,7 +6202,7 @@ __metadata:
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
-    "@mj-studio/react-native-naver-map": ^2.1.1
+    "@mj-studio/react-native-naver-map": 1.5.9
     "@react-native-async-storage/async-storage": ^1.24.0
     "@react-native-community/eslint-config": ^3.2.0
     "@react-native/babel-preset": 0.74.85
