@@ -35,6 +35,7 @@ const RootNavigation = () => {
         name={ROOT_ROUTES.HOME}
         component={HomeScreen}
         options={{
+          headerShown: false,
           tabBarLabel: ({focused}) => {
             return (
               <Text
