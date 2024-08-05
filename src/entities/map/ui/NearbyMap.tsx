@@ -3,8 +3,8 @@ import React, {useRef, useState} from 'react';
 import {useCurrentLocation} from '../hooks';
 import {DEFAULT_ZOOM} from '../constants/location';
 import Marker from './Marker';
-import {useGetNearbyGyms} from '../queries';
-import {AroundGym} from '../api/types';
+import { useGetNearbyGyms } from '@entities/gym/queries';
+import { AroundGym } from '@entities/gym/api/types';
 
 const NearbyMap = () => {
   const [selected, setSelected] = useState<number>();

@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import Geolocation from 'react-native-geolocation-service';
 import {PermissionsAndroid, Platform} from 'react-native';
+import { Coord } from '@mj-studio/react-native-naver-map';
 
 const P0 = {latitude: 37.564362, longitude: 126.977011};
 const P1 = {latitude: 37.565051, longitude: 126.978567};

@@ -1,9 +1,4 @@
-export type Bounds = {
-  minLatitude: string;
-  maxLatitude: string;
-  minLongitude: string;
-  maxLongitude: string;
-};
+
 
 export type TSectorUpdateInfo = {date: Date; name: string | null};
 

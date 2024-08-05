@@ -1,5 +1,7 @@
-import {getUrl} from '../../../shared/utils';
-import {Bounds, GetNearestGymsRequest} from './types';
+
+import { getUrl } from '@shared/utils';
+import { GetNearestGymsRequest} from './types';
+import { Bounds } from '@entities/map/types';
 
 export const getNearByBoulderingGyms = async (bounds: Bounds | undefined) => {
   if (!bounds) return;
