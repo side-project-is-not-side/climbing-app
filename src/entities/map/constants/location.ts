@@ -4,4 +4,13 @@ export const INITIAL_CENTER = {
   longitude: 127.0276188,
 };
 
-export const DEFAULT_ZOOM = 15;
+export const ZOOM_LEVEL = {
+  국가: 6,
+  시도: 9,
+  시군구: 12,
+  읍면동: 14,
+  거리: 16,
+  부동산: 20,
+} as const;
+
+export const DEFAULT_ZOOM = ZOOM_LEVEL.읍면동;
