@@ -1,10 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './App.{js,jsx,ts,tsx}',
-    './screens/**/*.{js,jsx,ts,tsx}',
-    './components/**/*.{js,jsx,ts,tsx}',
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx}', './App.{js,jsx,ts,tsx}'],
   theme: {
     theme: {
       colors: {
@@ -47,6 +43,11 @@ module.exports = {
         },
         white: '#ffffff',
         transparent: 'transparent',
+      },
+    },
+    extend: {
+      fontFamily: {
+        notoSans: ['NotoSansKR'],
       },
     },
   },
