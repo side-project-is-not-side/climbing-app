@@ -18,5 +18,20 @@ module.exports = {
         verbose: false,
       },
     ],
+    [
+      'module-resolver',     
+      {
+        extensions: ['.ios.js', '.android.js', '.ios.jsx', '.android.jsx', '.js', '.jsx', '.json', '.ts', '.tsx'], 
+        root: ['.'],
+        alias: {
+          "@app": ["./src/app"],
+          "@entities": ["./src/entities"],
+          "@features": ["./src/features"],
+          "@screens": ["./src/screens"],
+          "@shared": ["./src/shared"],
+          "@widgets": ["./src/widgets"]
+        },
+      },
+    ],
   ],
 };
