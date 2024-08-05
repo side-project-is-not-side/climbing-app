@@ -1,27 +1,15 @@
 import {NaverMapView} from '@mj-studio/react-native-naver-map';
 import React from 'react';
 import {useCurrentLocation} from '../hooks';
-import {DEFAULT_ZOOM, INITIAL_CENTER} from '../constants/location';
+import {DEFAULT_ZOOM} from '../constants/location';
 import Marker from './Marker';
-import useSWR from 'swr';
-import {GetAroundBoulderingGymResponse} from '../api/types';
-import {getNearByBoulderingGyms} from '../api';
-
-const ENDPOINT = '/v1/gyms/map';
+import {useGetNearbyGyms} from '../queries';
 
 const NearbyMap = () => {
   const {currentLocation, bounds, onCameraChanged} =
     useCurrentLocation(DEFAULT_ZOOM);
 
-  const params = new URLSearchParams(bounds);
-
-  const {data} = useSWR<GetAroundBoulderingGymResponse>(
-    bounds ? `${ENDPOINT}?${params}` : null,
-    () => getNearByBoulderingGyms(bounds),
-    {
-      keepPreviousData: true,
-    },
-  );
+  const {data} = useGetNearbyGyms(bounds);
 
   return (
     <NaverMapView
