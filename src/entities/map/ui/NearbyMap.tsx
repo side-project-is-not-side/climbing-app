@@ -35,7 +35,10 @@ const NearbyMap = () => {
       mapType="Basic"
       style={{flex: 1}}
       onCameraChanged={onCameraChanged}
-      initialRegion={currentLocation}>
+      initialRegion={currentLocation}
+      isShowZoomControls={false}
+      initialCamera={{...currentLocation, zoom:DEFAULT_ZOOM}}
+      >
       {data?.map(({id, latitude, longitude}) => (
         <Marker
           key={id}
