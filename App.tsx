@@ -1,14 +1,17 @@
 import React from 'react';
 
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {AuthContextProvider, SWRConfigProvider, Navigation} from './src/app';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import { Navigation, SWRConfigProvider,AuthContextProvider } from '@app/index';
 
 function App(): React.JSX.Element {
   return (
     <SafeAreaProvider>
       <AuthContextProvider>
         <SWRConfigProvider>
-          <Navigation />
+          <GestureHandlerRootView className="font-notoSans" style={{flex: 1}}>
+            <Navigation />
+          </GestureHandlerRootView>
         </SWRConfigProvider>
       </AuthContextProvider>
     </SafeAreaProvider>

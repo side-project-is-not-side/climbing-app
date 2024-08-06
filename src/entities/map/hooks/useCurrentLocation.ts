@@ -7,7 +7,9 @@ import {
   requestLocationAccuracy,
 } from 'react-native-permissions';
 import {getLatLongDelta} from '../utils';
-import {INITIAL_CENTER} from '../constants/location';
+import {DEFAULT_ZOOM, INITIAL_CENTER} from '../constants/location';
+import {getBoundByRegion} from '../utils/getBoundByRegion';
+import {Camera} from '@mj-studio/react-native-naver-map';
 
 export const useCurrentLocation = (zoomLevel: number) => {
   const [latitudeDelta, longitudeDelta] = getLatLongDelta(
@@ -77,5 +79,21 @@ export const useCurrentLocation = (zoomLevel: number) => {
     };
   }, []);
 
-  return {currentLocation};
+  const onCameraChanged = (params: Camera) => {
+    const {latitude, longitude, zoom} = params;
+    const [latitudeDelta, longitudeDelta] = getLatLongDelta(
+      zoom ?? DEFAULT_ZOOM,
+      latitude,
+    );
+    setCurrentLocation({
+      latitude,
+      longitude,
+      latitudeDelta,
+      longitudeDelta,
+    });
+  };
+
+  const bounds = getBoundByRegion({region: currentLocation});
+
+  return {currentLocation, bounds, onCameraChanged};
 };

@@ -1,6 +1,6 @@
 'use client';
 import {SWRConfig} from 'swr';
-import {useAuthContext} from '.';
+import {useAuthContext} from './AuthContextProvider';
 
 type Props = {
   children: React.ReactNode;
