@@ -5,8 +5,9 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {SquareImage} from '../../../shared/ui';
 import {ChallengeRoute, colors} from '../../../shared/constants';
+import { Activity } from '../type';
 
-const VerificationHistoryPreview = () => {
+const VerificationHistoryPreview = ({recentActivities} : {recentActivities: Activity[]}) => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
 
   const handlePressMoreHistory = (enabled: boolean) => {
@@ -17,13 +18,11 @@ const VerificationHistoryPreview = () => {
     <View style={styles.container}>
       <Text style={styles.title}>인증 기록</Text>
       <View style={styles.recentHistories}>
-        {Array(3)
-          .fill(0)
-          .map((_, i) => (
-            <View key={i} style={styles.imageContainer}>
+        {recentActivities.map((activity, i) => (
+            <View key={activity.imageUrl} style={styles.imageContainer}>
               <Pressable onPress={() => handlePressMoreHistory(i === 2)}>
                 <SquareImage
-                  source={require('../../../../assets/images/fire_full.png')}
+                  source={{uri: activity.imageUrl}}
                   alt={'verification photo'}
                   style={styles.image}
                 />

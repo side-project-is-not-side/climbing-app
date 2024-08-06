@@ -1,14 +1,17 @@
 import React, {useLayoutEffect} from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {SquareImage, MenuButton} from '../../../shared/ui';
 import {ChallengeRoute, colors} from '../../../shared/constants';
+import { formatKST } from './../../../shared/utils/dateFormat';
 
 const deviceWidth = Dimensions.get('window').width;
 
 const VerificationDetail = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
+  const route = useRoute<RouteProp<ChallengeRoute, 'verification_detail'>>();
+  const {imageUrl,createdAt} = route.params
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -27,7 +30,7 @@ const VerificationDetail = () => {
     <View style={styles.pageContainer}>
       <View style={styles.imageContainer}>
         <SquareImage
-          source={require('../../../../assets/images/fire_full.png')}
+          source={{uri: imageUrl}}
           alt={'verification photo'}
           style={[styles.image]}
         />
@@ -40,7 +43,7 @@ const VerificationDetail = () => {
           padding: 20,
         }}>
         <Text>인증 날짜</Text>
-        <Text>2099.99.99</Text>
+        <Text>{formatKST(new Date(createdAt))}</Text>
       </View>
     </View>
   );

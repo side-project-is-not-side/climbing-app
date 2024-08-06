@@ -8,26 +8,29 @@ import {
 import {SquareImage} from '../../../shared/ui';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { useGetActivities } from '../api/useGetActivities';
 
 const VerificationHistory = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
+
+  const {data} = useGetActivities()
+
   return (
     <View style={styles.listContainer}>
       <FlatList
-        data={Array(22)
-          .fill(0)
-          .map((_, idx) => idx)}
+        data={data}
         contentContainerStyle={{paddingVertical: 20}}
         numColumns={3}
-        keyExtractor={item => item + ''}
-        renderItem={() => (
+        keyExtractor={item => item.imageUrl}
+        renderItem={({item}) => (
           <Pressable
             style={styles.imageContainer}
             onPress={() =>
-              navigation.navigate(CHALLENGE_ROUTES.VERIFICATION_DETAIL, {})
+              navigation.navigate(CHALLENGE_ROUTES.VERIFICATION_DETAIL, {imageUrl: item.imageUrl,
+                createdAt: item.createdAt})
             }>
             <SquareImage
-              source={require('../../../../assets/images/fire_full.png')}
+              source={{uri: item.imageUrl}}
               alt={'verification photo'}
               style={styles.image}
             />

@@ -38,8 +38,7 @@ const ChallengeDetail = () => {
             activityCount={challenge?.activityCount}
             successCount={challenge?.successCount}
           />
-          {!!challenge?.activities.length && <VerificationHistoryPreview />}
-          <VerificationHistoryPreview />
+          {!!challenge?.activities.length && <VerificationHistoryPreview recentActivities={challenge?.activities} />}
         </View>
       </ScrollView>
       <View
