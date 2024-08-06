@@ -1,8 +1,14 @@
 import React from 'react';
-import {NearbyMap} from '../entities/map/ui';
+import {NearbyBottomSheet, NearbyMap} from '../entities/map/ui';
+import {View} from 'react-native';
 
 const MapScreen = () => {
-  return <NearbyMap />;
+  return (
+    <View style={{flex: 1}}>
+      <NearbyMap />
+      <NearbyBottomSheet />
+    </View>
+  );
 };
 
 export default MapScreen;

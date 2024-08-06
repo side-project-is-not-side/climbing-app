@@ -1,29 +1,54 @@
-import {
-  NaverMapMarkerOverlay,
-  NaverMapView,
-} from '@mj-studio/react-native-naver-map';
-import React from 'react';
+import {NaverMapView, NaverMapViewRef} from '@mj-studio/react-native-naver-map';
+import React, {useRef, useState} from 'react';
 import {useCurrentLocation} from '../hooks';
-import {DEFAULT_ZOOM, INITIAL_CENTER} from '../constants/location';
-import {View} from 'react-native';
-import {Icon} from '../../../shared/ui';
+import {DEFAULT_ZOOM} from '../constants/location';
 import Marker from './Marker';
+import { useGetNearbyGyms } from '@entities/gym/queries';
+import { AroundGym } from '@entities/gym/api/types';
 
 const NearbyMap = () => {
-  const {currentLocation} = useCurrentLocation(DEFAULT_ZOOM);
+  const [selected, setSelected] = useState<number>();
+
+  const {currentLocation, bounds, onCameraChanged} =
+    useCurrentLocation(DEFAULT_ZOOM);
+  const ref = useRef<NaverMapViewRef>(null);
+  const {data} = useGetNearbyGyms(bounds);
+
+  const onMarkerTap =
+    ({id, latitude, longitude}: AroundGym) =>
+    () => {
+      setSelected(id);
+      if (ref.current) {
+        ref.current.animateCameraTo({
+          latitude,
+          longitude,
+          duration: 500,
+          easing: 'EaseOut',
+          zoom: DEFAULT_ZOOM,
+        });
+      }
+    };
 
   return (
-    <View style={{flex: 1}}>
-      <NaverMapView
-        mapType="Basic"
-        style={{flex: 1}}
-        initialCamera={{...INITIAL_CENTER, zoom: DEFAULT_ZOOM}}>
+    <NaverMapView
+      ref={ref}
+      mapType="Basic"
+      style={{flex: 1}}
+      onCameraChanged={onCameraChanged}
+      initialRegion={currentLocation}
+      isShowZoomControls={false}
+      initialCamera={{...currentLocation, zoom:DEFAULT_ZOOM}}
+      >
+      {data?.map(({id, latitude, longitude}) => (
         <Marker
-          latitude={currentLocation.latitude}
-          longitude={currentLocation.longitude}
+          key={id}
+          latitude={latitude}
+          longitude={longitude}
+          type={selected === id ? 'active' : 'inactive'}
+          onTap={onMarkerTap({id, latitude, longitude})}
         />
-      </NaverMapView>
-    </View>
+      ))}
+    </NaverMapView>
   );
 };
 
