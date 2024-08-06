@@ -13,6 +13,8 @@ const Chips = ({chips}: {chips: string[]}) => {
   return (
     <FlatList
       data={chips}
+      horizontal
+      className='self-stretch gap-1'
       keyExtractor={(item, index) => item + index}
       renderItem={renderItem}
     />

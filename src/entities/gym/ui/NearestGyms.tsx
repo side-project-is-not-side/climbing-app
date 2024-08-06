@@ -35,12 +35,8 @@ const NearestGyms = () => {
 
 const styles = StyleSheet.create({
   contentContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 12,
-    flex: 1,
-    height: '100%',
-    backgroundColor: 'white',
+    rowGap:12,
+    alignItems:'center',
   },
 });
 
