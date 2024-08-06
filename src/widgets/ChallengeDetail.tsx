@@ -6,40 +6,49 @@ import {Progress, ChallengeInfo} from '../entities/challenge/ui';
 import {VerificationHistoryPreview} from '../entities/verification/ui';
 import {ChallengeRoute, CHALLENGE_ROUTES} from '../shared/constants';
 import {Button} from '../shared/ui';
+import {useGetChallengeDetail} from '../entities/challenge/api/useGetChallengeDetail';
 
 const ChallengeDetail = () => {
   const route = useRoute<RouteProp<ChallengeRoute, 'challenge_detail'>>();
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
 
-  const challenge = route.params.challenge;
+  const {data: challenge} = useGetChallengeDetail(route.params.challengeId);
 
   const handleNavigateVerify = () => {
-    switch (challenge.activityType) {
+    switch (challenge?.activityType) {
       case 'PICTURE':
         return navigation.navigate(CHALLENGE_ROUTES.VERIFY_GUIDE, {
-          challengeTitle: challenge.title,
-          challengeId: challenge.id,
+          challengeTitle: challenge?.title,
+          challengeId: challenge?.id,
         });
       case 'LOCATION':
         return navigation.navigate(CHALLENGE_ROUTES.VERIFY_LOCATION, {
-          challengeTitle: challenge.title,
-          challengeId: challenge.id,
+          challengeTitle: challenge?.title,
+          challengeId: challenge?.id,
         });
     }
   };
 
   return (
-    <ScrollView>
-      <View style={styles.pageContainer}>
-        <ChallengeInfo challenge={challenge} />
-        <Progress
-          activityCount={challenge.activityCount}
-          successCount={challenge.successCount}
-        />
-        <VerificationHistoryPreview />
+    <>
+      <ScrollView style={{flex: 1}}>
+        <View style={styles.pageContainer}>
+          <ChallengeInfo challenge={challenge} />
+          <Progress
+            activityCount={challenge?.activityCount}
+            successCount={challenge?.successCount}
+          />
+          {!!challenge?.activities.length && <VerificationHistoryPreview />}
+          <VerificationHistoryPreview />
+        </View>
+      </ScrollView>
+      <View
+        style={{
+          padding: 20,
+        }}>
         <Button onPress={handleNavigateVerify}>인증하기</Button>
       </View>
-    </ScrollView>
+    </>
   );
 };
 

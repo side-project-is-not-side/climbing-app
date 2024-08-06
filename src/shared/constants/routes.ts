@@ -40,7 +40,7 @@ export type RootRoute = {
 export type ChallengeRoute = {
   challenge: undefined;
   challenge_detail: {
-    challenge: Challenge;
+    challengeId: number;
   };
   verification_history: undefined;
   verification_detail: {};

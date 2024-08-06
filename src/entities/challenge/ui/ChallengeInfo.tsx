@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {Challenge} from '../type';
+import {ChallengeDetail} from '../type';
 import {colors} from '../../../shared/constants';
 
 const activityTypes = {
@@ -9,7 +9,7 @@ const activityTypes = {
   LOCATION: '암장도전',
 };
 
-const ChallengeInfo = ({challenge}: {challenge: Challenge}) => {
+const ChallengeInfo = ({challenge}: {challenge?: ChallengeDetail}) => {
   return (
     <>
       <View style={styles.progressImageContainer}>
@@ -19,9 +19,11 @@ const ChallengeInfo = ({challenge}: {challenge: Challenge}) => {
         />
       </View>
       <View style={styles.challengeInfoContainer}>
-        <Text style={styles.type}>{activityTypes[challenge.activityType]}</Text>
-        <Text style={styles.title}>{challenge.title}</Text>
-        <Text style={styles.summary}>{challenge.summary}</Text>
+        <Text style={styles.type}>
+          {challenge && activityTypes[challenge.activityType]}
+        </Text>
+        <Text style={styles.title}>{challenge?.title}</Text>
+        <Text style={styles.summary}>{challenge?.description}</Text>
       </View>
     </>
   );

@@ -22,8 +22,7 @@ const Card = ({challenge}: {challenge: Challenge}) => {
 
   const handlePressCard = () => {
     navigation.navigate(CHALLENGE_ROUTES.CHALLENGE_DETAIL, {
-      // challengeId: challenge.id,
-      challenge,
+      challengeId: challenge.id,
     });
   };
 

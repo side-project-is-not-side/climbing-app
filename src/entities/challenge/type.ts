@@ -13,3 +13,11 @@ export type Challenge = {
     color: string;
   };
 };
+
+export type ChallengeDetail = Challenge & {
+  description: string;
+  activities: {
+    imageUrl: string;
+    createdAt: Date;
+  }[];
+};
