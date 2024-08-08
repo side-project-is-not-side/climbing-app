@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     width: 160,
     height: 160,
     resizeMode: 'cover',
+    borderRadius: 8
   },
   textContainer: {
     gap: 4,

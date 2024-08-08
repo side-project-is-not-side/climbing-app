@@ -1,5 +1,5 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {useImagePicker} from '../../../shared/hooks';
 import {Button, SquareImage} from '../../../shared/ui';
 import {
@@ -11,16 +11,13 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {formatKST} from '../../../shared/utils';
 
+const {width} = Dimensions.get('window')
+
 const VerifyPhoto = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
   const route = useRoute<RouteProp<ChallengeRoute, 'verify_photo'>>();
 
-  const {openGallery, selectedImage} = useImagePicker({
-    onCancelGallery: asset => {
-      // console.log(asset);
-      // !asset && navigation.goBack();
-    },
-  });
+  const {openGallery, selectedImage} = useImagePicker();
 
   const handleVerify = () => {
     if (!selectedImage) return;
@@ -49,7 +46,7 @@ const VerifyPhoto = () => {
       <View style={styles.imageContainer}>
         {selectedImage && (
           <>
-            <SquareImage source={selectedImage} style={styles.image} />
+            <Image source={selectedImage} style={styles.image} />
             <View style={styles.imageInfo}>
               <Text>인증날짜</Text>
               <Text>
@@ -82,6 +79,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
+    height: width - 40,
     backgroundColor: colors.beige300,
     resizeMode: 'cover',
     overflow: 'hidden',
