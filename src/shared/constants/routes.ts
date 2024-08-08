@@ -40,10 +40,13 @@ export type RootRoute = {
 export type ChallengeRoute = {
   challenge: undefined;
   challenge_detail: {
-    challenge: Challenge;
+    challengeId: number;
   };
   verification_history: undefined;
-  verification_detail: {};
+  verification_detail: {
+    imageUrl: string;
+    createdAt: Date
+  };
   verify_photo: {
     challengeTitle: string;
     challengeId: number;

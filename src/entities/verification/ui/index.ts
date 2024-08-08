@@ -2,3 +2,4 @@ export {default as VerificationHistoryPreview} from './VerificationHistoryPrevie
 export {default as VerificationHistory} from './VerificationHistory';
 export {default as VerificationDetail} from './VerificationDetail';
 export {default as VerifyGuide} from './VerifyGuide';
+export {default as VerifyMap} from '../../map/ui/VerifyMap';
