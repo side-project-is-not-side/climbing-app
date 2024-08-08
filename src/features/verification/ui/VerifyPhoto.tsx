@@ -38,12 +38,12 @@ const VerifyPhoto = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Pressable onPress={openGallery}>
+        selectedImage ? <Pressable onPress={openGallery}>
           <Text>수정하기</Text>
-        </Pressable>
+        </Pressable> : <></>
       ),
     });
-  }, []);
+  }, [selectedImage]);
   return (
     <View style={styles.root}>
       <View style={styles.imageContainer}>

@@ -10,15 +10,17 @@ const VerifyCompleteScreen = ({route, navigation}: ScreenProps) => {
   const image = route.params.image;
   const challengeId = route.params.challengeId;
 
-  useLayoutEffect(() => {
+
+  const pageOut = () => {
     setTimeout(() => {
-      // TODO_챌린지 상세 API 개발되면 상세 페이지 이동으로 수정
-      navigation.navigate(CHALLENGE_ROUTES.CHALLENGE);
+      navigation.navigate(CHALLENGE_ROUTES.CHALLENGE_DETAIL, {
+        challengeId
+      });
     }, 1500);
-  }, []);
+  }
   return (
     <View style={styles.root}>
-      <Image source={image} style={styles.image} />
+      <Image source={image} style={styles.image} onLoadEnd={pageOut} />
       <View style={styles.textContainer}>
         <Text style={styles.title}>인증 완료</Text>
         <Text style={styles.verifyDate}>

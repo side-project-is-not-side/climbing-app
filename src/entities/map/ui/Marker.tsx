@@ -16,6 +16,7 @@ const markerIconName: Record<MarkerType, IconName> = {
   disabled: 'MarkerDisabled',
   inactive: 'MarkerInactive',
   active: 'MarkerActive',
+  circle: 'MarkerCircle'
 };
 
 const Marker = ({type = 'inactive', ...props}: MarkerProps) => {

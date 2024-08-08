@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import {NaverMap} from '../entities/verification/ui';
+import VerifyLocation from '@widgets/VerifyLocation';
 
 const VerifyLocationScreen = () => {
-  return <NaverMap />;
+  return <VerifyLocation />;
 };
 
 export default VerifyLocationScreen;

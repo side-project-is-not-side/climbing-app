@@ -1,4 +1,4 @@
-export type MarkerType = 'disabled' | 'active' | 'inactive';
+export type MarkerType = 'disabled' | 'active' | 'inactive' |'circle';
 
 export type Bounds = {
     minLatitude: string;

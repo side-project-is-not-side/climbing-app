@@ -38,7 +38,8 @@ const ChallengeDetail = () => {
             activityCount={challenge?.activityCount}
             successCount={challenge?.successCount}
           />
-          {!!challenge?.activities.length && <VerificationHistoryPreview recentActivities={challenge?.activities} />}
+          {/* {!!challenge?.activities.length && <VerificationHistoryPreview recentActivities={challenge?.activities} />} */}
+          <VerificationHistoryPreview recentActivities={[{imageUrl: '1', createdAt: new Date()}, {imageUrl: '2', createdAt: new Date()}, {imageUrl: '3', createdAt: new Date()}]} />
         </View>
       </ScrollView>
       <View

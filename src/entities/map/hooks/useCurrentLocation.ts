@@ -27,9 +27,9 @@ export const useCurrentLocation = (zoomLevel: number) => {
     if (Platform.OS === 'android') {
       request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(status => {
         if (status === 'granted') {
-          requestLocationAccuracy({
-            purposeKey: 'common-purpose',
-          });
+          // requestLocationAccuracy({
+          //   purposeKey: 'common-purpose',
+          // });
         }
       });
     }
