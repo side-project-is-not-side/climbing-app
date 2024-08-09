@@ -16,17 +16,15 @@ const Tabs = ({
   handleTabPress: (tab: ChallengeStatus) => void;
 }) => {
   return (
-    <View style={styles.tabContainer}>
+    <View className='flex-row px-5 border-b border-b-neutral-600'>
       {TABS.map(tab => (
         <Pressable
           key={tab.value}
-          style={[styles.tab, tab.value === tabState && styles.tabActive]}
+          className={`py-2 px-5 ${tab.value === tabState ? "border-b-2 border-b-primary-400" : ""}`}
           onPress={() => handleTabPress(tab.value)}>
           <Text
-            style={[
-              styles.tabText,
-              tab.value === tabState && styles.textActive,
-            ]}>
+            className={`text-base ${tab.value === tabState ? "text-primary-400 font-bold" : "text-neutral-400"}`}
+            >
             {tab.text}
           </Text>
         </Pressable>
@@ -36,26 +34,3 @@ const Tabs = ({
 };
 
 export default Tabs;
-
-const styles = StyleSheet.create({
-  tabContainer: {
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
-  tab: {
-    paddingVertical: 8,
-    paddingHorizontal: 20,
-  },
-  tabActive: {
-    borderBottomWidth: 2,
-    borderBottomColor: '#777',
-  },
-  tabText: {
-    fontSize: 16,
-  },
-  textActive: {
-    fontWeight: '700',
-  },
-});

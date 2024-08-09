@@ -11,9 +11,13 @@ const VerifyLocation =() => {
     bottomSheetRef.current?.expand()
   }
 
+  const closeTab= () => {
+    bottomSheetRef.current?.collapse()
+  }
+
   return (
     <>
-      <VerifyMap showTab={showTab} />
+      <VerifyMap showTab={showTab} closeTab={closeTab} />
       <VerifyMapBottomSheet ref={bottomSheetRef} />
     </>
   )

@@ -12,51 +12,21 @@ const activityTypes = {
 const ChallengeInfo = ({challenge}: {challenge?: ChallengeDetail}) => {
   return (
     <>
-      <View style={styles.progressImageContainer}>
+      <View className='h-[200px] justify-center items-center border-neutral-400 border rounded-2xl'>
         <Image
           source={require('../../../../assets/images/fire_full.png')}
           alt="challenge progress image"
         />
       </View>
-      <View style={styles.challengeInfoContainer}>
-        <Text style={styles.type}>
+      <View className='min-h-[100px] my-5'>
+        <Text className='mb-1 text-xs font-bold text-primary-400'>
           {challenge && activityTypes[challenge.activityType]}
         </Text>
-        <Text style={styles.title}>{challenge?.title}</Text>
-        <Text style={styles.summary}>{challenge?.description}</Text>
+        <Text className='text-2xl font-bold leading-9 text-white'>{challenge?.title}</Text>
+        <Text className='text-neutral-400'>{challenge?.description}</Text>
       </View>
     </>
   );
 };
 
 export default ChallengeInfo;
-
-const styles = StyleSheet.create({
-  progressImageContainer: {
-    height: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 20,
-  },
-  challengeInfoContainer: {
-    minHeight: 100,
-    marginVertical: 20,
-  },
-  type: {
-    marginBottom: 4,
-    color: 'red',
-    fontSize: 12,
-    fontWeight: '700',
-  },
-  title: {
-    color: colors.black,
-    fontSize: 24,
-    fontWeight: '700',
-    lineHeight: 34,
-  },
-  summary: {
-    color: colors.gray400,
-  },
-});

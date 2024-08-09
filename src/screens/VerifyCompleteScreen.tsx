@@ -19,14 +19,14 @@ const VerifyCompleteScreen = ({route, navigation}: ScreenProps) => {
     }, 1500);
   }
   return (
-    <View style={styles.root}>
-      <Image source={image} style={styles.image} onLoadEnd={pageOut} />
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>인증 완료</Text>
-        <Text style={styles.verifyDate}>
-          {image.timestamp && formatKST(new Date(image.timestamp))}
+    <View className='items-center justify-center flex-1 gap-5'>
+      <Image source={image} className='w-[160px] h-[160px] rounded-lg' resizeMode='cover' onLoadEnd={pageOut} />
+      <View className='items-center justify-center gap-1'>
+        <Text className='text-lg font-bold text-white'>인증 완료</Text>
+        <Text className='text-sm text-white'>
+          {formatKST(new Date())}
         </Text>
-        <Text style={styles.message}>계속 도전해보자구 부리!</Text>
+        <Text className='text-base text-neutral-400'>계속 도전해보자구 부리!</Text>
       </View>
     </View>
   );
@@ -34,35 +34,3 @@ const VerifyCompleteScreen = ({route, navigation}: ScreenProps) => {
 
 export default VerifyCompleteScreen;
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 20,
-  },
-  image: {
-    width: 160,
-    height: 160,
-    resizeMode: 'cover',
-    borderRadius: 8
-  },
-  textContainer: {
-    gap: 4,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: colors.black,
-  },
-  verifyDate: {
-    fontSize: 14,
-    color: colors.black,
-  },
-  message: {
-    fontSize: 16,
-    color: colors.gray400,
-  },
-});

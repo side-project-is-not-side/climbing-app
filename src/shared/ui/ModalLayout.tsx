@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useLayoutEffect} from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
 import {colors} from '../constants';
-import {Icon} from '.';
+import {Icon} from './';
 
 const ModalLayout = ({children}: {children: React.ReactNode}) => {
   const navigation = useNavigation();
@@ -28,7 +28,7 @@ const ModalLayout = ({children}: {children: React.ReactNode}) => {
       />
       <View style={styles.modalContainer}>
         <Pressable style={styles.xButtonContainer} onPress={navigation.goBack}>
-          <Icon name="X" size={24} color="#000" />
+          <Icon name="X" size={24} />
         </Pressable>
         {children}
       </View>
@@ -42,12 +42,12 @@ const styles = StyleSheet.create({
   background: {backgroundColor: 'rgba(0, 0, 0, 0.3)'},
   modalContainer: {
     width: '100%',
-    maxHeight: '100%',
+    maxHeight: '95%',
     position: 'absolute',
     bottom: 0,
     padding: 20,
     gap: 2,
-    backgroundColor: colors.beige300,
+    backgroundColor: colors.gray700,
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
   },

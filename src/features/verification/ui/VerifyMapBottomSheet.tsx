@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   address: {
-    color: colors.gray400,
+    color: colors.gray200,
   },
   tags: {
     flexDirection: 'row',
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   tag: {
     paddingHorizontal: 8,
     paddingVertical: 2,
-    backgroundColor: colors.gray600,
+    backgroundColor: colors.gray400,
     borderRadius: 4
   },
   tagText: {

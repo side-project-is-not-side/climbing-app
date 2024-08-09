@@ -23,9 +23,9 @@ const ScrollViewCarousel = <T extends any>({
 
   return (
     <>
-      <View style={styles.carouselContainer}>
+      <View className='flex-1'>
         <ScrollView
-          style={{flex: 1}}
+          className='flex-1'
           horizontal
           pagingEnabled
           decelerationRate="fast"
@@ -34,28 +34,23 @@ const ScrollViewCarousel = <T extends any>({
           contentContainerStyle={{width: `${100 * data.length}%`}}
           onContentSizeChange={w => setItemWidth(w / data.length)}
           onScroll={onScroll}>
-          <View style={styles.row}>
             {data.map((item, index) => {
               return (
                 <View
                   key={keyExtractor(item)}
-                  style={[styles.carouselItemContainer, {width: itemWidth}]}>
-                  {/* <View style={styles.carouselItem} /> */}
+                  style={{width: itemWidth}}
+                  >
                   {render(item, index)}
                 </View>
               );
             })}
-          </View>
         </ScrollView>
       </View>
-      <View style={styles.indicatorWrapper}>
+      <View className='flex-row justify-center gap-[6px] mt-2'>
         {Array.from({length: data.length}, (_, i) => i).map(i => (
           <View
             key={`indicator_${i}`}
-            style={[
-              styles.indicator,
-              {backgroundColor: i === page ? '#262626' : '#dfdfdf'},
-            ]}
+            className={`my-1 w-[6px] h-[6px] rounded-full ${i === page ? "bg-white" : 'bg-neutral-600'}`}
           />
         ))}
       </View>
@@ -64,30 +59,3 @@ const ScrollViewCarousel = <T extends any>({
 };
 
 export default ScrollViewCarousel;
-
-const styles = StyleSheet.create({
-  carouselContainer: {
-    flex: 1,
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  carouselItemContainer: {
-    height: '100%',
-  },
-  carouselItem: {
-    flex: 1,
-  },
-  indicatorWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 6,
-    marginTop: 8,
-  },
-  indicator: {
-    marginVertical: 4,
-    width: 6,
-    height: 6,
-    borderRadius: 100,
-  },
-});

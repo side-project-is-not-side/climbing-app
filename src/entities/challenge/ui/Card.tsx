@@ -27,27 +27,27 @@ const Card = ({challenge}: {challenge: Challenge}) => {
   };
 
   return (
-    <Pressable style={styles.cardContainer} onPress={handlePressCard}>
-      <View style={styles.imageContainer}>
-        <Image
-          source={require('../../../../assets/images/fire_full.png')}
-          alt="progress fire image"
-          width={75}
-          height={60}
-        />
-      </View>
-      <View style={styles.contentContainer}>
-        <Text style={styles.type}>{activityTypes[challenge.activityType]}</Text>
-        <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+    <Pressable className='flex-row gap-4 py-5 pl-5 pr-4 my-[5px] mx-auto bg-neutral-700 rounded-2xl' onPress={handlePressCard}>
+      <Image
+        source={require('../../../../assets/images/fire_full.png')}
+        alt="progress fire image"
+        width={100}
+        height={100}
+        resizeMode='contain'
+        className='w-[100px] h-[100px]'
+      />
+      <View className='flex-1'>
+        <Text className='mb-1 text-xs font-bold text-primary-400'>{activityTypes[challenge.activityType]}</Text>
+        <Text className='text-lg font-bold text-white' numberOfLines={1} ellipsizeMode="tail">
           {challenge.title}
         </Text>
-        <Text numberOfLines={2} ellipsizeMode="tail">
+        <Text numberOfLines={2} ellipsizeMode="tail" className='text-neutral-400'>
           {challenge.summary}
         </Text>
-        <View style={styles.alignRight}>
+        <View className='flex-row justify-end'>
           <Badge
             text={`${challenge.activityCount}/${challenge.successCount}`}
-            style={{badge: {marginTop: 8}}}
+            className='mt-2'
           />
         </View>
       </View>
@@ -56,40 +56,3 @@ const Card = ({challenge}: {challenge: Challenge}) => {
 };
 
 export default Card;
-
-const styles = StyleSheet.create({
-  cardContainer: {
-    flexDirection: 'row',
-    gap: 16,
-    backgroundColor: colors.white,
-    paddingVertical: 20,
-    paddingLeft: 20,
-    paddingRight: 16,
-    marginVertical: 5,
-    borderRadius: 20,
-  },
-  imageContainer: {
-    justifyContent: 'center',
-  },
-  contentContainer: {
-    flex: 1,
-  },
-  type: {
-    marginBottom: 4,
-    color: colors.primary400,
-    fontSize: 12,
-    fontWeight: '700',
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: colors.black,
-  },
-  summary: {
-    color: colors.gray400,
-  },
-  alignRight: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-});
