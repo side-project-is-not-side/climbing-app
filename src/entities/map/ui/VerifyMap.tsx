@@ -73,7 +73,7 @@ const VerifyMap = ({showTab, closeTab}: Props) => {
             longitude={location.longitude}
             type={location.canVerify ? selectedMarkerIdx===location.id ?  'active' : 'inactive': 'disabled'}
             onTap={() => location.canVerify && onTabMarker(location.id)}
-            caption={{text: location.name, color: location.canVerify ? 'black' : colors.gray500}}
+            caption={{text: location.name, color: location.canVerify ? 'black' : colors.gray700}}
           />
         ))}
       </NaverMapView>

@@ -12,3 +12,4 @@ export {default as MarkerDisabled} from './MarkerDisabled';
 export {default as MarkerInactive} from './MarkerInactive';
 export {default as MarkerActive} from './MarkerActive';
 export {default as MarkerCircle} from './MarkerCircle';
+export {default as ChevronLeft} from './ChevronLeft';

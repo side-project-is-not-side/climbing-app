@@ -1,6 +1,4 @@
 export const colors = {
-  black: '#000000',
-  white: '#FFFFFF',
   primary900: '#C21B1D',
   primary800: '#D0292A',
   primary700: '#DD3031',
@@ -11,16 +9,15 @@ export const colors = {
   primary200: '#F59C9C',
   primary100: '#FFCED4',
   primary50: '#FFECEF',
-  gray800: '#151518',
-  gray700: '#222427',
-  gray600: '#555555',
-  gray500: '#7B7B7B',
-  gray400: '#8B8D8E',
+  black: '#000000',
+  gray800: '#070707',
+  gray700: '#191B1D',
+  gray400: '#333539',
   gray300: '#C4C4C4',
   gray200: '#D9D9D9',
   gray100: '#E9E9E9',
   gray50: '#F4F7F8',
-
+  white: '#FFFFFF',
   beige300: '#DAD3CB',
   beige100: '#EEEAE5',
 };

@@ -1,6 +1,8 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import {Dimensions, Image, StyleSheet, View} from 'react-native';
 import {colors} from '../../../shared/constants';
+
+const {width} = Dimensions.get('screen')
 
 const ProgressSlide = ({
   page,
@@ -17,13 +19,13 @@ const ProgressSlide = ({
     page <= Math.floor(activityCount / 10) - Number(activityCount % 10 === 0);
 
   return (
-    <View style={styles.progressIcons}>
+    <View className='flex-row flex-wrap justify-between w-full h-full p-5 rounded-2xl bg-neutral-700'>
       {Array(10)
         .fill(0)
         .map((_, index) => {
           const isGrab = index < activityCount % 10;
           return (
-            <View key={index} style={styles.grabIcon}>
+            <View key={index} style={{width: (width - 80) / 5}} className={`justify-center items-center my-3`}>
               <Image
                 source={
                   isInProgressPage
@@ -46,28 +48,3 @@ const ProgressSlide = ({
 };
 
 export default ProgressSlide;
-
-const styles = StyleSheet.create({
-  progressIcons: {
-    gap: 22,
-    height: '100%',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 35,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    backgroundColor: colors.beige300,
-  },
-  grabIcon: {
-    width: 40,
-    height: 40,
-  },
-  indicators: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 4,
-  },
-  indicator: {},
-  indicatorActive: {},
-});

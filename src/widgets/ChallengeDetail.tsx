@@ -31,8 +31,8 @@ const ChallengeDetail = () => {
 
   return (
     <>
-      <ScrollView style={{flex: 1}}>
-        <View style={styles.pageContainer}>
+      <ScrollView className='flex-1'>
+        <View className='p-5'>
           <ChallengeInfo challenge={challenge} />
           <Progress
             activityCount={challenge?.activityCount}
@@ -53,31 +53,3 @@ const ChallengeDetail = () => {
 };
 
 export default ChallengeDetail;
-
-const styles = StyleSheet.create({
-  pageContainer: {
-    padding: 20,
-  },
-  progressImageContainer: {
-    height: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 20,
-  },
-  challengeInfoContainer: {
-    marginVertical: 20,
-  },
-  type: {
-    marginBottom: 4,
-    color: 'red',
-    fontSize: 12,
-    fontWeight: '700',
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '700',
-    lineHeight: 34,
-  },
-});

@@ -2,7 +2,7 @@
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}', './App.{js,jsx,ts,tsx}'],
   theme: {
-    theme: {
+    extend: {
       colors: {
         primary: {
           400: '#ff5544',
@@ -36,16 +36,14 @@ module.exports = {
           400: '#8B8D8E',
           500: '#7b7b7b',
           600: '#333539',
-          700: '#222427',
-          800: '#151518',
+          700: '#191B1D',
+          800: '#070707',
           black: '#000000',
           white: '#ffffff',
         },
         white: '#ffffff',
         transparent: 'transparent',
       },
-    },
-    extend: {
       fontFamily: {
         notoSans: ['NotoSansKR'],
       },

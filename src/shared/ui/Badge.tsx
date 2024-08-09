@@ -1,40 +1,20 @@
 import {
-  ImageStyle,
-  StyleSheet,
   Text,
-  TextStyle,
   View,
-  ViewStyle,
 } from 'react-native';
-import {colors} from '../constants';
 
 type Props = {
   text: string | React.ReactNode;
-  style?: {
-    badge?: ViewStyle | TextStyle | ImageStyle;
-    text?: ViewStyle | TextStyle | ImageStyle;
-  };
+  className?: string
+  textClassName? : string
 };
 
-const Badge = ({text, style}: Props) => {
+const Badge = ({text, className, textClassName}: Props) => {
   return (
-    <View style={[styles.badge, style?.badge]}>
-      <Text style={[styles.badgeText, style?.text]}>{text}</Text>
+    <View className={"py-1 w-[86px] rounded-full bg-[#333539] " + className}>
+      <Text className={"text-white text-center " + textClassName}>{text}</Text>
     </View>
   );
 };
 
 export default Badge;
-
-const styles = StyleSheet.create({
-  badge: {
-    padding: 2,
-    width: 86,
-    borderRadius: 200,
-    backgroundColor: colors.primary400,
-  },
-  badgeText: {
-    textAlign: 'center',
-    color: '#fff',
-  },
-});

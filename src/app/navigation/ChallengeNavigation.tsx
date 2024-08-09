@@ -14,23 +14,29 @@ import {
 
 import {CHALLENGE_ROUTES, ChallengeRoute} from '../../shared/constants';
 import {colors} from '../../shared/constants';
-import {LogoIcon} from '../../shared/ui';
+import {Icon, LogoIcon} from '../../shared/ui';
+import { Pressable } from 'react-native';
 
 const Stack = createNativeStackNavigator<ChallengeRoute>();
 
 const ChallengeNavigation = () => {
   return (
     <Stack.Navigator
-      screenOptions={{
+      screenOptions={({navigation}) => ({
         headerTitleAlign: 'center',
-        headerTitleStyle: {fontSize: 18, fontWeight: '700'},
+        headerTitleStyle: {fontSize: 16, fontWeight: '700', color: "white"},
+        headerLeft: () => 
+        <Pressable onPress={navigation.goBack} className='items-center justify-center w-6 h-6'>
+          <Icon name='ChevronLeft' size={14} />
+        </Pressable>
+        ,
         headerBackground: () => <></>,
         animation: 'fade_from_bottom',
-      }}>
+      })}>
       <Stack.Group
         screenOptions={{
-          headerStyle: {backgroundColor: colors.beige100},
-          contentStyle: {backgroundColor: colors.beige100},
+          headerStyle: {backgroundColor: colors.gray800},
+          contentStyle: {backgroundColor: colors.gray800},
         }}>
         <Stack.Screen
           name={CHALLENGE_ROUTES.CHALLENGE}
@@ -85,8 +91,8 @@ const ChallengeNavigation = () => {
           options={{
             title: '인증 기록',
             presentation: 'modal',
-            headerStyle: {backgroundColor: colors.beige100},
-            contentStyle: {backgroundColor: colors.beige100},
+            headerStyle: {backgroundColor: colors.gray800},
+            contentStyle: {backgroundColor: colors.gray800},
           }}
         />
         <Stack.Screen
