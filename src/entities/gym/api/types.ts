@@ -1,3 +1,4 @@
+import { ExternalLink } from "@shared/types";
 
 
 export type TSectorUpdateInfo = {date: Date; name: string | null};
@@ -71,3 +72,18 @@ export type GymInfo = {
 };
 
 export type GetNearestGymsResponse = GymInfo[];
+
+export type GetGymDetailResponse = {
+  id: number;
+  name: string;
+  thumbnailImageUrl: string;
+  tags: string[];
+  description: string;
+  businessHours: BusinessHours;
+  roadNameAddress: string;
+  distance: number;
+  location: Location;
+  naverMap: ExternalLink;
+  instagram: ExternalLink;
+  notice?: string;
+};
