@@ -5,21 +5,22 @@ import DefaultGymCard from './DefaultGymCard';
 import {useGetGymsByLocation} from '../queries';
 import { GymInfo } from '../api/types';
 
-const NearestGyms = () => {
+const NearestGyms = ({setSelected}: {
+  setSelected:React.Dispatch<React.SetStateAction<number | undefined>>}) => {
   const {data: gymInfos} = useGetGymsByLocation();
 
   const nearestData = gymInfos?.[0].slice(0, 2);
 
   const renderItem = useCallback(
     ({item}: {item: GymInfo}) => (
-      <DefaultGymCard item={item} onClick={(id) => () => {}} />
+      <DefaultGymCard item={item} onClick={(id) => () => {setSelected(id)}} />
     ),
     [nearestData],
   );
 
   return (
     <View className="flex-1">
-      <Text className="text-[18px] font-bold text-neutral-50 mb-5">
+      <Text className="font-header-1 text-neutral-50 mb-5">
         내 근처 암장을 찾아보세요🔥
       </Text>
 
@@ -36,7 +37,6 @@ const NearestGyms = () => {
 const styles = StyleSheet.create({
   contentContainer: {
     rowGap:12,
-    alignItems:'center',
   },
 });
 
