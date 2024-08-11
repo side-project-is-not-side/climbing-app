@@ -28,7 +28,8 @@ export const AUTH_ROUTES = {
 export const MAP_ROUTES = {
   NEARBY: 'nearby',
   DETAIL: 'detail',
-};
+} as const;
+
 export type RootRoute = {
   [ROOT_ROUTES.HOME]: undefined;
   [ROOT_ROUTES.MAP]: undefined;
@@ -67,6 +68,13 @@ export type ChallengeRoute = {
     challengeId: number;
     imageUrl?: string;
   };
+};
+
+export type MapRoute = {
+  nearby:undefined,
+  detail:{
+    id:number
+  }
 };
 
 export type AuthRoute = {

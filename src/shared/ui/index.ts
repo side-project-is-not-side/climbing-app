@@ -8,6 +8,7 @@ import ScrollViewCarousel from './ScrollViewCarousel';
 import SquareImage from './SquareImage';
 import ModalLayout from './ModalLayout';
 import LogoIcon from './Icon/LogoIcon';
+import LoadingSpinner from './LoadingSpinner';
 
 export {
   WebViewScreen,
@@ -20,4 +21,5 @@ export {
   SquareImage,
   ModalLayout,
   LogoIcon,
+  LoadingSpinner
 };

@@ -1,13 +1,16 @@
 import {NaverMapView, NaverMapViewRef} from '@mj-studio/react-native-naver-map';
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import {useCurrentLocation} from '../hooks';
 import {DEFAULT_ZOOM} from '../constants/location';
 import Marker from './Marker';
 import { useGetNearbyGyms } from '@entities/gym/queries';
 import { AroundGym } from '@entities/gym/api/types';
 
-const NearbyMap = () => {
-  const [selected, setSelected] = useState<number>();
+type NearbyMapProps = {
+  selected?:number;
+  setSelected:React.Dispatch<React.SetStateAction<number | undefined>>
+}
+const NearbyMap = ({selected, setSelected}:NearbyMapProps) => {
 
   const {currentLocation, bounds, onCameraChanged} =
     useCurrentLocation(DEFAULT_ZOOM);
