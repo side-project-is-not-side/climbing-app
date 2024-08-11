@@ -1,0 +1,58 @@
+import * as React from 'react';
+import Svg, {ClipPath, Defs, G, Mask, Path, Rect} from 'react-native-svg';
+
+/* SVGR has dropped some elements not supported by react-native-svg: filter */
+import type {SvgProps} from 'react-native-svg';
+
+const SvgMarkerDefault = (props: SvgProps) => (
+  <Svg
+    viewBox="0 0 51 47"
+    fill="none"
+    width={props.width || 24}
+    height={props.height || 24}
+    style={props.style || {}}
+    {...props}>
+    <G clipPath="url(#clip0_368_1051)" filter="url(#filter0_d_368_1051)">
+      <Mask
+        id="mask0_368_1051"
+        style={{
+          maskType: 'luminance',
+        }}
+        maskUnits="userSpaceOnUse"
+        x={9}
+        y={5}
+        width={32}
+        height={28}>
+        <Path d="M41 5H9V33H41V5Z" fill={props.color || 'white'} />
+      </Mask>
+      <G mask="url(#mask0_368_1051)">
+        <Path
+          d="M27.8993 7.90316L39.6072 28.2128C40.836 30.344 39.2906 33 36.8218 33H13.406C10.9382 33 9.39172 30.344 10.6205 28.2128L22.3284 7.90316C23.5628 5.76291 26.6649 5.76291 27.8993 7.90316Z"
+          fill="#C4C4C4"
+        />
+        <Path
+          d="M15.491 27.2186C15.9313 27.2186 16.2882 26.8634 16.2882 26.4251C16.2882 25.9869 15.9313 25.6316 15.491 25.6316C15.0507 25.6316 14.6938 25.9869 14.6938 26.4251C14.6938 26.8634 15.0507 27.2186 15.491 27.2186Z"
+          fill={props.color || 'white'}
+        />
+        <Path
+          d="M21.6407 17.3563C22.0809 17.3563 22.4378 17.0011 22.4378 16.5628C22.4378 16.1246 22.0809 15.7693 21.6407 15.7693C21.2004 15.7693 20.8435 16.1246 20.8435 16.5628C20.8435 17.0011 21.2004 17.3563 21.6407 17.3563Z"
+          fill={props.color || 'white'}
+        />
+        <Path
+          d="M23.0071 12.255C23.4474 12.255 23.8043 11.8997 23.8043 11.4615C23.8043 11.0232 23.4474 10.668 23.0071 10.668C22.5669 10.668 22.21 11.0232 22.21 11.4615C22.21 11.8997 22.5669 12.255 23.0071 12.255Z"
+          fill={props.color || 'white'}
+        />
+        <Path
+          d="M35.9893 30.5061C36.4295 30.5061 36.7864 30.1508 36.7864 29.7126C36.7864 29.2743 36.4295 28.9191 35.9893 28.9191C35.549 28.9191 35.1921 29.2743 35.1921 29.7126C35.1921 30.1508 35.549 30.5061 35.9893 30.5061Z"
+          fill={props.color || 'white'}
+        />
+      </G>
+    </G>
+    <Defs>
+      <ClipPath id="clip0_368_1051">
+        <Rect width={32} height={28} fill={props.color || 'white'} transform="translate(9 5)" />
+      </ClipPath>
+    </Defs>
+  </Svg>
+);
+export default SvgMarkerDefault;
