@@ -1,7 +1,5 @@
 import {MapBottomSheet, NearbyMap} from '../entities/map/ui';
-import {NearestGyms} from '@entities/gym/ui';
-import SelectedGymCard from '@entities/gym/ui/SelectedGymCard';
-import CurrentGymCard from '@entities/map/ui/CurrentGymCard';
+import {NearestGyms, SelectedGymCard} from '@entities/gym/ui';
 import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet';
 import React, {useEffect, useRef, useState} from 'react';
 import {View} from 'react-native';
