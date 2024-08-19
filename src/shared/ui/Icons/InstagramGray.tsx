@@ -6,22 +6,12 @@ const SvgInstagramGray = (props: SvgProps) => (
   <Svg
     viewBox="0 0 20 20"
     fill="none"
-    xmlnsXlink="http://www.w3.org/1999/xlink"
     width={props.width || 24}
     height={props.height || 24}
     style={props.style || {}}
     {...props}>
     <G clipPath="url(#clip0_1035_3838)">
-      <Mask
-        id="mask0_1035_3838"
-        style={{
-          maskType: 'alpha',
-        }}
-        maskUnits="userSpaceOnUse"
-        x={1}
-        y={1}
-        width={18}
-        height={18}>
+      <Mask id="mask0_1035_3838" maskUnits="userSpaceOnUse" x={1} y={1} width={18} height={18}>
         <Rect x={1} y={1} width={18} height={18} fill="url(#pattern0_1035_3838)" />
       </Mask>
       <G mask="url(#mask0_1035_3838)">
