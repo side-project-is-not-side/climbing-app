@@ -9,7 +9,14 @@ const MapBottomSheet = React.forwardRef<
   const snapPoints = React.useMemo(() => ['6%', '50%', '100%'], []);
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
-      <BottomSheetBackdrop {...props} appearsOnIndex={1} disappearsOnIndex={0} opacity={0.4} onPress={onPress} />
+      <BottomSheetBackdrop
+        {...props}
+        appearsOnIndex={1}
+        disappearsOnIndex={0}
+        opacity={0.4}
+        onPress={onPress}
+        pressBehavior="collapse"
+      />
     ),
     [],
   );
