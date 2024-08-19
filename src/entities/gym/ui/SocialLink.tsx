@@ -1,18 +1,15 @@
-import React, { useEffect, useRef } from 'react';
-import { GetGymDetailResponse } from '../api/types';
-import { ExternalLink } from '@shared/types';
-import { AppState, Linking, Platform } from 'react-native';
-import { Icon } from '@shared/ui';
+import {GetGymDetailResponse} from '../api/types';
+import {ExternalLink} from '@shared/types';
+import {Icon} from '@shared/ui';
+import React, {useEffect, useRef} from 'react';
+import {AppState, Linking, Platform, Text, TouchableOpacity, View} from 'react-native';
 
-
-
-function SocialLink({ instagram, naverMap }: Pick<GetGymDetailResponse, 'instagram' | 'naverMap'>) {
+function SocialLink({instagram, naverMap}: Pick<GetGymDetailResponse, 'instagram' | 'naverMap'>) {
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
-  const handleClick = ({ scheme, link }: ExternalLink) => {
+  const handleClick = ({scheme, link}: ExternalLink) => {
     const isIphone = Platform.OS === 'ios';
     const isAndroid = Platform.OS === 'android';
-
 
     if (isIphone) {
       Linking.openURL(scheme).catch(() => {
@@ -34,7 +31,6 @@ function SocialLink({ instagram, naverMap }: Pick<GetGymDetailResponse, 'instagr
       }, 1500);
 
       return;
-
     }
 
     Linking.openURL(link);
@@ -66,23 +62,21 @@ function SocialLink({ instagram, naverMap }: Pick<GetGymDetailResponse, 'instagr
   }, []);
 
   return (
-    <div className="flex gap-[10px]">
-      <button
-        className="flex flex-1 items-center py-[14px] px-4 rounded-[10px] bg-neutral-700 gap-[10px]"
-        onClick={() => handleClick(instagram)}
-      >
+    <View className="flex gap-x-[10px]">
+      <TouchableOpacity
+        className="flex flex-1/2 items-center py-[14px] px-4 rounded-[10px] bg-neutral-700 gap-x-[10px]"
+        onPress={() => handleClick(instagram)}>
         <Icon size={18} name="Instagram" />
-        <span className="text-neutral-400 font-text-2">인스타그램</span>
-      </button>
+        <Text className="text-neutral-400 font-text-2">인스타그램</Text>
+      </TouchableOpacity>
 
-      <button
-        className="flex flex-1 items-center py-[14px] px-4 rounded-[10px] bg-neutral-700 gap-[10px]"
-        onClick={() => handleClick(naverMap)}
-      >
+      <TouchableOpacity
+        className="flex flex-1/2 items-center py-[14px] px-4 rounded-[10px] bg-neutral-700 gap-x-[10px]"
+        onPress={() => handleClick(naverMap)}>
         <Icon size={18} name="NaverMap" />
-        <span className="text-neutral-400 font-text-2"> 네이버 지도</span>
-      </button>
-    </div>
+        <Text className="text-neutral-400 font-text-2"> 네이버 지도</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 

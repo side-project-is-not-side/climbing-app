@@ -1,23 +1,17 @@
-import React from 'react'
-import { useGetGymDetailInfo } from '../queries';
-import { LoadingSpinner } from '@shared/ui';
+import {useGetGymDetailInfo} from '../queries';
 import CurrentGymCard from '@entities/map/ui/CurrentGymCard';
-import { Text, View } from 'react-native';
+import {LoadingSpinner} from '@shared/ui';
+import React from 'react';
+import {Text, View} from 'react-native';
 
-const SelectedGymCard = ({ id }: { id: number }) => {
-  const { isLoading, data } = useGetGymDetailInfo(id);
-
+const SelectedGymCard = ({id}: {id: number}) => {
+  const {isLoading, data} = useGetGymDetailInfo(id);
 
   if (isLoading || !data) return <LoadingSpinner />;
-  const { name, thumbnailImageUrl, roadNameAddress, distance, tags } = data;
+  const {name, thumbnailImageUrl, roadNameAddress, distance, tags} = data;
 
   return (
     <View>
-
-      <Text className="font-header-1 text-white mb-5">
-        암장 정보
-      </Text>
-
       <CurrentGymCard
         id={id}
         name={name}
@@ -27,7 +21,7 @@ const SelectedGymCard = ({ id }: { id: number }) => {
         tags={tags}
       />
     </View>
-  )
-}
+  );
+};
 
-export default SelectedGymCard
+export default SelectedGymCard;

@@ -39,3 +39,5 @@ export {default as ChevronLeft} from './ChevronLeft';
 export {default as NaverGray} from './NaverGray';
 export {default as Near} from './Near';
 export {default as RedStone} from './RedStone';
+export {default as X} from './X';
+export {default as EllipsisVertical} from './EllipsisVertical';

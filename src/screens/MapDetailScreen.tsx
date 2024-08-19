@@ -1,20 +1,19 @@
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { MapRoute } from '@shared/constants';
-import React from 'react'
-import { ScrollView, Text, View } from 'react-native'
-
+import {useGetGymDetailInfo} from '@entities/gym/queries';
+import {GymDetailInfo} from '@entities/gym/ui';
+import {RouteProp, useRoute} from '@react-navigation/native';
+import {MapRoute} from '@shared/constants';
+import {LoadingSpinner} from '@shared/ui';
+import React from 'react';
 
 const MapDetailScreen = () => {
   const route = useRoute<RouteProp<MapRoute, 'detail'>>();
-  const navigation = useNavigation<NativeStackNavigationProp<MapRoute>>();
-
-
   const {id} = route.params;
 
-  return (
-    <ScrollView><Text>MapNavigation</Text></ScrollView>
-  )
-}
+  const {data, isLoading} = useGetGymDetailInfo(Number(id));
 
-export default MapDetailScreen
+  if (!data || isLoading) return <LoadingSpinner />;
+
+  return <GymDetailInfo data={data} />;
+};
+
+export default MapDetailScreen;
