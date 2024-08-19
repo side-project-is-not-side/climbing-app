@@ -2,7 +2,7 @@ import {useGetGymDetailInfo} from '../queries';
 import CurrentGymCard from '@entities/map/ui/CurrentGymCard';
 import {LoadingSpinner} from '@shared/ui';
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 
 const SelectedGymCard = ({id}: {id: number}) => {
   const {isLoading, data} = useGetGymDetailInfo(id);

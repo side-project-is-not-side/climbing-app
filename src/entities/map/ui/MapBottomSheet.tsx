@@ -1,20 +1,15 @@
 import BottomSheet, {BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetView} from '@gorhom/bottom-sheet';
-import React, { PropsWithChildren, useCallback } from 'react';
+import React, {PropsWithChildren, useCallback} from 'react';
+import {StyleSheet} from 'react-native';
 
-import { StyleSheet } from 'react-native';
-
-const MapBottomSheet = React.forwardRef<BottomSheet, PropsWithChildren<{onPress:()=>void}>>(({children, onPress},ref) => {
-
-  const snapPoints = React.useMemo(()=>['6%','50%'],[])
+const MapBottomSheet = React.forwardRef<
+  BottomSheet,
+  PropsWithChildren<{onPress: () => void; onChange: (index: number) => void}>
+>(({children, onPress, onChange}, ref) => {
+  const snapPoints = React.useMemo(() => ['6%', '50%', '100%'], []);
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
-      <BottomSheetBackdrop
-        {...props}
-        appearsOnIndex={1}
-        disappearsOnIndex={0}
-        opacity={0.4}
-        onPress={onPress}
-      />
+      <BottomSheetBackdrop {...props} appearsOnIndex={1} disappearsOnIndex={0} opacity={0.4} onPress={onPress} />
     ),
     [],
   );
@@ -28,30 +23,29 @@ const MapBottomSheet = React.forwardRef<BottomSheet, PropsWithChildren<{onPress:
       enableDynamicSizing
       backdropComponent={renderBackdrop}
       animateOnMount={false}
+      onChange={onChange}
       backgroundStyle={{backgroundColor: '#151518'}}>
-      <BottomSheetView style={styles.bottomSheetView}>
-        {children}
-      </BottomSheetView>
+      <BottomSheetView style={styles.bottomSheetView}>{children}</BottomSheetView>
     </BottomSheet>
   );
 });
 
 const styles = StyleSheet.create({
-  handle :{
+  handle: {
     paddingVertical: 20,
   },
-  indicator : {
+  indicator: {
     width: 60,
     height: 4,
     borderRadius: 4,
     backgroundColor: '#4E4E4E',
   },
-  bottomSheetView : {
+  bottomSheetView: {
     paddingHorizontal: 20,
-    paddingBottom:100,
-    flex:1, 
-    minHeight:500
-  }
-})
+    paddingBottom: 100,
+    flex: 1,
+    minHeight: 500,
+  },
+});
 
 export default MapBottomSheet;

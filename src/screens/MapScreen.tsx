@@ -1,12 +1,17 @@
 import {MapBottomSheet, NearbyMap} from '../entities/map/ui';
-import {NearestGyms, SelectedGymCard} from '@entities/gym/ui';
+import {GymList, NearestGyms, SelectedGymCard} from '@entities/gym/ui';
 import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {MAP_ROUTES, MapRoute} from '@shared/constants';
 import React, {useEffect, useRef, useState} from 'react';
 import {View} from 'react-native';
 
 const MapScreen = () => {
   const [selected, setSelected] = useState<number>();
+  const [showList, setShowList] = useState(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
+  const navigation = useNavigation<NativeStackNavigationProp<MapRoute>>();
 
   useEffect(() => {
     if (!!selected) {
@@ -15,17 +20,35 @@ const MapScreen = () => {
     }
   }, [selected]);
 
-  const onPress = () => {
+  const onBackPress = () => {
     setSelected(undefined);
     if (!bottomSheetRef.current) return;
     bottomSheetRef.current.snapToIndex(0);
   };
 
+  const onChange = (index: number) => {
+    if (index === 3) {
+      if (!!selected) {
+        navigation.navigate(MAP_ROUTES.DETAIL, {id: selected});
+        return;
+      }
+
+      setShowList(true);
+      return;
+    }
+
+    setShowList(false);
+  };
+
+  const onItemClick = (id: number) => () => {
+    setSelected(id);
+  };
   return (
     <View style={{flex: 1}}>
       <NearbyMap selected={selected} setSelected={setSelected} />
-      <MapBottomSheet ref={bottomSheetRef} onPress={onPress}>
-        {!selected && <NearestGyms setSelected={setSelected} />}
+      <MapBottomSheet ref={bottomSheetRef} onPress={onBackPress} onChange={onChange}>
+        {!selected && !showList && <NearestGyms onClick={onItemClick} />}
+        {!selected && showList && <GymList onClick={onItemClick} />}
         {!!selected && <SelectedGymCard id={selected} />}
       </MapBottomSheet>
     </View>

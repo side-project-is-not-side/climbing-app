@@ -49,7 +49,7 @@ function GymDetailInfo({data}: {data: GetGymDetailResponse}) {
           <View className="flex-row items-center py-[10px] px-3 rounded-[4px] bg-red-600 mb-5 shrink break-keep">
             <Icon name="LoudSpeaker" color="#fff" />
             <Text className="font-text-2 text-white overflow-hidden flex-1 break-keep ml-[10px]">
-              {notice ?? '셋팅 요일에 따라 영업 시간이 달라질 수 있습니다.'}
+              {notice || '셋팅 요일에 따라 영업 시간이 달라질 수 있습니다.'}
             </Text>
           </View>
         </View>
