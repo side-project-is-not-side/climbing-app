@@ -20,24 +20,38 @@ const VerificationHistoryPreview = ({recentActivities} : {recentActivities: Acti
 
   return (
     <View className='my-[30px]'>
-      <Text className='mb-[10px] text-white text-sm font-bold'>인증 기록</Text>
+      <Text className='mb-[20px] text-white text-sm font-bold'>인증 기록</Text>
       <View className='flex-row items-stretch justify-between gap-2'>
-        {recentActivities.map((activity, i) => (
-              <Pressable key={activity.imageUrl} className=' rounded-[10px] overflow-hidden bg-neutral-700' onPress={() => handlePressMoreHistory(i === 2)}>
-                <SquareImage
-                  // source={{uri: activity.imageUrl}}
-                  source={require('../../../../assets/images/fire_full.png')}
-                  alt={'verification photo'}
-                  style={{width: (width - 48)/3, height: (width - 48)/3}} className='relative flex-1 overflow-hidden '
-                  resizeMode='contain'
-                />
-                {i === 2 && (
-                  <View className='absolute justify-center items-center top-0 left-0 w-full h-full bg-[#0007]'>
-                    <Text className='text-white'>더보기</Text>
-                  </View>
-                )}
-              </Pressable>
-          ))}
+        {recentActivities.length ? recentActivities.map((activity, i) => (
+            <Pressable key={activity.imageUrl} className=' rounded-[10px] overflow-hidden bg-neutral-700' onPress={() => handlePressMoreHistory(i === 2)}>
+              <SquareImage
+                // source={{uri: activity.imageUrl}}
+                source={require('../../../../assets/images/fire_full.png')}
+                alt={'verification photo'}
+                style={{width: (width - 48)/3, height: (width - 48)/3}} className='relative flex-1 overflow-hidden '
+                resizeMode='contain'
+              />
+              {i === 2 && (
+                <View className='absolute justify-center items-center top-0 left-0 w-full h-full bg-[#0007]'>
+                  <Text className='text-white'>더보기</Text>
+                </View>
+              )}
+            </Pressable>
+          )) : (
+            <View style={{
+                width: (width - 40), 
+                height: (width - 48)/3,
+                borderWidth: 1,
+                borderRadius: 10,
+                borderStyle: 'dashed',
+                borderColor: '#55575B',
+                justifyContent: 'center'
+              }}>
+              <Text className='text-[#55575B] text-center'>현재 진행중인 도전이 없어요.</Text>
+              <Text className='text-[#55575B] text-center'>근처 암장에 가서 그랩을 불태워보자!</Text>
+            </View>
+          )
+        }
       </View>
     </View>
   );

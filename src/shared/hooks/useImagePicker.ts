@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import {Alert} from 'react-native';
+import { useState } from 'react';
+import { Alert } from 'react-native';
 import {
   launchCamera,
   launchImageLibrary,
@@ -8,19 +8,9 @@ import {
   ImageLibraryOptions,
   Asset,
 } from 'react-native-image-picker';
+import ImageResizer from '@bam.tech/react-native-image-resizer';
 
-type Props = {
-  onSelectImage?: (assets: Asset[]) => void;
-  onCancelCamera?: () => void;
-  onCancelGallery?: (asset: Asset | undefined) => void;
-};
-
-export const useImagePicker = (props: Props = {}) => {
-  const {
-    onSelectImage = () => {},
-    onCancelCamera = () => {},
-    onCancelGallery = () => {},
-  } = props;
+export const useImagePicker = () => {
   const [selectedImage, setSelectedImage] = useState<Asset>();
 
   //카메라 앱 실행
@@ -31,21 +21,22 @@ export const useImagePicker = (props: Props = {}) => {
       includeExtra: true,
       saveToPhotos: true,
       quality: 1,
-      videoQuality: 'high',
     };
 
     // 촬영 결과를 받아오는 callback
-    launchCamera(options, (response: ImagePickerResponse) => {
-      if (response.didCancel) return onCancelCamera();
+    launchCamera(options, async (response: ImagePickerResponse) => {
+      if (response.didCancel) return 
       else if (response.errorMessage)
         Alert.alert('Error : ' + response.errorMessage);
       else {
         if (response.assets != null) {
-          const uri = response.assets[0].uri; //assets 여러개가 올수 있는데 중에 0번방 거
-
-          const souce = {uri: uri};
-
-          setSelectedImage(souce);
+          const image = response.assets[0]
+          if(!image?.uri) return null
+    
+          const resizedImage = await ImageResizer.createResizedImage(image?.uri, 360, 360, 'JPEG', 100, 0, null, true,);
+          const {type, timestamp, id} = image
+    
+          setSelectedImage({...resizedImage, type, timestamp, id});
         }
       }
     });
@@ -62,12 +53,17 @@ export const useImagePicker = (props: Props = {}) => {
 
     const response = await launchImageLibrary(option);
 
-    if (response.didCancel) return onCancelGallery(selectedImage);
+    if (response.didCancel) return
     else if (response.errorMessage)
       Alert.alert('Error : ' + response.errorMessage);
     else if (response.assets) {
-      onSelectImage(response.assets);
-      setSelectedImage(response.assets[0]);
+      const image = response.assets[0]
+      if(!image?.uri) return null
+
+      const resizedImage = await ImageResizer.createResizedImage(image?.uri, 360, 360, 'JPEG', 100, 0, null, true,);
+      const {type, timestamp, id} = image
+
+      setSelectedImage({...resizedImage, type, timestamp, id});
     }
   };
 

@@ -1,31 +1,32 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {Dimensions, Image, Pressable, StyleSheet, Text, View} from 'react-native';
-import {useImagePicker} from '../../../shared/hooks';
-import {Button, SquareImage} from '../../../shared/ui';
-import {
-  CHALLENGE_ROUTES,
+import React, { useEffect, useLayoutEffect } from 'react';
+import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { useImagePicker } from '../../../shared/hooks';
+import { Button } from '../../../shared/ui';
+import { 
   ChallengeRoute,
   colors,
 } from '../../../shared/constants';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {formatKST} from '../../../shared/utils';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { formatKST } from '../../../shared/utils';
+import { usePostVerifyPicture } from '../queries/usePostVerifyPicture';
 
-const {width} = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 
 const VerifyPhoto = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
   const route = useRoute<RouteProp<ChallengeRoute, 'verify_photo'>>();
+  const { trigger } = usePostVerifyPicture(route.params.challengeId)
 
   const {openGallery, selectedImage} = useImagePicker();
 
   const handleVerify = () => {
     if (!selectedImage) return;
 
-    navigation.navigate(CHALLENGE_ROUTES.VERIFY_COMPLETE, {
-      image: selectedImage,
-      challengeId: route.params.challengeId,
-    });
+    const formData = new FormData();
+    formData.append('file', selectedImage);
+
+    trigger(formData)
   };
 
   useEffect(() => {
@@ -41,13 +42,14 @@ const VerifyPhoto = () => {
       ),
     });
   }, [selectedImage]);
+  
   return (
-    <View style={styles.root}>
-      <View style={styles.imageContainer}>
+    <View className='flex-1 p-5'>
+      <View className='flex-1'>
         {selectedImage && (
           <>
             <Image source={selectedImage} style={styles.image} />
-            <View style={styles.imageInfo}>
+            <View className='flex-row items-center justify-between my-5'>
               <Text>인증날짜</Text>
               <Text>
                 {selectedImage.timestamp &&
@@ -70,13 +72,6 @@ const VerifyPhoto = () => {
 export default VerifyPhoto;
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    padding: 20,
-  },
-  imageContainer: {
-    flex: 1,
-  },
   image: {
     width: '100%',
     height: width - 40,
@@ -84,11 +79,5 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     overflow: 'hidden',
     borderRadius: 10,
-  },
-  imageInfo: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginVertical: 20,
   },
 });
