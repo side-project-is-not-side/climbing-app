@@ -6,8 +6,7 @@ import useSWRMutation from 'swr/mutation';
 import { useAuthContext } from '@app/AuthContextProvider';
 import { CHALLENGE_ROUTES, ChallengeRoute } from '@shared/constants';
 
-
-export const usePostVerifyPicture = (challengeId: number) => {
+export const  usePostVerifyPicture = (challengeId: number) => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
   const authContext = useAuthContext();
 

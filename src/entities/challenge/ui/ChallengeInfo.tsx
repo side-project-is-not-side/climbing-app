@@ -14,8 +14,8 @@ const activityTypes = {
 };
 
 const ChallengeInfo = ({challenge}: {challenge?: ChallengeDetail}) => {
-  const activityCount = 4
-  const successCount = 30
+  const activityCount = challenge?.activityCount || 0
+  const successCount = challenge?.successCount || 0
   const progress = (activityCount / successCount) * 100
   const chartConfig: AbstractChartConfig = {
     backgroundGradientFromOpacity: 0,

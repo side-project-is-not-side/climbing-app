@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect } from 'react';
 import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useImagePicker } from '../../../shared/hooks';
-import { Button } from '../../../shared/ui';
+import { Button, MenuButton } from '../../../shared/ui';
 import { 
   ChallengeRoute,
   colors,
@@ -36,9 +36,16 @@ const VerifyPhoto = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        selectedImage ? <Pressable onPress={openGallery}>
-          <Text>수정하기</Text>
-        </Pressable> : <></>
+        selectedImage ? 
+        <MenuButton
+          actions={[{title: '사진 변경'}]}
+          onPress={e => {
+            console.log(e.nativeEvent);
+          }}
+        />: <></>
+        // <Pressable onPress={openGallery}>
+        //   <Text>수정하기</Text>
+        // </Pressable> : <></>
       ),
     });
   }, [selectedImage]);
@@ -49,12 +56,20 @@ const VerifyPhoto = () => {
         {selectedImage && (
           <>
             <Image source={selectedImage} style={styles.image} />
-            <View className='flex-row items-center justify-between my-5'>
-              <Text>인증날짜</Text>
-              <Text>
-                {selectedImage.timestamp &&
-                  formatKST(new Date(selectedImage.timestamp))}
-              </Text>
+            <View className='my-5 bg-[#191B1D] p-5 rounded-md'>
+              <View className='flex-row items-center gap-4 mb-2'>
+                <Text className='text-gray-500'>챌린지명</Text>
+                <Text className='text-white'>
+                  {route.params.challengeTitle}
+                </Text>
+              </View>
+              <View className='flex-row items-center gap-4'>
+                <Text className='text-gray-500'>인증날짜</Text>
+                <Text className='text-white'>
+                  {selectedImage.timestamp ?
+                    formatKST(new Date(selectedImage.timestamp)) : formatKST(new Date())}
+                </Text>
+              </View>
             </View>
           </>
         )}

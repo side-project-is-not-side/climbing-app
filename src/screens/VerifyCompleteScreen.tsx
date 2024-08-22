@@ -27,10 +27,7 @@ const VerifyCompleteScreen = ({route, navigation}: ScreenProps) => {
         <Image source={image} className='w-[160px] h-[160px] rounded-lg' resizeMode='cover' onLoadEnd={pageOut} />
       }
       <View className='items-center justify-center gap-1'>
-        <Text className='text-lg font-bold text-white'>인증 완료</Text>
-        <Text className='text-sm text-white'>
-          {formatKST(new Date())}
-        </Text>
+        <Text className='text-lg font-bold text-white'>인증 완료🔥</Text>
         <Text className='text-base text-neutral-400'>계속 도전해보자구 부리!</Text>
       </View>
     </View>
