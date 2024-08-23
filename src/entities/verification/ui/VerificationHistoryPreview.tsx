@@ -21,12 +21,11 @@ const VerificationHistoryPreview = ({recentActivities} : {recentActivities: Acti
   return (
     <View className='my-[30px]'>
       <Text className='mb-[20px] text-white text-sm font-bold'>인증 기록</Text>
-      <View className='flex-row items-stretch justify-between gap-2'>
+      <View className='flex-row items-stretch gap-2'>
         {recentActivities.length ? recentActivities.map((activity, i) => (
             <Pressable key={activity.imageUrl} className=' rounded-[10px] overflow-hidden bg-neutral-700' onPress={() => handlePressMoreHistory(i === 2)}>
               <SquareImage
-                // source={{uri: activity.imageUrl}}
-                source={require('../../../../assets/images/fire_full.png')}
+                source={{uri: activity.imageUrl}}
                 alt={'verification photo'}
                 style={{width: (width - 48)/3, height: (width - 48)/3}} className='relative flex-1 overflow-hidden '
                 resizeMode='contain'

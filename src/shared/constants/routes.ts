@@ -61,7 +61,7 @@ export type ChallengeRoute = {
   };
   verify_complete: {
     challengeId: number;
-    image?: Asset;
+    imageUrl?: string;
   };
 };
 

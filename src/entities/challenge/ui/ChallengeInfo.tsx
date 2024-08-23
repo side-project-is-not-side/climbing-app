@@ -1,11 +1,9 @@
 import React from 'react';
-import {Dimensions, Image, Text, View} from 'react-native';
+import { Image, Text, View } from 'react-native';
 
-import {ChallengeDetail} from '../type';
+import { ChallengeDetail } from '../type';
 import { ProgressChart } from 'react-native-chart-kit';
 import { AbstractChartConfig } from 'react-native-chart-kit/dist/AbstractChart';
-
-const {width} = Dimensions.get('screen')
 
 const activityTypes = {
   PICTURE: '사진 챌린지',
@@ -14,9 +12,10 @@ const activityTypes = {
 };
 
 const ChallengeInfo = ({challenge}: {challenge?: ChallengeDetail}) => {
-  const activityCount = challenge?.activityCount || 0
-  const successCount = challenge?.successCount || 0
+  const activityCount = Number(challenge?.activityCount) || 0
+  const successCount = Number(challenge?.successCount) || 0
   const progress = (activityCount / successCount) * 100
+  
   const chartConfig: AbstractChartConfig = {
     backgroundGradientFromOpacity: 0,
     backgroundGradientToOpacity: 0,
@@ -40,9 +39,9 @@ const ChallengeInfo = ({challenge}: {challenge?: ChallengeDetail}) => {
           blurRadius={4} 
         />
         <View className={`absolute`}>
-          <ProgressChart
+          {/* <ProgressChart
             data={{
-              labels: ["Swim"],
+              labels: ["진행률"],
               data: [progress / 100]
             }}
             width={300}
@@ -51,7 +50,7 @@ const ChallengeInfo = ({challenge}: {challenge?: ChallengeDetail}) => {
             radius={100}
             chartConfig={chartConfig}
             hideLegend={true}
-          />
+          /> */}
         </View>
         <View className='absolute bg-[#9ca3af22] w-[186px] h-[186px] rounded-full justify-center items-center'>
           <Text className='text-gray-400'>진행률</Text>
