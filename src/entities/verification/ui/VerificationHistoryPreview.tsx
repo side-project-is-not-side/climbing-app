@@ -11,19 +11,20 @@ import { Activity } from '../type';
 
 const {width} = Dimensions.get('screen')
 
-const VerificationHistoryPreview = ({recentActivities} : {recentActivities: Activity[]}) => {
+const VerificationHistoryPreview = ({challengeId, recentActivities} : {challengeId?: number, recentActivities: Activity[]}) => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
 
   const handlePressMoreHistory = (enabled: boolean) => {
-    enabled && navigation.navigate('verification_history');
+    if(!challengeId) return
+    enabled && navigation.navigate('verification_history', {challengeId});
   };
 
   return (
     <View className='my-[30px]'>
       <Text className='mb-[20px] text-white text-sm font-bold'>인증 기록</Text>
       <View className='flex-row items-stretch gap-2'>
-        {recentActivities.length ? recentActivities.map((activity, i) => (
-            <Pressable key={activity.imageUrl} className=' rounded-[10px] overflow-hidden bg-neutral-700' onPress={() => handlePressMoreHistory(i === 2)}>
+        {recentActivities.length ? recentActivities.slice(0,3).map((activity, i) => (
+            <Pressable key={`${activity.imageUrl}_${i}`} className=' rounded-[10px] overflow-hidden bg-neutral-700' onPress={() => handlePressMoreHistory(i === 2)}>
               <SquareImage
                 source={{uri: activity.imageUrl}}
                 alt={'verification photo'}

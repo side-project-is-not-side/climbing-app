@@ -6,15 +6,17 @@ import {
   colors,
 } from '../../../shared/constants';
 import {SquareImage} from '../../../shared/ui';
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import { useGetActivities } from '../api/useGetActivities';
 
 const VerificationHistory = () => {
+  const route = useRoute<RouteProp<ChallengeRoute, 'verification_history'>>();
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
 
-  const {data} = useGetActivities()
+  const {data} = useGetActivities(route.params.challengeId)
 
+  console.log(data)
   return (
     <View style={styles.listContainer}>
       <FlatList

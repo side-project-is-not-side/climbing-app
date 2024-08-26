@@ -42,7 +42,9 @@ export type ChallengeRoute = {
   challenge_detail: {
     challengeId: number;
   };
-  verification_history: undefined;
+  verification_history: {
+    challengeId: number;
+  };
   verification_detail: {
     imageUrl: string;
     createdAt: Date

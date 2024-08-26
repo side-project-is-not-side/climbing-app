@@ -39,18 +39,20 @@ const ChallengeInfo = ({challenge}: {challenge?: ChallengeDetail}) => {
           blurRadius={4} 
         />
         <View className={`absolute`}>
-          {/* <ProgressChart
-            data={{
-              labels: ["진행률"],
-              data: [progress / 100]
-            }}
-            width={300}
-            height={300}
-            strokeWidth={14}
-            radius={100}
-            chartConfig={chartConfig}
-            hideLegend={true}
-          /> */}
+          {challenge && 
+            <ProgressChart
+              data={{
+                labels: ["진행률"],
+                data: [progress / 100]
+              }}
+              width={300}
+              height={300}
+              strokeWidth={14}
+              radius={100}
+              chartConfig={chartConfig}
+              hideLegend={true}
+            />
+          }
         </View>
         <View className='absolute bg-[#9ca3af22] w-[186px] h-[186px] rounded-full justify-center items-center'>
           <Text className='text-gray-400'>진행률</Text>
