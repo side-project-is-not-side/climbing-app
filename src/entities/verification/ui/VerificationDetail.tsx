@@ -11,7 +11,7 @@ const deviceWidth = Dimensions.get('window').width;
 const VerificationDetail = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
   const route = useRoute<RouteProp<ChallengeRoute, 'verification_detail'>>();
-  const {imageUrl,createdAt} = route.params
+  const {imageUrl, createdAt, challengeTitle} = route.params
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -19,7 +19,12 @@ const VerificationDetail = () => {
         <MenuButton
           actions={[{title: '삭제하기'}, {title: '인증 내보내기'}]}
           onPress={e => {
-            console.log(e.nativeEvent);
+            switch(e.nativeEvent.index) {
+              case 0:
+                return console.log('삭제')
+              case 1:
+                return console.log('내보내기')
+            }
           }}
         />
       ),
@@ -33,17 +38,23 @@ const VerificationDetail = () => {
           source={{uri: imageUrl}}
           alt={'verification photo'}
           style={[styles.image]}
+          resizeMode='cover'
         />
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: 20,
-        }}>
-        <Text>인증 날짜</Text>
-        <Text>{formatKST(new Date(createdAt))}</Text>
+      <View className='my-5 bg-[#191B1D] p-5 rounded-md'>
+        <View className='flex-row items-center gap-4 mb-2'>
+          <Text className='text-gray-500'>챌린지명</Text>
+          <Text className='text-white'>
+            {challengeTitle}
+          </Text>
+        </View>
+        <View className='flex-row items-center gap-4'>
+          <Text className='text-gray-500'>인증날짜</Text>
+          <Text className='text-white'>
+            {createdAt ?
+              formatKST(new Date(createdAt)) : formatKST(new Date())}
+          </Text>
+        </View>
       </View>
     </View>
   );

@@ -28,13 +28,17 @@ const VerificationHistory = () => {
           <Pressable
             style={styles.imageContainer}
             onPress={() =>
-              navigation.navigate(CHALLENGE_ROUTES.VERIFICATION_DETAIL, {imageUrl: item.imageUrl,
-                createdAt: item.createdAt})
+              navigation.navigate(CHALLENGE_ROUTES.VERIFICATION_DETAIL, {
+                challengeTitle: route.params.challengeTitle,
+                imageUrl: item.imageUrl,
+                createdAt: item.createdAt
+              })
             }>
             <SquareImage
               source={{uri: item.imageUrl}}
               alt={'verification photo'}
               style={styles.image}
+              resizeMode='cover'
             />
           </Pressable>
         )}

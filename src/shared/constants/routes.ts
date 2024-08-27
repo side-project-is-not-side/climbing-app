@@ -43,9 +43,11 @@ export type ChallengeRoute = {
     challengeId: number;
   };
   verification_history: {
+    challengeTitle: string;
     challengeId: number;
   };
   verification_detail: {
+    challengeTitle: string;
     imageUrl: string;
     createdAt: Date
   };

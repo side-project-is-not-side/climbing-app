@@ -40,12 +40,12 @@ const VerifyPhoto = () => {
         <MenuButton
           actions={[{title: '사진 변경'}]}
           onPress={e => {
-            console.log(e.nativeEvent);
+            switch(e.nativeEvent.index) {
+              case 0:
+                return console.log('사진 변경')
+            }
           }}
         />: <></>
-        // <Pressable onPress={openGallery}>
-        //   <Text>수정하기</Text>
-        // </Pressable> : <></>
       ),
     });
   }, [selectedImage]);
