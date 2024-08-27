@@ -8,7 +8,7 @@ export const useGetChallenge = (
 ) => {
   return useSWRInfinite<Challenge[]>(
     () =>
-      `/v1/challenges?status=${status}&page=${pageIndex}&limit=10&sort=LATEST`,
+      `/v1/challenges?status=${status}&page=${pageIndex}&limit=${limit}&sort=LATEST`,
     {
       parallel: true,
     },

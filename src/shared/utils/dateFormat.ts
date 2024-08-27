@@ -23,7 +23,7 @@ export const formatKST = (
     const utcDate = parsedDate.utc();
     const kstDate = utcDate.utcOffset(9);
 
-    return kstDate.format(format || 'YYYY.MM.DD ddd HH:mm');
+    return kstDate.format(format || 'YYYY.MM.DD');
   } catch (error) {
     console.error('Error formatting date:', error);
     return undefined;

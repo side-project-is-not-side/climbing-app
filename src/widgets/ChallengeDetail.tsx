@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {Progress, ChallengeInfo} from '../entities/challenge/ui';
-import {VerificationHistoryPreview} from '../entities/verification/ui';
-import {ChallengeRoute, CHALLENGE_ROUTES} from '../shared/constants';
-import {Button} from '../shared/ui';
-import {useGetChallengeDetail} from '../entities/challenge/api/useGetChallengeDetail';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Progress, ChallengeInfo } from '../entities/challenge/ui';
+import { VerificationHistoryPreview } from '../entities/verification/ui';
+import { ChallengeRoute, CHALLENGE_ROUTES } from '../shared/constants';
+import { Button } from '../shared/ui';
+import { useGetChallengeDetail } from '../entities/challenge/queries/useGetChallengeDetail';
 
 const ChallengeDetail = () => {
   const route = useRoute<RouteProp<ChallengeRoute, 'challenge_detail'>>();
@@ -32,14 +32,9 @@ const ChallengeDetail = () => {
   return (
     <>
       <ScrollView className='flex-1'>
-        <View className='p-5'>
+        <View className='px-5'>
           <ChallengeInfo challenge={challenge} />
-          <Progress
-            activityCount={challenge?.activityCount}
-            successCount={challenge?.successCount}
-          />
-          {/* {!!challenge?.activities.length && <VerificationHistoryPreview recentActivities={challenge?.activities} />} */}
-          <VerificationHistoryPreview recentActivities={[{imageUrl: '1', createdAt: new Date()}, {imageUrl: '2', createdAt: new Date()}, {imageUrl: '3', createdAt: new Date()}]} />
+          <VerificationHistoryPreview challengeId={challenge?.id} challengeTitle={challenge?.title || ""} recentActivities={challenge?.activities || []} />
         </View>
       </ScrollView>
       <View

@@ -1,6 +1,6 @@
 import React from 'react';
 import ContextMenu, {ContextMenuProps} from 'react-native-context-menu-view';
-import {Icon} from '.';
+import { Icon } from './Icon/Icon';
 
 const MenuButton = (props: ContextMenuProps) => {
   return (
