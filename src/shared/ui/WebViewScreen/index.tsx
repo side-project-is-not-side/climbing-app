@@ -1,18 +1,11 @@
-import React from 'react';
-import WebViewComponent from 'react-native-webview';
-import DeviceInfo from 'react-native-device-info';
-import {Platform, ViewStyle, NativeModules, Linking} from 'react-native';
-import {
-  AllRoute,
-  BASE_URL,
-  LINKING_URI,
-  ROOT_ROUTES,
-  WEB_URL,
-} from '../../constants';
+import {useAuthContext} from '../../../app/AuthContextProvider';
+import {AllRoute, BASE_URL, LINKING_URI, ROOT_ROUTES, WEB_URL} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useAuthContext} from '../../../app/AuthContextProvider';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import React from 'react';
+import {Linking, NativeModules, Platform, ViewStyle} from 'react-native';
+import DeviceInfo from 'react-native-device-info';
+import WebViewComponent from 'react-native-webview';
 
 type WebViewProps = {
   uri?: string;
@@ -50,15 +43,11 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
 
   React.useEffect(() => {
     if (Platform.OS === 'android' && token) {
-      NativeModules.CookieManager?.setCookie(
-        uri || '',
-        `accessToken=${token};`,
-        (error: any) => {
-          if (error) {
-            console.error(error);
-          }
-        },
-      );
+      NativeModules.CookieManager?.setCookie(uri || '', `accessToken=${token};`, (error: any) => {
+        if (error) {
+          console.error(error);
+        }
+      });
     }
 
     return () => {
@@ -104,6 +93,11 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
       }}
       onMessage={event => {
         const data = JSON.parse(event.nativeEvent.data);
+
+        if (data.type === 'NAVIGATE') {
+          const {route, id} = data.data;
+          navigation.navigate(route, {id});
+        }
 
         if (data.type === 'STORAGE_DATA') {
           const {key, data: item} = data.data;

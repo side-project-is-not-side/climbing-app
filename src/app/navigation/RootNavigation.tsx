@@ -5,6 +5,7 @@ import {ROOT_ROUTES, RootRoute} from '../../shared/constants';
 import ChallengeNavigation from './ChallengeNavigation';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Text} from 'react-native';
+import MapNavigation from './MapNavigation';
 
 const Tab = createBottomTabNavigator<RootRoute>();
 
@@ -67,7 +68,7 @@ const RootNavigation = () => {
       />
       <Tab.Screen
         name={ROOT_ROUTES.MAP}
-        component={MapScreen}
+        component={MapNavigation}
         options={{
           title: '지도',
           tabBarLabel: ({focused}) => {

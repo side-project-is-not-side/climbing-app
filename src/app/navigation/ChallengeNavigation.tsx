@@ -1,35 +1,34 @@
-import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
 import {
-  ChallengeScreen,
   ChallengeDetailScreen,
-  VerificationHistoryScreen,
-  VerifyPhotoScreen,
+  ChallengeScreen,
   VerificationDetailScreen,
-  VerifyLocationScreen,
-  VerifyGuideScreen,
+  VerificationHistoryScreen,
   VerifyCompleteScreen,
+  VerifyGuideScreen,
+  VerifyLocationScreen,
+  VerifyPhotoScreen,
 } from '../../screens';
-
 import {CHALLENGE_ROUTES, ChallengeRoute} from '../../shared/constants';
 import {colors} from '../../shared/constants';
 import {Icon, LogoIcon} from '../../shared/ui';
-import { Pressable } from 'react-native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React from 'react';
+import {Pressable} from 'react-native';
 
 const Stack = createNativeStackNavigator<ChallengeRoute>();
 
 const ChallengeNavigation = () => {
   return (
     <Stack.Navigator
+      initialRouteName={'challenge'}
       screenOptions={({navigation}) => ({
         headerTitleAlign: 'center',
-        headerTitleStyle: {fontSize: 16, fontWeight: '700', color: "white"},
-        headerLeft: () => 
-        <Pressable onPress={navigation.goBack} className='items-center justify-center w-6 h-6'>
-          <Icon name='ChevronLeft' size={14} />
-        </Pressable>
-        ,
+        headerTitleStyle: {fontSize: 16, fontWeight: '700', color: 'white'},
+        headerLeft: () => (
+          <Pressable onPress={navigation.goBack} className="items-center justify-center w-6 h-6">
+            <Icon name="ChevronLeft" size={14} />
+          </Pressable>
+        ),
         headerBackground: () => <></>,
         animation: 'fade_from_bottom',
       })}>

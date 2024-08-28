@@ -9,7 +9,8 @@
     "start": "react-native start",
     "test": "jest",
     "icons:create": "npx @svgr/cli ./assets/icons --config-file ./scripts/icons/svgr-config.json --template ./scripts/icons/svg-template.js --svgo-config ./scripts/icons/svgo-config.json && node ./scripts/icons/setIcon",
-    "react-native-doctor": "npx @react-native-community/cli doctor"
+    "react-native-doctor": "npx @react-native-community/cli doctor",
+    "prepare": "sh scripts/set-tool-versions.sh"
   },
   "dependencies": {
     "@bam.tech/react-native-image-resizer": "^3.0.10",
@@ -19,6 +20,7 @@
     "@react-navigation/bottom-tabs": "^6.6.0",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.10.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "dayjs": "^1.11.12",
     "joi": "^17.13.3",
     "react": "18.2.0",
