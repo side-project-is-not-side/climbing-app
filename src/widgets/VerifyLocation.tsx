@@ -1,26 +1,36 @@
-import { useRef, useState } from "react";
-import { VerifyMap } from "@entities/map/ui";
-import { VerifyMapBottomSheet } from "@features/verification/ui";
-import BottomSheet from "@gorhom/bottom-sheet";
+import {useGetGymDetailInfo} from '@entities/gym/queries';
+import {VerifyMap} from '@entities/map/ui';
+import {VerifyMapBottomSheet} from '@features/verification/ui';
+import BottomSheet from '@gorhom/bottom-sheet';
+import {useRef, useState} from 'react';
 
+const VerifyLocation = () => {
+  const [selectedGymId, setSelectedGymId] = useState<number | null>(null);
+  const {data} = useGetGymDetailInfo(selectedGymId);
 
-const VerifyLocation =() => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const showTab =() => {
-    bottomSheetRef.current?.expand()
-  }
+  const showTab = (id: number) => {
+    setSelectedGymId(id);
+    bottomSheetRef.current?.expand();
+  };
 
-  const closeTab= () => {
-    bottomSheetRef.current?.collapse()
-  }
+  const closeTab = () => {
+    setSelectedGymId(null);
+    bottomSheetRef.current?.collapse();
+  };
 
   return (
     <>
-      <VerifyMap showTab={showTab} closeTab={closeTab} />
-      <VerifyMapBottomSheet ref={bottomSheetRef} />
+      <VerifyMap
+        showTab={showTab}
+        selectedMarkerIdx={selectedGymId}
+        setSelectedMarkerIdx={setSelectedGymId}
+        closeTab={closeTab}
+      />
+      <VerifyMapBottomSheet ref={bottomSheetRef} gym={data} onClose={() => setSelectedGymId(null)} />
     </>
-  )
-}
+  );
+};
 
 export default VerifyLocation;

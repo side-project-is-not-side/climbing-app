@@ -1,81 +1,60 @@
-import { useState } from 'react';
-import { View } from 'react-native';
-import { NaverMapView } from '@mj-studio/react-native-naver-map';
-
-import Marker from './Marker'
-
-import { useCurrentLocation } from '../hooks';
-import { colors } from '@shared/constants';
+import {useCurrentLocation} from '../hooks';
+import Marker from './Marker';
+import {useGetGymsByLocation} from '@entities/gym/queries';
+import {NaverMapView} from '@mj-studio/react-native-naver-map';
+import {colors} from '@shared/constants';
+import {useMemo, useState} from 'react';
+import {View} from 'react-native';
 
 type Props = {
-  showTab: () => void
-  closeTab: () => void
-}
+  showTab: (id: number) => void;
+  selectedMarkerIdx: number | null;
+  setSelectedMarkerIdx: React.Dispatch<React.SetStateAction<number | null>>;
+  closeTab: () => void;
+};
 
-const VerifyMap = ({showTab, closeTab}: Props) => {
-  const {currentLocation} = useCurrentLocation(15)
-  const [selectedMarkerIdx,setSelectedMarkerIdx] = useState<number|null>(null)
+type LatLng = {latitude: number; longitude: number};
+
+const VerifyMap = ({showTab, selectedMarkerIdx, setSelectedMarkerIdx, closeTab}: Props) => {
+  const {currentLocation} = useCurrentLocation(15);
+
+  const {data} = useGetGymsByLocation();
+
+  const gyms = useMemo(() => {
+    const reduced = data ? data.reduce((acc, pageData) => [...acc, ...pageData], []) : [];
+    return reduced;
+  }, [data]);
 
   const onTabMap = () => {
-    setSelectedMarkerIdx(null)
-    closeTab()
-  }
+    setSelectedMarkerIdx(null);
+    closeTab();
+  };
 
   const onTabMarker = (id: number) => {
-    setSelectedMarkerIdx(id)
-    showTab()
-  }
-
-
-  const dummyLocations = [
-    {
-      id:1,
-      canVerify: true,
-      name: '더 클라임 클라이밍',
-      latitude: currentLocation.latitude + 0.0004,
-      longitude: currentLocation.longitude - 0.0008,
-    },
-    {
-      id:2,
-      canVerify: true,
-      name: '클라임 클라이밍',
-      latitude: currentLocation.latitude - 0.0005,
-      longitude: currentLocation.longitude - 0.0005,
-    },
-    {
-      id:3,
-      canVerify: false,
-      name: '암장암장',
-      latitude: currentLocation.latitude + 0.001,
-      longitude: currentLocation.longitude - 0.001,
-    },
-  ]
+    setSelectedMarkerIdx(id);
+    showTab(id);
+  };
 
   return (
     <View style={{flex: 1}}>
-      <NaverMapView
-        mapType="Basic"
-        style={{flex: 1}}
-        camera={{...currentLocation, zoom: 16}}
-        onTapMap={onTabMap}
-        >
+      <NaverMapView mapType="Basic" style={{flex: 1}} camera={{...currentLocation, zoom: 16}} onTapMap={onTabMap}>
         {/* 내 위치 */}
-        <Marker
-          latitude={currentLocation.latitude}
-          longitude={currentLocation.longitude}
-          type={'circle'}
-        />
+        <Marker latitude={currentLocation.latitude} longitude={currentLocation.longitude} type={'circle'} />
 
-        {dummyLocations.map(location => (
-          <Marker
-            key={location.id}
-            latitude={location.latitude}
-            longitude={location.longitude}
-            type={location.canVerify ? selectedMarkerIdx===location.id ?  'active' : 'inactive': 'disabled'}
-            onTap={() => location.canVerify && onTabMarker(location.id)}
-            caption={{text: location.name, color: location.canVerify ? 'black' : colors.gray700}}
-          />
-        ))}
+        {gyms.map(gym => {
+          const canVerify = true;
+          // const canVerify = gym.distance < 100;
+          return (
+            <Marker
+              key={gym.id}
+              latitude={gym.location.latitude}
+              longitude={gym.location.longitude}
+              type={canVerify ? (selectedMarkerIdx === gym.id ? 'active' : 'inactive') : 'disabled'}
+              onTap={() => canVerify && onTabMarker(gym.id)}
+              caption={{text: gym.name, color: canVerify ? 'black' : colors.gray700}}
+            />
+          );
+        })}
       </NaverMapView>
     </View>
   );

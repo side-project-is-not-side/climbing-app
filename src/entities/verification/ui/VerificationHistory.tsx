@@ -1,29 +1,25 @@
-import React from 'react';
-import {FlatList, Pressable, StyleSheet, View} from 'react-native';
-import {
-  CHALLENGE_ROUTES,
-  ChallengeRoute,
-  colors,
-} from '../../../shared/constants';
+import {CHALLENGE_ROUTES, ChallengeRoute, colors} from '../../../shared/constants';
 import {SquareImage} from '../../../shared/ui';
+import {useGetActivities} from '../api/useGetActivities';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import { useGetActivities } from '../api/useGetActivities';
+import React from 'react';
+import {FlatList, Pressable, StyleSheet, View} from 'react-native';
 
 const VerificationHistory = () => {
   const route = useRoute<RouteProp<ChallengeRoute, 'verification_history'>>();
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
 
-  const {data} = useGetActivities(route.params.challengeId)
+  const {data} = useGetActivities(route.params.challengeId);
 
-  console.log(data)
+  console.log(data);
   return (
     <View style={styles.listContainer}>
       <FlatList
         data={data}
         contentContainerStyle={{paddingVertical: 20}}
         numColumns={3}
-        keyExtractor={item => item.imageUrl}
+        keyExtractor={(item, index) => `${item.imageUrl}_${index}`}
         renderItem={({item}) => (
           <Pressable
             style={styles.imageContainer}
@@ -31,14 +27,14 @@ const VerificationHistory = () => {
               navigation.navigate(CHALLENGE_ROUTES.VERIFICATION_DETAIL, {
                 challengeTitle: route.params.challengeTitle,
                 imageUrl: item.imageUrl,
-                createdAt: item.createdAt
+                createdAt: item.createdAt,
               })
             }>
             <SquareImage
               source={{uri: item.imageUrl}}
               alt={'verification photo'}
               style={styles.image}
-              resizeMode='cover'
+              resizeMode="cover"
             />
           </Pressable>
         )}
