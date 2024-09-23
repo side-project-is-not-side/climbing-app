@@ -1,10 +1,10 @@
-import {Asset} from 'react-native-image-picker';
 import {Challenge} from '../../entities/challenge/type';
+import {Asset} from 'react-native-image-picker';
 
 export const ROOT_ROUTES = {
   HOME: 'home',
   MAP: 'map',
-  MY_PAGE: 'mypage',
+  MY_PAGE: 'my',
   CHALLENGE: 'challenge_group',
   AUTH: 'auth_group',
 } as const;
@@ -50,7 +50,7 @@ export type ChallengeRoute = {
   verification_detail: {
     challengeTitle: string;
     imageUrl: string;
-    createdAt: Date
+    createdAt: Date;
   };
   verify_photo: {
     challengeTitle: string;
@@ -71,10 +71,10 @@ export type ChallengeRoute = {
 };
 
 export type MapRoute = {
-  nearby:undefined,
-  detail:{
-    id:number
-  }
+  nearby: undefined;
+  detail: {
+    id: number;
+  };
 };
 
 export type AuthRoute = {
