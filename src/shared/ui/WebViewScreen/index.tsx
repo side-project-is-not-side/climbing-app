@@ -5,8 +5,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React from 'react';
 import {Linking, NativeModules, Platform, ViewStyle} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import WebViewComponent, {WebView, WebViewNavigation} from 'react-native-webview';
-import {ShouldStartLoadRequest} from 'react-native-webview/lib/WebViewTypes';
+import WebViewComponent from 'react-native-webview';
 
 type WebViewProps = {
   uri?: string;
@@ -56,32 +55,6 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
     };
   }, [token]);
 
-  const onNavigationStateChange = (navState: WebViewNavigation) => {
-    const navLinks = Object.values(LINKING_URI);
-
-    if (!navState.url.includes(BASE_URL) && !navState.url.includes('kauth.kakao.com')) {
-      Linking.openURL(navState.url);
-      return false;
-    }
-
-    const path = navState.url.replace(`${BASE_URL}/`, '').split('?')[0];
-    if (navLinks.includes(path as any) && path !== 'login') {
-      navigation.navigate(path as any);
-    }
-    if (path === '') {
-      navigation.navigate(ROOT_ROUTES.HOME);
-    }
-  };
-
-  const onShouldStartLoadWithRequest = (event: ShouldStartLoadRequest) => {
-    if (!event.url.startsWith('grabbers://') && !event.url.includes(BASE_URL)) {
-      Linking.openURL(event.url);
-      return false;
-    }
-
-    return true;
-  };
-
   return (
     <WebViewComponent
       ref={_webview}
@@ -100,8 +73,24 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
 
     })();true;
     `}
-      onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
-      onNavigationStateChange={onNavigationStateChange}
+      onShouldStartLoadWithRequest={event => {
+        if (event.url.startsWith('grabbers://')) {
+          Linking.openURL(event.url);
+          return false;
+        }
+
+        return true;
+      }}
+      onNavigationStateChange={event => {
+        const navLinks = Object.values(LINKING_URI);
+        const path = event.url.replace(`${BASE_URL}/`, '').split('?')[0];
+        if (navLinks.includes(path as any) && path !== 'login') {
+          navigation.navigate(path as any);
+        }
+        if (path === '') {
+          navigation.navigate(ROOT_ROUTES.HOME);
+        }
+      }}
       onMessage={event => {
         const data = JSON.parse(event.nativeEvent.data);
 

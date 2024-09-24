@@ -1,15 +1,10 @@
-import {AuthContextProvider, Navigation, SWRConfigProvider} from '@app/index';
-import React, {useEffect} from 'react';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import React from 'react';
+
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import SplashScreen from 'react-native-splash-screen';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import { Navigation, SWRConfigProvider,AuthContextProvider } from '@app/index';
 
 function App(): React.JSX.Element {
-  useEffect(() => {
-    setTimeout(() => {
-      SplashScreen.hide();
-    });
-  }, []);
   return (
     <SafeAreaProvider>
       <AuthContextProvider>
