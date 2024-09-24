@@ -86,6 +86,12 @@ android {
         resValue "string", "naver_maps_client_id", project.properties['NAVER_MAPS_CLIENT_ID'] ?: "\"xk9h76bg46\""
     }
     signingConfigs {
+        release {
+            storeFile file("your_keystore.jks")
+            storePassword "031226"
+            keyAlias "your_key_alias"
+            keyPassword "031226"
+        }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
@@ -101,7 +107,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             resValue "string", "CodePushDeploymentKey", CODEPUSH_DEPLOYMENT_KEY_PRODUCTION
