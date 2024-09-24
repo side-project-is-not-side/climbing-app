@@ -1,7 +1,7 @@
-import React, {useMemo, useState} from 'react';
-import {CardList, Tabs} from '../entities/challenge/ui';
 import {useTab} from '../entities/challenge/hooks';
 import {useGetChallenge} from '../entities/challenge/queries/useGetChallenge';
+import {CardList, Tabs} from '../entities/challenge/ui';
+import React, {useMemo, useState} from 'react';
 
 const PAGE_SIZE = 10;
 
@@ -11,9 +11,7 @@ const Challenges = () => {
 
   const {data} = useGetChallenge(tabState, page, PAGE_SIZE);
   const challenges = useMemo(() => {
-    const reduced = data
-    ? data.reduce((acc, pageData) => [...acc, ...pageData], [])
-    : [];
+    const reduced = data ? data.reduce((acc, pageData) => [...acc, ...pageData], []) : [];
     return reduced;
   }, [data]);
 

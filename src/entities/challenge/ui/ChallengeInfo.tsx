@@ -15,6 +15,8 @@ const ChallengeInfo = ({challenge}: {challenge?: ChallengeDetail}) => {
   const successCount = Number(challenge?.successCount) || 0;
   const progress = (activityCount / successCount) * 100;
 
+  const isSuccess = activityCount === successCount;
+
   const chartConfig: AbstractChartConfig = {
     backgroundGradientFromOpacity: 0,
     backgroundGradientToOpacity: 0,
@@ -31,35 +33,44 @@ const ChallengeInfo = ({challenge}: {challenge?: ChallengeDetail}) => {
     <>
       <View className="relative h-[300px] justify-center items-center">
         <Image
-          source={require('../../../../assets/images/buri_v4_inactive.png')}
+          source={
+            isSuccess
+              ? require('../../../../assets/images/buri_v4.png')
+              : require('../../../../assets/images/buri_v4_inactive.png')
+          }
           alt="challenge progress image"
-          className="opacity-30 w-[240px] ml-4"
+          className={`w-[240px] ml-4`}
+          style={{opacity: isSuccess ? 1 : 0.3}}
           resizeMode="contain"
-          blurRadius={4}
+          blurRadius={isSuccess ? 0 : 4}
         />
-        <View className={`absolute`}>
-          {challenge && (
-            <ProgressChart
-              data={{
-                labels: ['진행률'],
-                data: [progress / 100],
-              }}
-              width={300}
-              height={300}
-              strokeWidth={14}
-              radius={100}
-              chartConfig={chartConfig}
-              hideLegend={true}
-            />
-          )}
-        </View>
-        <View className="absolute bg-[#9ca3af22] w-[186px] h-[186px] rounded-full justify-center items-center">
-          <Text className="text-grayscale-200 opacity-60">진행률</Text>
-          <Text className="mb-2 text-[40px] font-black text-primary-400">
-            {activityCount}/{successCount}
-          </Text>
-          <Text className="text-white">뱃지 획득까지 {successCount - activityCount}개</Text>
-        </View>
+        {!isSuccess && (
+          <>
+            <View className={`absolute`}>
+              {challenge && (
+                <ProgressChart
+                  data={{
+                    labels: ['진행률'],
+                    data: [progress / 100],
+                  }}
+                  width={300}
+                  height={300}
+                  strokeWidth={14}
+                  radius={100}
+                  chartConfig={chartConfig}
+                  hideLegend={true}
+                />
+              )}
+            </View>
+            <View className="absolute bg-[#9ca3af22] w-[186px] h-[186px] rounded-full justify-center items-center">
+              <Text className="text-grayscale-200 opacity-60">진행률</Text>
+              <Text className="mb-2 text-[40px] font-black text-primary-400">
+                {activityCount}/{successCount}
+              </Text>
+              <Text className="text-white">뱃지 획득까지 {successCount - activityCount}개</Text>
+            </View>
+          </>
+        )}
       </View>
       <View className="min-h-[100px] my-5">
         <Text className="text-xs font-bold text-center text-primary-400">

@@ -4,7 +4,6 @@ import {
   VerificationDetailScreen,
   VerificationHistoryScreen,
   VerifyCompleteScreen,
-  VerifyGuideScreen,
   VerifyLocationScreen,
   VerifyPhotoScreen,
 } from '../../screens';
@@ -92,15 +91,6 @@ const ChallengeNavigation = () => {
             presentation: 'modal',
             headerStyle: {backgroundColor: colors.gray800},
             contentStyle: {backgroundColor: colors.gray800},
-          }}
-        />
-        <Stack.Screen
-          name={CHALLENGE_ROUTES.VERIFY_GUIDE}
-          component={VerifyGuideScreen}
-          options={{
-            title: '',
-            presentation: 'transparentModal',
-            headerShown: false,
           }}
         />
       </Stack.Group>

@@ -1,5 +1,5 @@
-import React from 'react';
 import {ChallengeDetail} from '../widgets';
+import React from 'react';
 
 const ChallengeDetailScreen = () => {
   return <ChallengeDetail />;

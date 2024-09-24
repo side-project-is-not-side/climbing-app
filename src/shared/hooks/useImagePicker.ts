@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { Alert } from 'react-native';
+import ImageResizer from '@bam.tech/react-native-image-resizer';
+import {useState} from 'react';
+import {Alert} from 'react-native';
 import {
+  Asset,
+  CameraOptions,
+  ImageLibraryOptions,
+  ImagePickerResponse,
   launchCamera,
   launchImageLibrary,
-  CameraOptions,
-  ImagePickerResponse,
-  ImageLibraryOptions,
-  Asset,
 } from 'react-native-image-picker';
-import ImageResizer from '@bam.tech/react-native-image-resizer';
 
 export const useImagePicker = () => {
   const [selectedImage, setSelectedImage] = useState<Asset>();
@@ -25,17 +25,16 @@ export const useImagePicker = () => {
 
     // 촬영 결과를 받아오는 callback
     launchCamera(options, async (response: ImagePickerResponse) => {
-      if (response.didCancel) return 
-      else if (response.errorMessage)
-        Alert.alert('Error : ' + response.errorMessage);
+      if (response.didCancel) return;
+      else if (response.errorMessage) Alert.alert('Error : ' + response.errorMessage);
       else {
         if (response.assets != null) {
-          const image = response.assets[0]
-          if(!image?.uri) return null
-    
-          const resizedImage = await ImageResizer.createResizedImage(image?.uri, 360, 360, 'JPEG', 100, 0, null, true,);
-          const {type, timestamp, id} = image
-    
+          const image = response.assets[0];
+          if (!image?.uri) return null;
+
+          const resizedImage = await ImageResizer.createResizedImage(image?.uri, 360, 360, 'JPEG', 100, 0, null, true);
+          const {type, timestamp, id} = image;
+
           setSelectedImage({...resizedImage, type, timestamp, id});
         }
       }
@@ -53,15 +52,14 @@ export const useImagePicker = () => {
 
     const response = await launchImageLibrary(option);
 
-    if (response.didCancel) return
-    else if (response.errorMessage)
-      Alert.alert('Error : ' + response.errorMessage);
+    if (response.didCancel) return;
+    else if (response.errorMessage) Alert.alert('Error : ' + response.errorMessage);
     else if (response.assets) {
-      const image = response.assets[0]
-      if(!image?.uri) return null
+      const image = response.assets[0];
+      if (!image?.uri) return null;
 
-      const resizedImage = await ImageResizer.createResizedImage(image?.uri, 360, 360, 'JPEG', 100, 0, null, true,);
-      const {type, timestamp, id} = image
+      const resizedImage = await ImageResizer.createResizedImage(image?.uri, 360, 360, 'JPEG', 100, 0, null, true);
+      const {type, timestamp, id} = image;
 
       setSelectedImage({...resizedImage, type, timestamp, id});
     }

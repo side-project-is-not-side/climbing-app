@@ -6,7 +6,7 @@ import {usePostVerifyPicture} from '../queries/usePostVerifyPicture';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useEffect, useLayoutEffect} from 'react';
-import {Dimensions, Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Alert, Dimensions, Image, StyleSheet, Text, View} from 'react-native';
 
 const {width} = Dimensions.get('window');
 
@@ -18,7 +18,7 @@ const VerifyPhoto = () => {
   const {openGallery, selectedImage} = useImagePicker();
 
   const handleVerify = () => {
-    if (!selectedImage) return;
+    if (!selectedImage) return Alert.alert('선택 된 사진이 없습니다.');
 
     const formData = new FormData();
     formData.append('file', selectedImage);
@@ -39,7 +39,7 @@ const VerifyPhoto = () => {
             onPress={e => {
               switch (e.nativeEvent.index) {
                 case 0:
-                  return console.log('사진 변경');
+                  return openGallery();
               }
             }}
           />

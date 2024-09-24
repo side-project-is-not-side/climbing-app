@@ -1,48 +1,53 @@
-import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Progress, ChallengeInfo } from '../entities/challenge/ui';
-import { VerificationHistoryPreview } from '../entities/verification/ui';
-import { ChallengeRoute, CHALLENGE_ROUTES } from '../shared/constants';
-import { Button } from '../shared/ui';
-import { useGetChallengeDetail } from '../entities/challenge/queries/useGetChallengeDetail';
+import {useGetChallengeDetail} from '../entities/challenge/queries/useGetChallengeDetail';
+import {ChallengeInfo} from '../entities/challenge/ui';
+import {VerificationHistoryPreview} from '../entities/verification/ui';
+import {ChallengeRoute} from '../shared/constants';
+import {Button} from '../shared/ui';
+import ChallengeGuideTab from '@entities/challenge/ui/ChallengeGuideTab';
+import BottomSheet from '@gorhom/bottom-sheet';
+import {RouteProp, useRoute} from '@react-navigation/native';
+import React, {useRef} from 'react';
+import {ScrollView, View} from 'react-native';
 
 const ChallengeDetail = () => {
+  const bottomSheetRef = useRef<BottomSheet>(null);
   const route = useRoute<RouteProp<ChallengeRoute, 'challenge_detail'>>();
-  const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
 
   const {data: challenge} = useGetChallengeDetail(route.params.challengeId);
+  const isSuccess = challenge && challenge.activityCount === challenge.successCount;
 
-  const handleNavigateVerify = () => {
-    switch (challenge?.activityType) {
-      case 'PICTURE':
-        return navigation.navigate(CHALLENGE_ROUTES.VERIFY_GUIDE, {
-          challengeTitle: challenge?.title,
-          challengeId: challenge?.id,
-        });
-      case 'LOCATION':
-        return navigation.navigate(CHALLENGE_ROUTES.VERIFY_LOCATION, {
-          challengeTitle: challenge?.title,
-          challengeId: challenge?.id,
-        });
-    }
+  const showTab = () => {
+    bottomSheetRef.current?.expand();
   };
 
   return (
     <>
-      <ScrollView className='flex-1'>
-        <View className='px-5'>
+      <ScrollView className="flex-1">
+        <View className="px-5">
           <ChallengeInfo challenge={challenge} />
-          <VerificationHistoryPreview challengeId={challenge?.id} challengeTitle={challenge?.title || ""} recentActivities={challenge?.activities || []} />
+          <VerificationHistoryPreview
+            challengeId={challenge?.id}
+            challengeTitle={challenge?.title || ''}
+            recentActivities={challenge?.activities || []}
+          />
         </View>
       </ScrollView>
       <View
         style={{
           padding: 20,
         }}>
-        <Button onPress={handleNavigateVerify}>인증하기</Button>
+        <Button onPress={showTab} disabled={isSuccess}>
+          인증하기
+        </Button>
       </View>
+      {challenge && (
+        <ChallengeGuideTab
+          ref={bottomSheetRef}
+          activityType={challenge.activityType}
+          challengeTitle={challenge.title}
+          challengeId={challenge.id}
+        />
+      )}
     </>
   );
 };

@@ -1,15 +1,9 @@
+import {Challenge} from '../type';
+import {Card} from './';
 import React from 'react';
 import {FlatList, StyleSheet} from 'react-native';
-import {Card} from './';
-import {Challenge} from '../type';
 
-const CardList = ({
-  data = [],
-  handlePaging,
-}: {
-  data: Challenge[];
-  handlePaging: () => void;
-}) => {
+const CardList = ({data = [], handlePaging}: {data: Challenge[]; handlePaging: () => void}) => {
   return (
     <FlatList
       contentContainerStyle={styles.cardList}
@@ -28,7 +22,6 @@ export default CardList;
 const styles = StyleSheet.create({
   cardList: {
     paddingHorizontal: 20,
-    paddingTop: 10,
     paddingBottom: 20,
   },
 });
