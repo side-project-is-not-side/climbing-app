@@ -1,5 +1,5 @@
-import {Challenge} from '../../entities/challenge/type';
-import {Asset} from 'react-native-image-picker';
+import {ActivityType} from '../../entities/challenge/type';
+import {VerificationInfo} from '@entities/verification/type';
 
 export const ROOT_ROUTES = {
   HOME: 'home',
@@ -46,11 +46,12 @@ export type ChallengeRoute = {
   verification_history: {
     challengeTitle: string;
     challengeId: number;
+    activityType: ActivityType;
   };
   verification_detail: {
     challengeTitle: string;
-    imageUrl: string;
-    createdAt: Date;
+    activityType: ActivityType;
+    verificationInfo: VerificationInfo;
   };
   verify_photo: {
     challengeTitle: string;

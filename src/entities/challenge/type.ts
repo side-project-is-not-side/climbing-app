@@ -16,8 +16,20 @@ export type Challenge = {
 
 export type ChallengeDetail = Challenge & {
   description: string;
-  activities: {
-    imageUrl: string;
-    createdAt: Date;
-  }[];
+  activities: Activity[];
+};
+
+export type Activity = ActivityLocation | ActivityPicture;
+
+export type ActivityPicture = {
+  id: number;
+  imageUrl: string;
+  createdAt: Date;
+};
+
+export type ActivityLocation = {
+  id: number;
+  gymName: string;
+  gymAddress: string;
+  createdAt: Date;
 };

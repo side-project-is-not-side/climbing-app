@@ -1,25 +1,19 @@
 import {useAuthContext} from '@app/AuthContextProvider';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {CHALLENGE_ROUTES, ChallengeRoute} from '@shared/constants';
-import {Alert} from 'react-native';
 import useSWRMutation from 'swr/mutation';
 
-export const usePostVerifyPicture = (challengeId: number) => {
-  const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
+export const useDeleteActivity = (id: number) => {
   const authContext = useAuthContext();
 
-  const fetcher = async (url: string, {arg}: {arg: FormData}) => {
+  const fetcher = async (url: string) => {
     const token = authContext?.token;
 
     try {
       const res = await fetch(`https://api.grabbers.co.kr${url}`, {
-        method: 'POST',
+        method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
         },
-        body: arg,
       });
 
       if (!res.ok) {
@@ -45,17 +39,7 @@ export const usePostVerifyPicture = (challengeId: number) => {
     }
   };
 
-  return useSWRMutation(`/v1/challenges/${challengeId}/activities/picture`, fetcher, {
-    onSuccess(data) {
-      if (data?.uploadFileUrl) {
-        navigation.navigate(CHALLENGE_ROUTES.VERIFY_COMPLETE, {
-          imageUrl: data.uploadFileUrl,
-          challengeId,
-        });
-      } else {
-        Alert.alert('잠시 후 다시 시도해주세요.');
-      }
-    },
+  return useSWRMutation(`/v1/records/${id}`, fetcher, {
     onError(err) {
       console.log(err);
     },

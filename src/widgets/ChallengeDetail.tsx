@@ -25,11 +25,14 @@ const ChallengeDetail = () => {
       <ScrollView className="flex-1">
         <View className="px-5">
           <ChallengeInfo challenge={challenge} />
-          <VerificationHistoryPreview
-            challengeId={challenge?.id}
-            challengeTitle={challenge?.title || ''}
-            recentActivities={challenge?.activities || []}
-          />
+          {challenge && (
+            <VerificationHistoryPreview
+              challengeId={challenge.id}
+              challengeTitle={challenge.title || ''}
+              activityType={challenge.activityType}
+              recentActivities={challenge.activities || []}
+            />
+          )}
         </View>
       </ScrollView>
       <View
