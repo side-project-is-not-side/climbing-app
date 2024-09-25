@@ -1,12 +1,12 @@
 import {useAuthContext} from '../../../app/AuthContextProvider';
-import {AllRoute, BASE_URL, LINKING_URI, ROOT_ROUTES, WEB_URL} from '../../constants';
+import {AllRoute, BASE_URL, KAKAO_AUTH_URL, KAKAO_LOGIN_URL, LINKING_URI, ROOT_ROUTES, WEB_URL} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React from 'react';
 import {Linking, NativeModules, Platform, ViewStyle} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import WebViewComponent, {WebView, WebViewNavigation} from 'react-native-webview';
-import {ShouldStartLoadRequest} from 'react-native-webview/lib/WebViewTypes';
+import WebViewComponent, {WebViewNavigation} from 'react-native-webview';
+import {ShouldStartLoadRequest, WebViewMessageEvent} from 'react-native-webview/lib/WebViewTypes';
 
 type WebViewProps = {
   uri?: string;
@@ -15,6 +15,7 @@ type WebViewProps = {
   token?: string | null;
 } & React.ComponentProps<typeof WebViewComponent>;
 
+const WEBVIEW_URLS = [BASE_URL, KAKAO_LOGIN_URL, KAKAO_AUTH_URL];
 const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
   const {uri, html, style, ...rest} = props;
 
@@ -58,14 +59,15 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
 
   const onNavigationStateChange = (navState: WebViewNavigation) => {
     const navLinks = Object.values(LINKING_URI);
+    console.log({url: navState.url});
 
-    if (!navState.url.includes(BASE_URL) && !navState.url.includes('kauth.kakao.com')) {
+    if (!navState.url.includes(BASE_URL) && !navState.url.includes('kakao')) {
       Linking.openURL(navState.url);
-      return false;
+      return;
     }
 
     const path = navState.url.replace(`${BASE_URL}/`, '').split('?')[0];
-    if (navLinks.includes(path as any) && path !== 'login') {
+    if (navLinks.includes(path as any) && path !== 'login' && path !== 'my/user-info') {
       navigation.navigate(path as any);
     }
     if (path === '') {
@@ -74,12 +76,37 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
   };
 
   const onShouldStartLoadWithRequest = (event: ShouldStartLoadRequest) => {
-    if (!event.url.startsWith('grabbers://') && !event.url.includes(BASE_URL)) {
+    if (event.url.startsWith('grabbers://') || !WEBVIEW_URLS.some(webviewUrl => event.url.includes(webviewUrl))) {
       Linking.openURL(event.url);
       return false;
     }
 
     return true;
+  };
+
+  const onMessage = (event: WebViewMessageEvent) => {
+    const data = JSON.parse(event.nativeEvent.data);
+
+    if (data.type === 'NAVIGATE') {
+      const {route, id} = data.data;
+      console.log(route);
+      navigation.navigate(route, {id});
+    }
+
+    if (data.type === 'STORAGE_DATA') {
+      const {key, data: item} = data.data;
+
+      if (key === 'accessToken') {
+        return authContext?.setToken(item);
+      }
+      if (key === 'isFirstVisit') {
+        return authContext?.setIsFirstVisit(item);
+      }
+    }
+
+    if (data.type === 'LOGOUT') {
+      authContext?.setToken(null);
+    }
   };
 
   return (
@@ -102,29 +129,7 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
     `}
       onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
       onNavigationStateChange={onNavigationStateChange}
-      onMessage={event => {
-        const data = JSON.parse(event.nativeEvent.data);
-
-        if (data.type === 'NAVIGATE') {
-          const {route, id} = data.data;
-          navigation.navigate(route, {id});
-        }
-
-        if (data.type === 'STORAGE_DATA') {
-          const {key, data: item} = data.data;
-
-          if (key === 'accessToken') {
-            return authContext?.setToken(item);
-          }
-          if (key === 'isFirstVisit') {
-            return authContext?.setIsFirstVisit(item);
-          }
-        }
-
-        if (data.type === 'LOGOUT') {
-          authContext?.setToken(null);
-        }
-      }}
+      onMessage={onMessage}
       style={[{flex: 1}, style]}
       webviewDebuggingEnabled={true}
       userAgent={ua}

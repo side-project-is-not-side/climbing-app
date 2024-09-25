@@ -27,3 +27,6 @@ export const WEB_URL = {
   LOGIN: `${BASE_URL}/${LINKING_URI.LOGIN}`,
   ONBOARDING: `${BASE_URL}/${LINKING_URI.ONBOARDING}`,
 } as const;
+
+export const KAKAO_LOGIN_URL = 'https://accounts.kakao.com';
+export const KAKAO_AUTH_URL = 'https://kauth.kakao.com';
