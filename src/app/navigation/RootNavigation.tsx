@@ -1,11 +1,11 @@
-import {LogoIcon, TabIcon} from '../../shared/ui';
 import {HomeScreen, MapScreen, MyScreen} from '../../screens';
-
 import {ROOT_ROUTES, RootRoute} from '../../shared/constants';
+import {LogoIcon, TabIcon} from '../../shared/ui';
 import ChallengeNavigation from './ChallengeNavigation';
+import MapNavigation from './MapNavigation';
+import MyNavigation from './MyNavigation';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Text} from 'react-native';
-import MapNavigation from './MapNavigation';
 
 const Tab = createBottomTabNavigator<RootRoute>();
 
@@ -51,6 +51,7 @@ const RootNavigation = () => {
         component={HomeScreen}
         options={{
           headerTitle: '',
+          headerTransparent: true,
           headerLeft: LogoIcon,
           tabBarLabel: ({focused}) => {
             return (
@@ -101,15 +102,14 @@ const RootNavigation = () => {
               </Text>
             );
           },
-          tabBarIcon: ({focused}) => (
-            <TabIcon name="Challenge" focused={focused} />
-          ),
+          tabBarIcon: ({focused}) => <TabIcon name="Challenge" focused={focused} />,
         }}
       />
       <Tab.Screen
-        name={ROOT_ROUTES.MY_PAGE}
-        component={MyScreen}
+        name={'my_group'}
+        component={MyNavigation}
         options={{
+          headerShown: false,
           tabBarLabel: ({focused}) => {
             return (
               <Text
