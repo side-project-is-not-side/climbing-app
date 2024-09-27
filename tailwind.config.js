@@ -84,7 +84,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        notoSans: ['NotoSansKR'],
+        pretendard: ['PretendardVariable'],
       },
     },
   },
