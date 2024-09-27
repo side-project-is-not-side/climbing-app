@@ -14,7 +14,7 @@ function App(): React.JSX.Element {
     <SafeAreaProvider>
       <AuthContextProvider>
         <SWRConfigProvider>
-          <GestureHandlerRootView className="font-notoSans" style={{flex: 1}}>
+          <GestureHandlerRootView className="font-pretendard" style={{flex: 1}}>
             <Navigation />
           </GestureHandlerRootView>
         </SWRConfigProvider>
