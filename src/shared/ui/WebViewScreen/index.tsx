@@ -1,10 +1,18 @@
 import {useAuthContext} from '../../../app/AuthContextProvider';
-import {AllRoute, BASE_URL, KAKAO_AUTH_URL, KAKAO_LOGIN_URL, LINKING_URI, ROOT_ROUTES, WEB_URL} from '../../constants';
+import {
+  AllRoute,
+  BASE_URL,
+  KAKAO_AUTH_URL,
+  KAKAO_LOGIN_URL,
+  LINKING_URI,
+  ROOT_ROUTES,
+  WEB_URL,
+  userAgent,
+} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React from 'react';
 import {Linking, NativeModules, Platform, ViewStyle} from 'react-native';
-import DeviceInfo from 'react-native-device-info';
 import WebViewComponent, {WebViewNavigation} from 'react-native-webview';
 import {ShouldStartLoadRequest, WebViewMessageEvent} from 'react-native-webview/lib/WebViewTypes';
 
@@ -23,25 +31,7 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
   const navigation = useNavigation<NativeStackNavigationProp<AllRoute>>();
   const authContext = useAuthContext();
 
-  const [ua, setUa] = React.useState('');
-
   const token = authContext?.token;
-
-  const localeURI = React.useMemo(() => {
-    if (/(\:3000)|(grabbers\.co\.kr)/.test(uri ?? '')) {
-      const path = uri?.slice(-1)[0];
-
-      return `${uri}/${path ?? ''}`;
-    }
-
-    return uri;
-  }, [uri]);
-
-  React.useEffect(() => {
-    DeviceInfo.getUserAgent().then(ua => {
-      setUa(ua + '-grabbers-');
-    });
-  }, [uri]);
 
   React.useEffect(() => {
     if (Platform.OS === 'android' && token) {
@@ -112,7 +102,6 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
   return (
     <WebViewComponent
       ref={_webview}
-      // source={{uri: uri ?? WEB_URL.HOME}}
       scalesPageToFit={true}
       source={{
         ...(html ? {html} : {uri: uri ? uri : WEB_URL.HOME}),
@@ -132,7 +121,7 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
       onMessage={onMessage}
       style={[{flex: 1}, style]}
       webviewDebuggingEnabled={true}
-      userAgent={ua}
+      userAgent={userAgent}
       sharedCookiesEnabled={false}
       originWhitelist={['*']}
       allowsInlineMediaPlayback={true}
