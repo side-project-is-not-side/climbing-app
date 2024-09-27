@@ -1251,7 +1251,7 @@ PODS:
     - React-utils (= 0.74.3)
   - RNCAsyncStorage (1.24.0):
     - React-Core
-  - RNDeviceInfo (11.1.0):
+  - RNDeviceInfo (13.0.0):
     - React-Core
   - RNGestureHandler (2.18.1):
     - DoubleConversion
@@ -1615,7 +1615,7 @@ SPEC CHECKSUMS:
   React-utils: a06061b3887c702235d2dac92dacbd93e1ea079e
   ReactCommon: f00e436b3925a7ae44dfa294b43ef360fbd8ccc4
   RNCAsyncStorage: ec53e44dc3e75b44aa2a9f37618a49c3bc080a7a
-  RNDeviceInfo: b899ce37a403a4dea52b7cb85e16e49c04a5b88e
+  RNDeviceInfo: 55264dd7cc939dad6e9c231a7621311f5277f1dc
   RNGestureHandler: efed690b8493a00b99654043daeb1335276ac4a2
   RNPermissions: fdeab83cb5e1d49fd53b14b7070b081c1d7dba7a
   RNReanimated: f4ff116e33e0afc3d127f70efe928847c7c66355
