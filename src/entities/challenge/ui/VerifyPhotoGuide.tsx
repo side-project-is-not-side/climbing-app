@@ -1,15 +1,15 @@
 import React from 'react';
 import {Dimensions, Image, ScrollView, Text, View} from 'react-native';
 
-const deviceWidth = Dimensions.get('window').width;
+const {width, height} = Dimensions.get('window');
 
 const VerifyPhotoGuide = () => {
   return (
-    <ScrollView style={{marginBottom: 16}}>
+    <ScrollView style={{marginBottom: 16, maxHeight: (height - 272) * 0.8}}>
       <Image
         source={require('../../../../assets/images/verification_guide_1.png')}
         alt={'verification guide image'}
-        style={{height: (deviceWidth - 40) * 0.434}}
+        style={{height: (width - 40) * 0.434}}
         className="m-1 mx-auto rounded-xl"
         resizeMode="cover"
       />
@@ -21,7 +21,7 @@ const VerifyPhotoGuide = () => {
       <Image
         source={require('../../../../assets/images/verification_guide_2.png')}
         alt={'verification guide image'}
-        style={{height: (deviceWidth - 40) * 0.434}}
+        style={{height: (width - 40) * 0.434}}
         className="m-1 mx-auto rounded-xl"
         resizeMode="cover"
       />

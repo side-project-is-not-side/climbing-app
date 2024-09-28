@@ -56,13 +56,13 @@ const ChallengeInfo = ({challenge}: {challenge?: ChallengeDetail}) => {
                   width={300}
                   height={300}
                   strokeWidth={14}
-                  radius={100}
+                  radius={99}
                   chartConfig={chartConfig}
                   hideLegend={true}
                 />
               )}
             </View>
-            <View className="absolute bg-[#9ca3af22] w-[186px] h-[186px] rounded-full justify-center items-center">
+            <View className="absolute bg-[#9ca3af22] w-[184px] h-[184px] rounded-full justify-center items-center">
               <Text className="text-grayscale-200 opacity-60">진행률</Text>
               <Text className="mb-2 text-[40px] font-black text-primary-400">
                 {activityCount}/{successCount}

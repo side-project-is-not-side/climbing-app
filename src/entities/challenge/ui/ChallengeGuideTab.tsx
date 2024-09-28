@@ -1,14 +1,12 @@
 import {ActivityType} from '../type';
 import VerifyLocationGuide from '@entities/challenge/ui/VerifyLocationGuide';
 import VerifyPhotoGuide from '@entities/challenge/ui/VerifyPhotoGuide';
-import {GetGymDetailResponse} from '@entities/gym/api/types';
 import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {CHALLENGE_ROUTES, ChallengeRoute} from '@shared/constants';
 import {Button} from '@shared/ui';
 import React, {ForwardedRef, forwardRef} from 'react';
-import {Pressable} from 'react-native';
 
 type Props = {
   activityType: ActivityType;
@@ -47,12 +45,12 @@ const ChallengeGuideTab = forwardRef(
           borderRadius: 4,
           backgroundColor: '#4E4E4E',
         }}
-        snapPoints={activityType === 'LOCATION' ? [1, 440] : [1, '84%']}
+        snapPoints={activityType === 'PICTURE' ? [1, '84%'] : [1, 440]}
         backgroundStyle={{backgroundColor: '#151518'}}
         enableContentPanningGesture={false}
         enablePanDownToClose>
         <BottomSheetView style={{padding: 20, paddingBottom: 20, flex: 1, borderWidth: 1, borderColor: 'transparent'}}>
-          {activityType === 'LOCATION' ? <VerifyLocationGuide /> : <VerifyPhotoGuide />}
+          {activityType === 'PICTURE' ? <VerifyPhotoGuide /> : <VerifyLocationGuide />}
           <Button onPress={handleVerify}>인증하기</Button>
         </BottomSheetView>
       </BottomSheet>
