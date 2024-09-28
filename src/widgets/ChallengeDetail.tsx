@@ -6,20 +6,25 @@ import {Button} from '../shared/ui';
 import ChallengeGuideTab from '@entities/challenge/ui/ChallengeGuideTab';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {RouteProp, useRoute} from '@react-navigation/native';
-import React, {useRef} from 'react';
+import React, {useLayoutEffect, useRef} from 'react';
 import {ScrollView, View} from 'react-native';
 
 const ChallengeDetail = () => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const route = useRoute<RouteProp<ChallengeRoute, 'challenge_detail'>>();
 
-  const {data: challenge} = useGetChallengeDetail(route.params.challengeId);
+  const {challengeId, activityType} = route.params;
+
+  const {data: challenge} = useGetChallengeDetail(challengeId, activityType);
   const isSuccess = challenge && challenge.activityCount === challenge.successCount;
 
   const showTab = () => {
     bottomSheetRef.current?.expand();
   };
 
+  useLayoutEffect(() => {
+    bottomSheetRef.current?.collapse();
+  });
   return (
     <>
       <ScrollView className="flex-1">
@@ -30,7 +35,7 @@ const ChallengeDetail = () => {
               challengeId={challenge.id}
               challengeTitle={challenge.title || ''}
               activityType={challenge.activityType}
-              recentActivities={challenge.activities || []}
+              recentActivities={challenge.records || []}
             />
           )}
         </View>

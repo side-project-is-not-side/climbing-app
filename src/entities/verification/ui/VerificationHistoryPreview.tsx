@@ -41,7 +41,7 @@ const VerificationHistoryPreview = ({challengeId, challengeTitle, activityType, 
             (recentActivities as ActivityLocation[]).slice(0, 3).map((activity, i) => (
               <Pressable
                 key={`${activity.id}_${i}`}
-                className="rounded-[10px] overflow-hidden bg-neutral-700 items-center justify-center"
+                className="rounded-[10px] overflow-hidden bg-neutral-700 items-center justify-center gap-1 p-2"
                 onPress={() => handlePressMoreHistory(i === 2, activity)}
                 style={{width: (width - 48) / 3, height: (width - 48) / 3}}>
                 <Image
@@ -49,7 +49,15 @@ const VerificationHistoryPreview = ({challengeId, challengeTitle, activityType, 
                   alt={'Verification location Icon'}
                   className=""
                 />
-                {i === 2 && <Text className="text-white">더보기</Text>}
+                <View className="h-8 items-center justify-center">
+                  {i === 2 ? (
+                    <Text className="text-xs text-grayscale-400">더보기</Text>
+                  ) : (
+                    <Text className="text-xs text-grayscale-400" numberOfLines={2} ellipsizeMode="tail">
+                      {activity.gymName}
+                    </Text>
+                  )}
+                </View>
               </Pressable>
             ))
           ) : (

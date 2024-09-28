@@ -1,10 +1,16 @@
 import {useGetGymDetailInfo} from '@entities/gym/queries';
-import {VerifyMap} from '@entities/map/ui';
+import {VerifyMap} from '@entities/verification/ui';
 import {VerifyMapBottomSheet} from '@features/verification/ui';
 import BottomSheet from '@gorhom/bottom-sheet';
-import {useRef, useState} from 'react';
+import {RouteProp, useRoute} from '@react-navigation/native';
+import {ChallengeRoute} from '@shared/constants';
+import {useLayoutEffect, useRef, useState} from 'react';
 
 const VerifyLocation = () => {
+  const route = useRoute<RouteProp<ChallengeRoute, 'verify_location'>>();
+
+  const {challengeId} = route.params;
+
   const [selectedGymId, setSelectedGymId] = useState<number | null>(null);
   const {data} = useGetGymDetailInfo(selectedGymId);
 
@@ -23,12 +29,18 @@ const VerifyLocation = () => {
   return (
     <>
       <VerifyMap
-        showTab={showTab}
+        challengeId={challengeId}
         selectedMarkerIdx={selectedGymId}
         setSelectedMarkerIdx={setSelectedGymId}
+        showTab={showTab}
         closeTab={closeTab}
       />
-      <VerifyMapBottomSheet ref={bottomSheetRef} gym={data} onClose={() => setSelectedGymId(null)} />
+      <VerifyMapBottomSheet
+        ref={bottomSheetRef}
+        challengeId={challengeId}
+        gym={data}
+        onClose={() => setSelectedGymId(null)}
+      />
     </>
   );
 };

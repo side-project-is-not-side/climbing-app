@@ -12,7 +12,7 @@ import {colors} from '../../shared/constants';
 import {Icon, LogoIcon} from '../../shared/ui';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {Pressable} from 'react-native';
+import {Button, Pressable} from 'react-native';
 
 const Stack = createNativeStackNavigator<ChallengeRoute>();
 
@@ -47,7 +47,14 @@ const ChallengeNavigation = () => {
         <Stack.Screen
           name={CHALLENGE_ROUTES.CHALLENGE_DETAIL}
           component={ChallengeDetailScreen}
-          options={{title: ''}}
+          options={({navigation}) => ({
+            title: '',
+            headerLeft: () => (
+              <Pressable onPress={() => navigation.navigate('challenge')}>
+                <Icon name={'ArrowBack'} size={24} color={'#fff'} />
+              </Pressable>
+            ),
+          })}
         />
         <Stack.Screen
           name={CHALLENGE_ROUTES.VERIFICATION_HISTORY}

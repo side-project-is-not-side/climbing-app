@@ -1,3 +1,4 @@
+import {usePostVerifyLocation} from '../queries/usePostVerifyLocation';
 import {GetGymDetailResponse} from '@entities/gym/api/types';
 import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
@@ -10,20 +11,19 @@ import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
 const deviceWidth = Dimensions.get('window').width;
 
 type Props = {
+  challengeId: number;
   gym?: GetGymDetailResponse;
   latitude?: number;
   longitude?: number;
   onClose: () => void;
 };
 
-const VerifyMapBottomSheet = forwardRef(({gym, onClose}: Props, ref: ForwardedRef<BottomSheet>) => {
-  const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
-  const route = useRoute<RouteProp<ChallengeRoute, 'verify_location'>>();
+const VerifyMapBottomSheet = forwardRef(({challengeId, gym, onClose}: Props, ref: ForwardedRef<BottomSheet>) => {
+  const {trigger} = usePostVerifyLocation(challengeId);
 
   const handleVerify = () => {
-    navigation.navigate(CHALLENGE_ROUTES.VERIFY_COMPLETE, {
-      challengeId: route.params.challengeId,
-    });
+    if (!gym) return;
+    trigger({latitude: gym.location.latitude, longitude: gym.location.longitude, gymId: gym.id});
   };
 
   return (
@@ -62,7 +62,9 @@ const VerifyMapBottomSheet = forwardRef(({gym, onClose}: Props, ref: ForwardedRe
               ))}
           </View>
         </View>
-        <Button onPress={handleVerify}>이 위치로 인증하기</Button>
+        <Button onPress={handleVerify} disabled={!gym}>
+          이 위치로 인증하기
+        </Button>
       </BottomSheetView>
     </BottomSheet>
   );
@@ -94,6 +96,7 @@ const styles = StyleSheet.create({
   },
   tags: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: 4,
     marginVertical: 4,
   },

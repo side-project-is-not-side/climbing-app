@@ -20,8 +20,6 @@ const ChallengeGuideTab = forwardRef(
   ({activityType, challengeTitle, challengeId}: Props, ref: ForwardedRef<BottomSheet>) => {
     const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
 
-    console.log(activityType);
-
     const handleVerify = () => {
       switch (activityType) {
         case 'PICTURE':
@@ -49,11 +47,11 @@ const ChallengeGuideTab = forwardRef(
           borderRadius: 4,
           backgroundColor: '#4E4E4E',
         }}
-        snapPoints={[1, '80%']}
+        snapPoints={activityType === 'LOCATION' ? [1, 440] : [1, '84%']}
         backgroundStyle={{backgroundColor: '#151518'}}
         enableContentPanningGesture={false}
         enablePanDownToClose>
-        <BottomSheetView style={{padding: 20, flex: 1, borderWidth: 1, borderColor: '#fff'}}>
+        <BottomSheetView style={{padding: 20, paddingBottom: 20, flex: 1, borderWidth: 1, borderColor: 'transparent'}}>
           {activityType === 'LOCATION' ? <VerifyLocationGuide /> : <VerifyPhotoGuide />}
           <Button onPress={handleVerify}>인증하기</Button>
         </BottomSheetView>

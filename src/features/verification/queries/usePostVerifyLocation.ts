@@ -1,16 +1,17 @@
 import {useAuthContext} from '@app/AuthContextProvider';
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {CHALLENGE_ROUTES, ChallengeRoute} from '@shared/constants';
-import {Alert} from 'react-native';
 import {mutate} from 'swr';
 import useSWRMutation from 'swr/mutation';
 
-export const usePostVerifyPicture = (challengeId: number) => {
+export const usePostVerifyLocation = (challengeId: number) => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
+  const route = useRoute<RouteProp<ChallengeRoute, 'verify_location'>>();
+
   const authContext = useAuthContext();
 
-  const fetcher = async (url: string, {arg}: {arg: FormData}) => {
+  const fetcher = async (url: string, {arg}: {arg: {latitude: number; longitude: number; gymId: number}}) => {
     const token = authContext?.token;
 
     try {
@@ -18,9 +19,9 @@ export const usePostVerifyPicture = (challengeId: number) => {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
         },
-        body: arg,
+        body: JSON.stringify(arg),
       });
 
       if (!res.ok) {
@@ -46,18 +47,13 @@ export const usePostVerifyPicture = (challengeId: number) => {
     }
   };
 
-  return useSWRMutation(`/v1/challenges/${challengeId}/activities/picture`, fetcher, {
+  return useSWRMutation(`/v1/challenges/${challengeId}/activities/location`, fetcher, {
     onSuccess(data) {
-      if (data?.uploadFileUrl) {
-        mutate(`/v1/challenges/${challengeId}/PICTURE`);
-        navigation.navigate(CHALLENGE_ROUTES.VERIFY_COMPLETE, {
-          imageUrl: data.uploadFileUrl,
-          challengeId,
-          activityType: 'PICTURE',
-        });
-      } else {
-        Alert.alert('잠시 후 다시 시도해주세요.');
-      }
+      mutate(`/v1/challenges/${challengeId}/LOCATION`);
+      navigation.navigate(CHALLENGE_ROUTES.VERIFY_COMPLETE, {
+        challengeId: route.params.challengeId,
+        activityType: 'LOCATION',
+      });
     },
     onError(err) {
       console.log(err);

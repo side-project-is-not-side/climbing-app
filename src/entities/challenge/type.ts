@@ -16,7 +16,7 @@ export type Challenge = {
 
 export type ChallengeDetail = Challenge & {
   description: string;
-  activities: Activity[];
+  records: Activity[];
 };
 
 export type Activity = ActivityLocation | ActivityPicture;
@@ -32,4 +32,12 @@ export type ActivityLocation = {
   gymName: string;
   gymAddress: string;
   createdAt: Date;
+};
+
+export type ChallengeGym = {
+  id: number;
+  name: string;
+  thumbnailImageUrl: string;
+  latitude: number;
+  longitude: number;
 };

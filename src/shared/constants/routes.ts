@@ -42,6 +42,7 @@ export type ChallengeRoute = {
   challenge: undefined;
   challenge_detail: {
     challengeId: number;
+    activityType: ActivityType;
   };
   verification_history: {
     challengeTitle: string;
@@ -58,11 +59,12 @@ export type ChallengeRoute = {
     challengeId: number;
   };
   verify_location: {
-    challengeTitle: string;
     challengeId: number;
+    challengeTitle: string;
   };
   verify_complete: {
     challengeId: number;
+    activityType: ActivityType;
     imageUrl?: string;
   };
 };
