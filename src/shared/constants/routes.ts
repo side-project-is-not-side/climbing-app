@@ -4,7 +4,7 @@ import {VerificationInfo} from '@entities/verification/type';
 export const ROOT_ROUTES = {
   HOME: 'home',
   MAP: 'map',
-  MY_PAGE: 'mypage',
+  MY_PAGE: 'my_group',
   CHALLENGE: 'challenge_group',
   AUTH: 'auth_group',
 } as const;
@@ -23,6 +23,11 @@ export const CHALLENGE_ROUTES = {
 export const AUTH_ROUTES = {
   ONBOARDING: 'onboarding',
   LOGIN: 'login',
+} as const;
+
+export const MY_ROUTES = {
+  MY: 'my',
+  USER_INFO: 'user_info',
 } as const;
 
 export const MAP_ROUTES = {
@@ -79,6 +84,11 @@ export type MapRoute = {
 export type AuthRoute = {
   onboarding: undefined;
   login: undefined;
+};
+
+export type MyRoute = {
+  my: undefined;
+  user_info: undefined;
 };
 
 export type AllRoute = RootRoute & ChallengeRoute & AuthRoute;
