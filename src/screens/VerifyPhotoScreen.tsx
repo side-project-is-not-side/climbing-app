@@ -1,5 +1,5 @@
-import React from 'react';
 import {VerifyPhoto} from '../features/verification/ui';
+import React from 'react';
 
 const VerifyPhotoScreen = () => {
   return <VerifyPhoto />;

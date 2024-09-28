@@ -1,5 +1,4 @@
-import { ExternalLink } from "@shared/types";
-
+import {ExternalLink} from '@shared/types';
 
 export type TSectorUpdateInfo = {date: Date; name: string | null};
 
@@ -66,8 +65,7 @@ export type GymInfo = {
   roadNameAddress: string;
   lotNumberAddress: string;
   distance: number;
-  latitude: number;
-  longitude: number;
+  location: {latitude: number; longitude: number};
   tags: string[];
 };
 

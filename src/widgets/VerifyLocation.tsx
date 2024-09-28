@@ -1,26 +1,48 @@
-import { useRef, useState } from "react";
-import { VerifyMap } from "@entities/map/ui";
-import { VerifyMapBottomSheet } from "@features/verification/ui";
-import BottomSheet from "@gorhom/bottom-sheet";
+import {useGetGymDetailInfo} from '@entities/gym/queries';
+import {VerifyMap} from '@entities/verification/ui';
+import {VerifyMapBottomSheet} from '@features/verification/ui';
+import BottomSheet from '@gorhom/bottom-sheet';
+import {RouteProp, useRoute} from '@react-navigation/native';
+import {ChallengeRoute} from '@shared/constants';
+import {useLayoutEffect, useRef, useState} from 'react';
 
+const VerifyLocation = () => {
+  const route = useRoute<RouteProp<ChallengeRoute, 'verify_location'>>();
 
-const VerifyLocation =() => {
+  const {challengeId} = route.params;
+
+  const [selectedGymId, setSelectedGymId] = useState<number | null>(null);
+  const {data} = useGetGymDetailInfo(selectedGymId);
+
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const showTab =() => {
-    bottomSheetRef.current?.expand()
-  }
+  const showTab = (id: number) => {
+    setSelectedGymId(id);
+    bottomSheetRef.current?.expand();
+  };
 
-  const closeTab= () => {
-    bottomSheetRef.current?.collapse()
-  }
+  const closeTab = () => {
+    setSelectedGymId(null);
+    bottomSheetRef.current?.collapse();
+  };
 
   return (
     <>
-      <VerifyMap showTab={showTab} closeTab={closeTab} />
-      <VerifyMapBottomSheet ref={bottomSheetRef} />
+      <VerifyMap
+        challengeId={challengeId}
+        selectedMarkerIdx={selectedGymId}
+        setSelectedMarkerIdx={setSelectedGymId}
+        showTab={showTab}
+        closeTab={closeTab}
+      />
+      <VerifyMapBottomSheet
+        ref={bottomSheetRef}
+        challengeId={challengeId}
+        gym={data}
+        onClose={() => setSelectedGymId(null)}
+      />
     </>
-  )
-}
+  );
+};
 
 export default VerifyLocation;

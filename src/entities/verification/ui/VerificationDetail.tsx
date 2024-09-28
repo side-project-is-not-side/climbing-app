@@ -1,17 +1,23 @@
-import React, {useLayoutEffect} from 'react';
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {SquareImage, MenuButton} from '../../../shared/ui';
 import {ChallengeRoute, colors} from '../../../shared/constants';
-import { formatKST } from './../../../shared/utils/dateFormat';
+import {MenuButton, SquareImage} from '../../../shared/ui';
+import {useDeleteActivity} from '../api/useDeleteActivity';
+import {VerificationLocation} from '../type';
+import {formatKST} from './../../../shared/utils/dateFormat';
+import {ActivityPicture} from '@entities/challenge/type';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import React, {useLayoutEffect} from 'react';
+import {Alert, Dimensions, StyleSheet, Text, View} from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width;
 
 const VerificationDetail = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
   const route = useRoute<RouteProp<ChallengeRoute, 'verification_detail'>>();
-  const {imageUrl, createdAt, challengeTitle} = route.params
+
+  const {activityType, verificationInfo, challengeTitle} = route.params;
+
+  const {trigger} = useDeleteActivity(verificationInfo.id);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -19,11 +25,17 @@ const VerificationDetail = () => {
         <MenuButton
           actions={[{title: '삭제하기'}, {title: '인증 내보내기'}]}
           onPress={e => {
-            switch(e.nativeEvent.index) {
+            switch (e.nativeEvent.index) {
               case 0:
-                return console.log('삭제')
+                trigger(null, {
+                  onSuccess() {
+                    Alert.alert('삭제가 완료되었습니다.');
+                    navigation.goBack();
+                  },
+                });
+                return console.log('삭제');
               case 1:
-                return console.log('내보내기')
+                return console.log('내보내기');
             }
           }}
         />
@@ -33,28 +45,31 @@ const VerificationDetail = () => {
 
   return (
     <View style={styles.pageContainer}>
-      <View style={styles.imageContainer}>
-        <SquareImage
-          source={{uri: imageUrl}}
-          alt={'verification photo'}
-          style={[styles.image]}
-          resizeMode='cover'
-        />
-      </View>
-      <View className='my-5 bg-[#191B1D] p-5 rounded-md'>
-        <View className='flex-row items-center gap-4 mb-2'>
-          <Text className='text-gray-500'>챌린지명</Text>
-          <Text className='text-white'>
-            {challengeTitle}
-          </Text>
+      {activityType === 'PICTURE' && (
+        <View style={styles.imageContainer}>
+          <SquareImage
+            source={{uri: (verificationInfo as ActivityPicture).imageUrl}}
+            alt={'verification photo'}
+            style={[styles.image]}
+            resizeMode="cover"
+          />
         </View>
-        <View className='flex-row items-center gap-4'>
-          <Text className='text-gray-500'>인증날짜</Text>
-          <Text className='text-white'>
-            {createdAt ?
-              formatKST(new Date(createdAt)) : formatKST(new Date())}
-          </Text>
+      )}
+      <View className="my-5 bg-[#191B1D] p-5 rounded-md">
+        <View className="flex-row items-center gap-4 mb-2">
+          <Text className="text-grayscale-400">챌린지명</Text>
+          <Text className="text-white">{challengeTitle}</Text>
         </View>
+        <View className="flex-row items-center gap-4">
+          <Text className="text-grayscale-400">인증날짜</Text>
+          <Text className="text-white">{formatKST(new Date(verificationInfo.createdAt))}</Text>
+        </View>
+        {activityType === 'LOCATION' && (
+          <View className="flex-row items-center gap-4">
+            <Text className="text-grayscale-400">인증위치</Text>
+            <Text className="text-white">{(verificationInfo as VerificationLocation).gymName}</Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -77,7 +92,6 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     backgroundColor: colors.beige300,
-    resizeMode: 'contain',
     minHeight: deviceWidth - 40,
   },
 });

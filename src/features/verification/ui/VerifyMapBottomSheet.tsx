@@ -1,25 +1,29 @@
-import React, { ForwardedRef, forwardRef } from 'react';
-import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import {usePostVerifyLocation} from '../queries/usePostVerifyLocation';
+import {GetGymDetailResponse} from '@entities/gym/api/types';
 import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
-import { CHALLENGE_ROUTES, ChallengeRoute, colors } from '@shared/constants';
-import { Button } from '@shared/ui';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {CHALLENGE_ROUTES, ChallengeRoute, colors} from '@shared/constants';
+import {Button} from '@shared/ui';
+import React, {ForwardedRef, forwardRef} from 'react';
+import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width;
 
 type Props = {
-}
+  challengeId: number;
+  gym?: GetGymDetailResponse;
+  latitude?: number;
+  longitude?: number;
+  onClose: () => void;
+};
 
-const VerifyMapBottomSheet = forwardRef(({}: Props, ref: ForwardedRef<BottomSheet>) => {
-  const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
-  const route = useRoute<RouteProp<ChallengeRoute, 'verify_location'>>();
+const VerifyMapBottomSheet = forwardRef(({challengeId, gym, onClose}: Props, ref: ForwardedRef<BottomSheet>) => {
+  const {trigger} = usePostVerifyLocation(challengeId);
 
   const handleVerify = () => {
-    navigation.navigate(CHALLENGE_ROUTES.VERIFY_COMPLETE, {
-      image: {uri: 'https://picsum.photos/id/237/200/300'},
-      challengeId: route.params.challengeId,
-    });
+    if (!gym) return;
+    trigger({latitude: gym.location.latitude, longitude: gym.location.longitude, gymId: gym.id});
   };
 
   return (
@@ -36,25 +40,31 @@ const VerifyMapBottomSheet = forwardRef(({}: Props, ref: ForwardedRef<BottomShee
       }}
       snapPoints={[1, 450]}
       backgroundStyle={{backgroundColor: '#151518'}}
-      enablePanDownToClose
-      >
+      onClose={() => onClose()}
+      enablePanDownToClose>
       <BottomSheetView style={{padding: 20, flex: 1}}>
-          <Image source={require('../../../../assets/images/verification_guide_1.png')}
-            alt={'verification guide image'} style={styles.image}></Image>
-          <View style={{gap: 8, paddingTop: 20, paddingBottom: 40}}>
-            <Text style={styles.name}>더클라임 클라이밍 짐앤샵 연남점</Text>
-            <View  style={styles.description}>
-              <Text style={styles.distance}>100m</Text>
-              <Text style={styles.address}>|</Text>
-              <Text style={styles.address}>서울특별시 강남구 연남동 어쩌구</Text>
-            </View>
-            <View style={styles.tags}>
-              <View style={styles.tag}><Text style={styles.tagText}>휴식공간</Text></View>
-              <View style={styles.tag}><Text style={styles.tagText}>주차창</Text></View>
-              <View style={styles.tag}><Text style={styles.tagText}>넓은 암장</Text></View>
-            </View>
+        {gym?.thumbnailImageUrl && (
+          <Image src={gym?.thumbnailImageUrl} alt={'verification guide image'} style={styles.image} />
+        )}
+        <View style={{gap: 8, paddingTop: 20, paddingBottom: 40}}>
+          <Text style={styles.name}>{gym?.name}</Text>
+          <View style={styles.description}>
+            <Text style={styles.distance}>{gym?.distance}m</Text>
+            <Text style={styles.address}>|</Text>
+            <Text style={styles.address}>{gym?.roadNameAddress}</Text>
           </View>
-        <Button onPress={handleVerify}>이 위치로 인증하기</Button>
+          <View style={styles.tags}>
+            {gym?.tags &&
+              gym.tags.map((tag, index) => (
+                <View style={styles.tag} key={tag + '_' + index}>
+                  <Text style={styles.tagText}>{tag}</Text>
+                </View>
+              ))}
+          </View>
+        </View>
+        <Button onPress={handleVerify} disabled={!gym}>
+          이 위치로 인증하기
+        </Button>
       </BottomSheetView>
     </BottomSheet>
   );
@@ -72,11 +82,11 @@ const styles = StyleSheet.create({
   name: {
     color: colors.white,
     fontSize: 18,
-    fontWeight: '700'
+    fontWeight: '700',
   },
   description: {
     flexDirection: 'row',
-    gap: 4
+    gap: 4,
   },
   distance: {
     color: colors.white,
@@ -86,16 +96,17 @@ const styles = StyleSheet.create({
   },
   tags: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: 4,
-    marginVertical: 4
+    marginVertical: 4,
   },
   tag: {
     paddingHorizontal: 8,
     paddingVertical: 2,
     backgroundColor: colors.gray400,
-    borderRadius: 4
+    borderRadius: 4,
   },
   tagText: {
     color: colors.gray200,
-  }
-})
+  },
+});

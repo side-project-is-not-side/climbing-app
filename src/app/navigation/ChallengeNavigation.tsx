@@ -4,7 +4,6 @@ import {
   VerificationDetailScreen,
   VerificationHistoryScreen,
   VerifyCompleteScreen,
-  VerifyGuideScreen,
   VerifyLocationScreen,
   VerifyPhotoScreen,
 } from '../../screens';
@@ -13,7 +12,7 @@ import {colors} from '../../shared/constants';
 import {Icon, LogoIcon} from '../../shared/ui';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {Pressable} from 'react-native';
+import {Button, Pressable} from 'react-native';
 
 const Stack = createNativeStackNavigator<ChallengeRoute>();
 
@@ -48,7 +47,14 @@ const ChallengeNavigation = () => {
         <Stack.Screen
           name={CHALLENGE_ROUTES.CHALLENGE_DETAIL}
           component={ChallengeDetailScreen}
-          options={{title: ''}}
+          options={({navigation}) => ({
+            title: '',
+            headerLeft: () => (
+              <Pressable onPress={() => navigation.navigate('challenge')}>
+                <Icon name={'ArrowBack'} size={24} color={'#fff'} />
+              </Pressable>
+            ),
+          })}
         />
         <Stack.Screen
           name={CHALLENGE_ROUTES.VERIFICATION_HISTORY}
@@ -92,15 +98,6 @@ const ChallengeNavigation = () => {
             presentation: 'modal',
             headerStyle: {backgroundColor: colors.gray800},
             contentStyle: {backgroundColor: colors.gray800},
-          }}
-        />
-        <Stack.Screen
-          name={CHALLENGE_ROUTES.VERIFY_GUIDE}
-          component={VerifyGuideScreen}
-          options={{
-            title: '',
-            presentation: 'transparentModal',
-            headerShown: false,
           }}
         />
       </Stack.Group>
