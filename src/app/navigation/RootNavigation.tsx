@@ -1,4 +1,4 @@
-import {HomeScreen, MapScreen, MyScreen} from '../../screens';
+import {HomeScreen} from '../../screens';
 import {ROOT_ROUTES, RootRoute} from '../../shared/constants';
 import {LogoIcon, TabIcon} from '../../shared/ui';
 import ChallengeNavigation from './ChallengeNavigation';
