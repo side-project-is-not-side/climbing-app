@@ -1,12 +1,11 @@
 import React from 'react';
-import { Image, Text, View } from 'react-native';
-
+import {Image, Text, View} from 'react-native';
 
 function LoadingSpinner() {
   return (
     <View className="flex-1 mx-auto">
       <Image
-        source={{uri:'/images/spinner.png'}}
+        source={{uri: '/assets/images/spinner.png'}}
         className="animate-spin mx-auto"
         width={50}
         height={50}
