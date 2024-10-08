@@ -106,7 +106,7 @@ const RootNavigation = () => {
         }}
       />
       <Tab.Screen
-        name={'my_group'}
+        name={ROOT_ROUTES.MY_PAGE}
         component={MyNavigation}
         options={{
           headerShown: false,
