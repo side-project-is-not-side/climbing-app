@@ -1,10 +1,8 @@
 import {useCurrentLocation} from '../../map/hooks';
 import Marker from '../../map/ui/Marker';
 import {useGetChallengeGyms} from '../queries/useGetChallengeGyms';
-import {useGetGymsByLocation} from '@entities/gym/queries';
 import {NaverMapView} from '@mj-studio/react-native-naver-map';
 import {colors} from '@shared/constants';
-import {useMemo} from 'react';
 import {View} from 'react-native';
 
 type Props = {
@@ -38,8 +36,7 @@ const VerifyMap = ({challengeId, selectedMarkerIdx, setSelectedMarkerIdx, showTa
 
         {data &&
           data.map(gym => {
-            const canVerify = true;
-            // const canVerify = gym.distance < 100;
+            const canVerify = gym.canChanllenge;
             return (
               <Marker
                 key={gym.id}
