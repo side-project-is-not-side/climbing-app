@@ -49,7 +49,6 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
 
   const onNavigationStateChange = (navState: WebViewNavigation) => {
     const navLinks = Object.values(LINKING_URI);
-    console.log({url: navState.url});
 
     if (!navState.url.includes(BASE_URL) && !navState.url.includes('kakao')) {
       Linking.openURL(navState.url);
@@ -79,7 +78,7 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
 
     if (data.type === 'NAVIGATE') {
       const {route, id} = data.data;
-      console.log(route);
+
       navigation.navigate(route, {id});
     }
 
