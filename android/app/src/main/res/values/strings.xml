@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">grabbers</string>
     <string name="CodePushDeploymentKey">dd7b884757022d0a142b2784fecac2e749490128</string>
+    <string name="kakao_app_key">77ea629c4fee8e2e7ba9564fb401efab</string>
 </resources>
