@@ -5,8 +5,10 @@ import {VeirficationPhoto, VerificationInfo, VerificationLocation} from '../type
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React from 'react';
-import {Image, Text} from 'react-native';
+import {Dimensions, Image, Text} from 'react-native';
 import {FlatList, Pressable, StyleSheet, View} from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
 
 const VerificationHistory = () => {
   const route = useRoute<RouteProp<ChallengeRoute, 'verification_history'>>();
@@ -18,7 +20,8 @@ const VerificationHistory = () => {
 
   const handlePressHistory = (item: VerificationInfo) => {
     navigation.navigate(CHALLENGE_ROUTES.VERIFICATION_DETAIL, {
-      challengeTitle: challengeTitle,
+      challengeId,
+      challengeTitle,
       activityType,
       verificationInfo: item,
     });
@@ -50,13 +53,14 @@ const VerificationHistory = () => {
             return (
               <Pressable style={styles.imageContainer} onPress={() => handlePressHistory(item)}>
                 <Image source={require('../../../../assets/images/buri_pin.png')} alt={'verification location icon'} />
-                <Text className="text-white">{gymName}</Text>
+                <Text numberOfLines={2} ellipsizeMode="tail" className="text-xs text-center text-grayscale-400">
+                  {gymName}
+                </Text>
               </Pressable>
             );
           }
           return <></>;
         }}
-        columnWrapperStyle={{justifyContent: 'space-between'}}
       />
     </View>
   );
@@ -68,16 +72,19 @@ const styles = StyleSheet.create({
   listContainer: {paddingHorizontal: 20},
   imageContainer: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 6,
     margin: 4,
-    maxWidth: '32%',
+    maxWidth: (windowWidth - 64) / 3,
+    height: (windowWidth - 64) / 3,
     overflow: 'hidden',
     position: 'relative',
     borderRadius: 10,
-    backgroundColor: colors.beige300,
+    backgroundColor: colors.gray700,
   },
   image: {
     width: '100%',
-    backgroundColor: colors.beige300,
     resizeMode: 'contain',
   },
 });

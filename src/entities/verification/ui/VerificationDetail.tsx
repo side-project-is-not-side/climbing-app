@@ -8,6 +8,7 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useLayoutEffect} from 'react';
 import {Alert, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {mutate} from 'swr';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -15,7 +16,7 @@ const VerificationDetail = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
   const route = useRoute<RouteProp<ChallengeRoute, 'verification_detail'>>();
 
-  const {activityType, verificationInfo, challengeTitle} = route.params;
+  const {activityType, verificationInfo, challengeTitle, challengeId} = route.params;
 
   const {trigger} = useDeleteActivity(verificationInfo.id);
 
@@ -23,19 +24,34 @@ const VerificationDetail = () => {
     navigation.setOptions({
       headerRight: () => (
         <MenuButton
-          actions={[{title: '삭제하기'}, {title: '인증 내보내기'}]}
+          actions={[{title: '삭제하기'}, {title: '공유하기'}]}
           onPress={e => {
             switch (e.nativeEvent.index) {
               case 0:
-                trigger(null, {
-                  onSuccess() {
-                    Alert.alert('삭제가 완료되었습니다.');
-                    navigation.goBack();
-                  },
-                });
-                return console.log('삭제');
+                Alert.alert(
+                  '정말로 인증 기록을 삭제하시겠습니까?',
+                  '해당 사진을 삭제하면 진행한 인증도 삭제가 됩니다.',
+                  [
+                    {text: '취소하기', style: 'cancel'},
+                    {
+                      text: '삭제하기',
+                      style: 'destructive',
+                      onPress: () => {
+                        trigger(null, {
+                          onSuccess() {
+                            mutate(`/v1/challenges/${challengeId}/${activityType}`);
+                            mutate(`/v1/records/${activityType}?challengeId=${challengeId}`);
+                            Alert.alert('삭제가 완료되었습니다.');
+                            navigation.goBack();
+                          },
+                        });
+                      },
+                    },
+                  ],
+                );
+                return;
               case 1:
-                return console.log('내보내기');
+                return console.log('공유하기');
             }
           }}
         />
@@ -60,7 +76,7 @@ const VerificationDetail = () => {
           <Text className="text-grayscale-400">챌린지명</Text>
           <Text className="text-white">{challengeTitle}</Text>
         </View>
-        <View className="flex-row items-center gap-4">
+        <View className={`flex-row items-center gap-4 ${activityType === 'LOCATION' ? 'mb-2' : ''}`}>
           <Text className="text-grayscale-400">인증날짜</Text>
           <Text className="text-white">{formatKST(new Date(verificationInfo.createdAt))}</Text>
         </View>
