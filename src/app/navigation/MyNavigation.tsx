@@ -26,7 +26,7 @@ const MyNavigation = () => {
           },
           headerLeft: () => (
             <Pressable onPress={navigation.goBack} className="items-center justify-center w-6 h-6">
-              <Icon name="ChevronLeft" size={14} />
+              <Icon name="ArrowLeft" size={14} />
             </Pressable>
           ),
           animation: 'fade_from_bottom',
