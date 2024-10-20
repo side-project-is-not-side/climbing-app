@@ -1,19 +1,17 @@
-import {NaverMapView, NaverMapViewRef} from '@mj-studio/react-native-naver-map';
-import React, {useRef} from 'react';
-import {useCurrentLocation} from '../hooks';
 import {DEFAULT_ZOOM} from '../constants/location';
+import {useCurrentLocation} from '../hooks';
 import Marker from './Marker';
-import { useGetNearbyGyms } from '@entities/gym/queries';
-import { AroundGym } from '@entities/gym/api/types';
+import {AroundGym} from '@entities/gym/api/types';
+import {useGetNearbyGyms} from '@entities/gym/queries';
+import {NaverMapView, NaverMapViewRef} from '@mj-studio/react-native-naver-map';
+import React, {useEffect, useRef} from 'react';
 
 type NearbyMapProps = {
-  selected?:number;
-  setSelected:React.Dispatch<React.SetStateAction<number | undefined>>
-}
-const NearbyMap = ({selected, setSelected}:NearbyMapProps) => {
-
-  const {currentLocation, bounds, onCameraChanged} =
-    useCurrentLocation(DEFAULT_ZOOM);
+  selected?: number;
+  setSelected: React.Dispatch<React.SetStateAction<number | undefined>>;
+};
+const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
+  const {currentLocation, bounds, onCameraChanged, granted} = useCurrentLocation(DEFAULT_ZOOM);
   const ref = useRef<NaverMapViewRef>(null);
   const {data} = useGetNearbyGyms(bounds);
 
@@ -32,16 +30,26 @@ const NearbyMap = ({selected, setSelected}:NearbyMapProps) => {
       }
     };
 
+  useEffect(() => {
+    if (!granted) return;
+
+    ref.current?.animateCameraTo({
+      ...currentLocation,
+      zoom: DEFAULT_ZOOM,
+    });
+
+    ref.current?.setLocationTrackingMode('NoFollow');
+  }, [granted]);
+
   return (
     <NaverMapView
       ref={ref}
       mapType="Basic"
       style={{flex: 1}}
       onCameraChanged={onCameraChanged}
-      initialRegion={currentLocation}
+      // initialRegion={currentLocation}
       isShowZoomControls={false}
-      initialCamera={{...currentLocation, zoom:DEFAULT_ZOOM}}
-      >
+      initialCamera={{...currentLocation, zoom: DEFAULT_ZOOM}}>
       {data?.map(({id, latitude, longitude}) => (
         <Marker
           key={id}
