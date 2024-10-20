@@ -9,10 +9,11 @@ import {
   WEB_URL,
   userAgent,
 } from '../../constants';
+import AnimatedSpinner from '../AnimatedSpinner';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React from 'react';
-import {Linking, NativeModules, Platform, ViewStyle} from 'react-native';
+import {Image, Linking, NativeModules, Platform, Text, View, ViewStyle} from 'react-native';
 import WebViewComponent, {WebViewNavigation} from 'react-native-webview';
 import {ShouldStartLoadRequest, WebViewMessageEvent} from 'react-native-webview/lib/WebViewTypes';
 
@@ -38,15 +39,11 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
     if (Platform.OS === 'android' && token) {
       NativeModules.CookieManager?.setCookie(uri || '', `accessToken=${token};`, (error: any) => {
         if (error) {
-          console.error(error);
+          console.error('Failed to set cookie:', error);
         }
       });
     }
-
-    return () => {
-      // _webview.current.
-    };
-  }, [token]);
+  }, [token, uri]);
 
   const onNavigationStateChange = (navState: WebViewNavigation) => {
     const navLinks = Object.values(LINKING_URI);
@@ -70,79 +67,88 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
       Linking.openURL(event.url);
       return false;
     }
-
     return true;
   };
 
   const onMessage = (event: WebViewMessageEvent) => {
-    const data = JSON.parse(event.nativeEvent.data);
+    try {
+      const data = JSON.parse(event.nativeEvent.data);
 
-    if (data.type === 'NAVIGATE') {
-      const {route, id, isStack, parent} = data.data;
+      switch (data.type) {
+        case 'NAVIGATE': {
+          const {route, id, isStack, parent} = data.data;
 
-      if (isStack && parent) {
-        navigation.navigate(parent, {
-          screen: route,
-          params: {id},
-        });
-        return;
+          if (isStack && parent) {
+            navigation.navigate(parent, {
+              screen: route,
+              params: {id},
+            });
+          } else {
+            navigation.navigate(route, {id});
+          }
+          break;
+        }
+        case 'STORAGE_DATA': {
+          const {key, data: item} = data.data;
+
+          if (key === 'accessToken') {
+            authContext?.setToken(item);
+          } else if (key === 'isFirstVisit') {
+            authContext?.setIsFirstVisit(item);
+          }
+          break;
+        }
+        case 'LOGOUT': {
+          authContext?.setToken(null);
+          break;
+        }
+        default:
+          console.warn('Unhandled message type:', data.type);
       }
-
-      navigation.navigate(route, {id});
-    }
-
-    if (data.type === 'STORAGE_DATA') {
-      const {key, data: item} = data.data;
-
-      if (key === 'accessToken') {
-        return authContext?.setToken(item);
-      }
-      if (key === 'isFirstVisit') {
-        return authContext?.setIsFirstVisit(item);
-      }
-    }
-
-    if (data.type === 'LOGOUT') {
-      authContext?.setToken(null);
+    } catch (error) {
+      console.error('Failed to parse message:', error);
     }
   };
 
   return (
-    <WebViewComponent
-      ref={_webview}
-      scalesPageToFit={true}
-      source={{
-        ...(html ? {html} : {uri: uri ? uri : WEB_URL.HOME}),
-        headers: {
-          Cookie: `accessToken=${token}; native-os=${Platform.OS};`,
-        },
-      }}
-      injectedJavaScript={`
-      (function() {
-        document.cookie = "accessToken=${token};"
-        document.cookie = "native-os=${Platform.OS};"
-      })();
-    document.body.style.userSelect = 'none';
-    document.body.style.webkitUserSelect = 'none';
-    document.body.style.mozUserSelect = 'none';
-    document.body.style.msUserSelect = 'none';
-    true;
-    `}
-      onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
-      onNavigationStateChange={onNavigationStateChange}
-      onMessage={onMessage}
-      style={[{flex: 1}, style]}
-      webviewDebuggingEnabled={true}
-      userAgent={userAgent}
-      sharedCookiesEnabled={false}
-      originWhitelist={['*']}
-      allowsInlineMediaPlayback={true}
-      setSupportMultipleWindows={true}
-      javaScriptEnabled={true}
-      javaScriptCanOpenWindowsAutomatically={true}
-      domStorageEnabled={true}
-      {...rest}
-    />
+    <View style={{flex: 1}}>
+      <WebViewComponent
+        ref={_webview}
+        scalesPageToFit={true}
+        source={{
+          ...(html ? {html} : {uri: uri ? uri : WEB_URL.HOME}),
+          headers: {
+            Cookie: `accessToken=${token}; native-os=${Platform.OS};`,
+          },
+        }}
+        injectedJavaScript={`
+          (function() {
+            document.cookie = "accessToken=${token};";
+            document.cookie = "native-os=${Platform.OS};";
+          })();
+          document.body.style.userSelect = 'none';
+          document.body.style.webkitUserSelect = 'none';
+          document.body.style.mozUserSelect = 'none';
+          document.body.style.msUserSelect = 'none';
+          true;
+        `}
+        onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+        onNavigationStateChange={navState => {
+          onNavigationStateChange(navState);
+        }}
+        onMessage={onMessage}
+        style={[{flex: 1, backgroundColor: '#191B1D'}, style]}
+        userAgent={userAgent}
+        sharedCookiesEnabled={true}
+        originWhitelist={['*']}
+        allowsInlineMediaPlayback={true}
+        setSupportMultipleWindows={true}
+        javaScriptEnabled={true}
+        javaScriptCanOpenWindowsAutomatically={true}
+        domStorageEnabled={true}
+        {...rest}
+      />
+    </View>
   );
 };
 

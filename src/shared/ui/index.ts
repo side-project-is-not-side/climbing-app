@@ -1,14 +1,15 @@
-import {Icon} from './Icon/Icon';
-import TabIcon from './Icon/TabIcon';
-import WebViewScreen from './WebViewScreen';
+import AnimatedSpinner from './AnimatedSpinner';
 import Badge from './Badge';
 import Button from './Button';
+import {Icon} from './Icon/Icon';
+import LogoIcon from './Icon/LogoIcon';
+import TabIcon from './Icon/TabIcon';
+import LoadingSpinner from './LoadingSpinner';
 import MenuButton from './MenuButton';
+import ModalLayout from './ModalLayout';
 import ScrollViewCarousel from './ScrollViewCarousel';
 import SquareImage from './SquareImage';
-import ModalLayout from './ModalLayout';
-import LogoIcon from './Icon/LogoIcon';
-import LoadingSpinner from './LoadingSpinner';
+import WebViewScreen from './WebViewScreen';
 
 export {
   WebViewScreen,
@@ -21,5 +22,6 @@ export {
   SquareImage,
   ModalLayout,
   LogoIcon,
-  LoadingSpinner
+  LoadingSpinner,
+  AnimatedSpinner,
 };

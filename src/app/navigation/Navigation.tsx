@@ -1,25 +1,25 @@
-import React from 'react';
-
-import {NavigationContainer} from '@react-navigation/native';
-import RootNavigation from './RootNavigation';
-import AuthNavigation from './AuthNavigation';
 import {AUTH_ROUTES} from '../../shared/constants';
 import {useAuthContext} from '../AuthContextProvider';
+import AuthNavigation from './AuthNavigation';
+import RootNavigation from './RootNavigation';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import React from 'react';
 
 const Navigation = () => {
   const authContext = useAuthContext();
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      theme={{
+        ...DefaultTheme,
+        colors: {
+          ...DefaultTheme.colors,
+          background: '#191B1D',
+        },
+      }}>
       {authContext?.token ? (
         <RootNavigation />
       ) : (
-        <AuthNavigation
-          initialRouteName={
-            authContext?.isFirstVisit
-              ? AUTH_ROUTES.ONBOARDING
-              : AUTH_ROUTES.LOGIN
-          }
-        />
+        <AuthNavigation initialRouteName={authContext?.isFirstVisit ? AUTH_ROUTES.ONBOARDING : AUTH_ROUTES.LOGIN} />
       )}
     </NavigationContainer>
   );
