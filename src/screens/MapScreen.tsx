@@ -4,7 +4,7 @@ import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSh
 import {RouteProp, useFocusEffect, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {MAP_ROUTES, MapRoute} from '@shared/constants';
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {View} from 'react-native';
 
 const MapScreen = () => {
@@ -17,14 +17,14 @@ const MapScreen = () => {
   useEffect(() => {
     if (!!selected) {
       if (!bottomSheetRef.current) return;
-      bottomSheetRef.current.snapToIndex(1);
+      bottomSheetRef.current.snapToPosition('54%');
     }
   }, [selected]);
 
   useFocusEffect(() => {
     if (!!selected) {
       if (!bottomSheetRef.current) return;
-      bottomSheetRef.current.snapToIndex(1);
+      bottomSheetRef.current.snapToPosition('54%');
     }
   });
 
@@ -51,6 +51,7 @@ const MapScreen = () => {
   const onItemClick = (id: number) => () => {
     setSelected(id);
   };
+
   return (
     <View style={{flex: 1}}>
       <NearbyMap selected={selected} setSelected={setSelected} />
