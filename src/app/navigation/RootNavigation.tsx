@@ -71,7 +71,7 @@ const RootNavigation = () => {
         name={ROOT_ROUTES.MAP}
         component={MapNavigation}
         options={{
-          title: '지도',
+          headerShown: false,
           tabBarLabel: ({focused}) => {
             return (
               <Text

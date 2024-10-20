@@ -1,6 +1,7 @@
 export {default as AccountCircle} from './AccountCircle';
 export {default as Apple} from './Apple';
 export {default as ArrowBack} from './ArrowBack';
+export {default as ArrowLeft} from './ArrowLeft';
 export {default as Calendar} from './Calendar';
 export {default as ChallengeCopy} from './ChallengeCopy';
 export {default as Challenge} from './Challenge';
