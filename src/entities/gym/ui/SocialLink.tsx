@@ -3,7 +3,7 @@ import {ExternalLink} from '@shared/types';
 import {Icon} from '@shared/ui';
 import {InstagramGray} from '@shared/ui/Icons';
 import React, {useEffect, useRef} from 'react';
-import {AppState, Linking, Platform, Text, TouchableOpacity, View} from 'react-native';
+import {AppState, Image, Linking, Platform, Text, TouchableOpacity, View} from 'react-native';
 
 function SocialLink({instagram, naverMap}: Pick<GetGymDetailResponse, 'instagram' | 'naverMap'>) {
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
@@ -66,16 +66,16 @@ function SocialLink({instagram, naverMap}: Pick<GetGymDetailResponse, 'instagram
     <View className="flex-row gap-x-[10px]">
       <TouchableOpacity
         className="flex-row flex-1 items-center py-[14px] px-4 rounded-[10px] bg-neutral-700"
-        onPress={() => handleClick(instagram)}>
-        <Icon size={18} name="InstagramGray" />
-        <Text className="text-neutral-400 font-text-2 ml-[10px]">인스타그램</Text>
+        onPress={() => handleClick(naverMap)}>
+        <Image source={require('/assets/images/naver_icon.png')} width={18} height={18} />
+        <Text className="text-neutral-400 font-text-2 ml-[10px]"> 네이버 지도</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         className="flex-row flex-1 items-center py-[14px] px-4 rounded-[10px] bg-neutral-700"
-        onPress={() => handleClick(naverMap)}>
-        <Icon size={18} name="NaverGray" />
-        <Text className="text-neutral-400 font-text-2 ml-[10px]"> 네이버 지도</Text>
+        onPress={() => handleClick(instagram)}>
+        <Image source={require('/assets/images/insta_icon.png')} width={18} height={18} />
+        <Text className="text-neutral-400 font-text-2 ml-[10px]">인스타그램</Text>
       </TouchableOpacity>
     </View>
   );
