@@ -24,6 +24,7 @@ type WebViewProps = {
 } & React.ComponentProps<typeof WebViewComponent>;
 
 const WEBVIEW_URLS = [BASE_URL, KAKAO_LOGIN_URL, KAKAO_AUTH_URL];
+
 const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
   const {uri, html, style, ...rest} = props;
 
@@ -120,8 +121,12 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
       (function() {
         document.cookie = "accessToken=${token};"
         document.cookie = "native-os=${Platform.OS};"
-
-    })();true;
+      })();
+    document.body.style.userSelect = 'none';
+    document.body.style.webkitUserSelect = 'none';
+    document.body.style.mozUserSelect = 'none';
+    document.body.style.msUserSelect = 'none';
+    true;
     `}
       onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
       onNavigationStateChange={onNavigationStateChange}
