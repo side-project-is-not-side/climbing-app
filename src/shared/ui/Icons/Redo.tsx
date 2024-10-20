@@ -10,16 +10,7 @@ const SvgRedo = (props: SvgProps) => (
     height={props.height || 24}
     style={props.style || {}}
     {...props}>
-    <Mask
-      id="mask0_3215_4900"
-      style={{
-        maskType: 'alpha',
-      }}
-      maskUnits="userSpaceOnUse"
-      x={0}
-      y={0}
-      width={16}
-      height={16}>
+    <Mask id="mask0_3215_4900" maskUnits="userSpaceOnUse" x={0} y={0} width={16} height={16}>
       <Rect width={16} height={16} fill={props.color || '#D9D9D9'} />
     </Mask>
     <G mask="url(#mask0_3215_4900)">
