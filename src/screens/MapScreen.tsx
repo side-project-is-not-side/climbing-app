@@ -17,14 +17,14 @@ const MapScreen = () => {
   useEffect(() => {
     if (!!selected) {
       if (!bottomSheetRef.current) return;
-      bottomSheetRef.current.snapToPosition('54%');
+      bottomSheetRef.current.snapToPosition(1);
     }
   }, [selected]);
 
   useFocusEffect(() => {
     if (!!selected) {
       if (!bottomSheetRef.current) return;
-      bottomSheetRef.current.snapToPosition('54%');
+      bottomSheetRef.current.snapToIndex(1);
     }
   });
 
@@ -34,8 +34,8 @@ const MapScreen = () => {
     bottomSheetRef.current.snapToIndex(0);
   };
 
-  const onChange = (index: number) => {
-    if (index === 3) {
+  const onChange = (to: number) => {
+    if (to === 2) {
       if (!!selected) {
         navigation.navigate(MAP_ROUTES.DETAIL, {id: selected});
         return;

@@ -1,12 +1,18 @@
-import BottomSheet, {BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetView} from '@gorhom/bottom-sheet';
+import BottomSheet, {
+  BottomSheetBackdrop,
+  BottomSheetBackdropProps,
+  BottomSheetProps,
+  BottomSheetView,
+} from '@gorhom/bottom-sheet';
+import {BottomSheetDefaultBackdropProps} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 import React, {PropsWithChildren, useCallback} from 'react';
 import {StyleSheet} from 'react-native';
 
 const MapBottomSheet = React.forwardRef<
   BottomSheet,
-  PropsWithChildren<{onPress: () => void; onChange: (index: number) => void}>
+  PropsWithChildren<Pick<BottomSheetDefaultBackdropProps, 'onPress'> & Pick<BottomSheetProps, 'onChange'>>
 >(({children, onPress, onChange}, ref) => {
-  const snapPoints = React.useMemo(() => ['6%', '54%', '100%'], []);
+  const snapPoints = React.useMemo(() => ['6%', '60%', '100%'], []);
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
       <BottomSheetBackdrop
@@ -27,7 +33,7 @@ const MapBottomSheet = React.forwardRef<
       handleIndicatorStyle={styles.indicator}
       snapPoints={snapPoints}
       index={0}
-      enableDynamicSizing
+      // enableDynamicSizing
       backdropComponent={renderBackdrop}
       animateOnMount={false}
       onChange={onChange}
