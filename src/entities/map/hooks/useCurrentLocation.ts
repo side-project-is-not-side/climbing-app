@@ -1,21 +1,15 @@
+import {DEFAULT_ZOOM, INITIAL_CENTER} from '../constants/location';
+import {getLatLongDelta} from '../utils';
+import {getBoundByRegion} from '../utils/getBoundByRegion';
+import {Camera} from '@mj-studio/react-native-naver-map';
 import {useEffect, useState} from 'react';
 import {Platform} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
-import {
-  PERMISSIONS,
-  request,
-  requestLocationAccuracy,
-} from 'react-native-permissions';
-import {getLatLongDelta} from '../utils';
-import {DEFAULT_ZOOM, INITIAL_CENTER} from '../constants/location';
-import {getBoundByRegion} from '../utils/getBoundByRegion';
-import {Camera} from '@mj-studio/react-native-naver-map';
+import {PERMISSIONS, request, requestLocationAccuracy} from 'react-native-permissions';
 
 export const useCurrentLocation = (zoomLevel: number) => {
-  const [latitudeDelta, longitudeDelta] = getLatLongDelta(
-    zoomLevel,
-    INITIAL_CENTER.latitude,
-  );
+  const [granted, setGranted] = useState(false);
+  const [latitudeDelta, longitudeDelta] = getLatLongDelta(zoomLevel, INITIAL_CENTER.latitude);
 
   const [currentLocation, setCurrentLocation] = useState({
     ...INITIAL_CENTER,
@@ -27,10 +21,10 @@ export const useCurrentLocation = (zoomLevel: number) => {
     if (Platform.OS === 'android') {
       request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(status => {
         if (status === 'granted') {
-          // requestLocationAccuracy({
-          //   purposeKey: 'common-purpose',
-          // });
+          setGranted(true);
+          return;
         }
+        setGranted(false);
       });
     }
 
@@ -40,7 +34,10 @@ export const useCurrentLocation = (zoomLevel: number) => {
           requestLocationAccuracy({
             purposeKey: 'common-purpose',
           });
+          setGranted(true);
+          return;
         }
+        setGranted(false);
       });
     }
   }, []);
@@ -52,10 +49,7 @@ export const useCurrentLocation = (zoomLevel: number) => {
         const {latitude, longitude} = position.coords;
         // currentLocation에 위도, 경도 저장
         if (latitude && longitude) {
-          const [latitudeDelta, longitudeDelta] = getLatLongDelta(
-            zoomLevel,
-            latitude,
-          );
+          const [latitudeDelta, longitudeDelta] = getLatLongDelta(zoomLevel, latitude);
           setCurrentLocation({
             latitude,
             longitude,
@@ -81,10 +75,7 @@ export const useCurrentLocation = (zoomLevel: number) => {
 
   const onCameraChanged = (params: Camera) => {
     const {latitude, longitude, zoom} = params;
-    const [latitudeDelta, longitudeDelta] = getLatLongDelta(
-      zoom ?? DEFAULT_ZOOM,
-      latitude,
-    );
+    const [latitudeDelta, longitudeDelta] = getLatLongDelta(zoom ?? DEFAULT_ZOOM, latitude);
     setCurrentLocation({
       latitude,
       longitude,
@@ -95,5 +86,5 @@ export const useCurrentLocation = (zoomLevel: number) => {
 
   const bounds = getBoundByRegion({region: currentLocation});
 
-  return {currentLocation, bounds, onCameraChanged};
+  return {currentLocation, bounds, onCameraChanged, granted};
 };

@@ -6,7 +6,7 @@ const MapBottomSheet = React.forwardRef<
   BottomSheet,
   PropsWithChildren<{onPress: () => void; onChange: (index: number) => void}>
 >(({children, onPress, onChange}, ref) => {
-  const snapPoints = React.useMemo(() => ['6%', '50%', '100%'], []);
+  const snapPoints = React.useMemo(() => ['6%', '54%', '100%'], []);
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
       <BottomSheetBackdrop
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   bottomSheetView: {
     paddingHorizontal: 20,
-    paddingBottom: 100,
+    paddingBottom: 0,
     flex: 1,
     minHeight: 500,
   },
