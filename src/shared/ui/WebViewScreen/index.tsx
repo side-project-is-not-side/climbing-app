@@ -77,7 +77,15 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
     const data = JSON.parse(event.nativeEvent.data);
 
     if (data.type === 'NAVIGATE') {
-      const {route, id} = data.data;
+      const {route, id, isStack, parent} = data.data;
+
+      if (isStack && parent) {
+        navigation.navigate(parent, {
+          screen: route,
+          params: {id},
+        });
+        return;
+      }
 
       navigation.navigate(route, {id});
     }
