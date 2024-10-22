@@ -1,22 +1,27 @@
-import React, {createContext, useContext, useEffect, useState} from 'react';
 import {getStorage, setStorage} from '../shared/utils';
+import React, {createContext, useContext, useEffect, useState} from 'react';
+import {ActivityIndicator, View} from 'react-native';
 
 type AuthContext = {
   token: string | null;
+  getToken: () => Promise<string | null>;
   setToken: (token: string | null) => void;
-  isFirstVisit: boolean;
-  setIsFirstVisit: (isFirstVisit: boolean) => void;
+  onboarding: boolean;
+  setOnboarding: (onboarding: boolean) => void;
 };
 
 const AuthContext = createContext<AuthContext | null>(null);
 
 export function AuthContextProvider({children}: {children: React.ReactNode}) {
+  const [isLoading, setIsLoading] = useState(true);
+
   const [token, _setToken] = useState<string | null>(null);
-  const [isFirstVisit, _setIsFirstVisit] = useState(true);
+  const [onboarding, _setOnboarding] = useState(false);
 
   const getToken = async () => {
     const token = await getStorage<string | null>('accessToken');
     _setToken(token);
+    return token;
   };
 
   const setToken = async (token: string | null) => {
@@ -24,23 +29,39 @@ export function AuthContextProvider({children}: {children: React.ReactNode}) {
     await setStorage('accessToken', token);
   };
 
-  const getIsFirstVisit = async () => {
-    const isFirstVisit = await getStorage<boolean>('isFirstVisit');
-    _setIsFirstVisit(isFirstVisit === null ? true : isFirstVisit);
+  const getOnboarding = async () => {
+    const onboarding = await getStorage<boolean>('onboarding');
+    _setOnboarding(!!onboarding);
   };
 
-  const setIsFirstVisit = async (isFirstVisit: boolean) => {
-    _setIsFirstVisit(isFirstVisit);
-    await setStorage('isFirstVisit', isFirstVisit);
+  const setOnboarding = async (onboarding: boolean) => {
+    _setOnboarding(onboarding);
+    await setStorage('onboarding', onboarding);
   };
 
   useEffect(() => {
-    getIsFirstVisit();
-    getToken();
+    const checkAuth = async () => {
+      try {
+        await getOnboarding();
+        await getToken();
+      } catch (err) {
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuth();
   }, []);
+
+  if (isLoading)
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+
   return (
-    <AuthContext.Provider
-      value={{token, setToken, isFirstVisit, setIsFirstVisit}}>
+    <AuthContext.Provider value={{token, getToken, setToken, onboarding, setOnboarding}}>
       {children}
     </AuthContext.Provider>
   );

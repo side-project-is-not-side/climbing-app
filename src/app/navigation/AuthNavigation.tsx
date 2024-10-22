@@ -13,8 +13,8 @@ const AuthNavigation = ({initialRouteName}: {initialRouteName: keyof AuthRoute |
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-          headerStyle: {backgroundColor: colors.gray800},
-          contentStyle: {backgroundColor: colors.gray800},
+          headerStyle: {backgroundColor: colors.gray700},
+          contentStyle: {backgroundColor: colors.gray700},
         }}
         initialRouteName={initialRouteName}>
         <Stack.Screen name={AUTH_ROUTES.ONBOARDING} component={OnboardingScreen} />

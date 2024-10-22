@@ -85,12 +85,13 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
     if (data.type === 'STORAGE_DATA') {
       const {key, data: item} = data.data;
 
-      if (key === 'accessToken') {
-        return authContext?.setToken(item);
+      if (key === 'Onboarding') {
+        return authContext?.setOnboarding(item);
       }
-      if (key === 'isFirstVisit') {
-        return authContext?.setIsFirstVisit(item);
-      }
+
+      // if (key === 'accessToken') {
+      //   return authContext?.setToken(item);
+      // }
     }
 
     if (data.type === 'LOGOUT') {

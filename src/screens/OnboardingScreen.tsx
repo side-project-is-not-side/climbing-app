@@ -1,6 +1,5 @@
-import React from 'react';
-import {WebViewScreen} from '../shared/ui';
 import {WEB_URL} from '../shared/constants';
+import {WebViewScreen} from '../shared/ui';
 
 const OnboardingScreen = () => {
   return <WebViewScreen uri={WEB_URL.ONBOARDING} />;
