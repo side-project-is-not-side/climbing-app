@@ -1,8 +1,7 @@
+import {AuthContextProvider, Navigation, SWRConfigProvider, ToastProvider} from '@app/index';
 import React from 'react';
-
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import { Navigation, SWRConfigProvider,AuthContextProvider } from '@app/index';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 function App(): React.JSX.Element {
   return (
@@ -14,6 +13,7 @@ function App(): React.JSX.Element {
           </GestureHandlerRootView>
         </SWRConfigProvider>
       </AuthContextProvider>
+      <ToastProvider />
     </SafeAreaProvider>
   );
 }
