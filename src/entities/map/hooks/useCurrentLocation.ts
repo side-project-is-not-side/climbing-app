@@ -8,6 +8,7 @@ import Geolocation from 'react-native-geolocation-service';
 import {PERMISSIONS, request, requestLocationAccuracy} from 'react-native-permissions';
 
 export const useCurrentLocation = (zoomLevel: number) => {
+  const [granted, setGranted] = useState(false);
   const [latitudeDelta, longitudeDelta] = getLatLongDelta(zoomLevel, INITIAL_CENTER.latitude);
 
   const [currentLocation, setCurrentLocation] = useState({
@@ -20,10 +21,10 @@ export const useCurrentLocation = (zoomLevel: number) => {
     if (Platform.OS === 'android') {
       request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(status => {
         if (status === 'granted') {
-          // requestLocationAccuracy({
-          //   purposeKey: 'common-purpose',
-          // });
+          setGranted(true);
+          return;
         }
+        setGranted(false);
       });
     }
 
@@ -33,7 +34,10 @@ export const useCurrentLocation = (zoomLevel: number) => {
           requestLocationAccuracy({
             purposeKey: 'common-purpose',
           });
+          setGranted(true);
+          return;
         }
+        setGranted(false);
       });
     }
   }, []);
@@ -94,5 +98,5 @@ export const useCurrentLocation = (zoomLevel: number) => {
 
   const bounds = getBoundByRegion({region: currentLocation});
 
-  return {currentLocation, bounds, onCameraChanged};
+  return {currentLocation, bounds, onCameraChanged, granted};
 };

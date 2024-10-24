@@ -11,7 +11,7 @@ const SelectedGymCard = ({id}: {id: number}) => {
   const {name, thumbnailImageUrl, roadNameAddress, distance, tags} = data;
 
   return (
-    <View>
+    <View className="flex-1">
       <CurrentGymCard
         id={id}
         name={name}

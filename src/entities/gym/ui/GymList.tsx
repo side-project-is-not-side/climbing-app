@@ -22,7 +22,7 @@ const GymList = ({onClick}: {onClick: (id: number) => () => void}) => {
 
   return (
     <FlatList
-      style={styles.contentContainer}
+      className="flex-1"
       data={gymInfos?.flat()}
       keyExtractor={item => String(item.id)}
       renderItem={renderItem}
