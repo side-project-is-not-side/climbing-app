@@ -7,6 +7,11 @@ import React from 'react';
 
 const Navigation = () => {
   const authContext = useAuthContext();
+
+  if (!authContext) return <></>;
+
+  const {token, onboarding} = authContext;
+
   const theme: Theme = {
     ...DefaultTheme,
     colors: {
@@ -15,18 +20,17 @@ const Navigation = () => {
     },
   };
 
+  if (token)
+    return (
+      <NavigationContainer theme={theme}>
+        <RootNavigation />
+      </NavigationContainer>
+    );
+
   return (
-    <>
-      {authContext?.token ? (
-        <NavigationContainer theme={theme}>
-          <RootNavigation />
-        </NavigationContainer>
-      ) : (
-        <NavigationContainer theme={theme}>
-          <AuthNavigation initialRouteName={authContext?.onboarding ? AUTH_ROUTES.LOGIN : AUTH_ROUTES.ONBOARDING} />
-        </NavigationContainer>
-      )}
-    </>
+    <NavigationContainer theme={theme}>
+      <AuthNavigation initialRouteName={onboarding ? AUTH_ROUTES.LOGIN : AUTH_ROUTES.ONBOARDING} />
+    </NavigationContainer>
   );
 };
 

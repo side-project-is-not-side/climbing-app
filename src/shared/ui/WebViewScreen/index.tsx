@@ -9,11 +9,10 @@ import {
   WEB_URL,
   userAgent,
 } from '../../constants';
-import AnimatedSpinner from '../AnimatedSpinner';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React from 'react';
-import {Image, Linking, NativeModules, Platform, Text, View, ViewStyle} from 'react-native';
+import {Linking, Platform, View, ViewStyle} from 'react-native';
 import WebViewComponent, {WebViewNavigation} from 'react-native-webview';
 import {ShouldStartLoadRequest, WebViewMessageEvent} from 'react-native-webview/lib/WebViewTypes';
 
@@ -36,13 +35,13 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
   const token = authContext?.token;
 
   React.useEffect(() => {
-    if (Platform.OS === 'android' && token) {
-      NativeModules.CookieManager?.setCookie(uri || '', `accessToken=${token};`, (error: any) => {
-        if (error) {
-          console.error('Failed to set cookie:', error);
-        }
-      });
-    }
+    _webview.current?.injectJavaScript(`
+      (function() {
+        document.cookie = 'accessToken=${token}; path=/; secure; samesite=strict';
+        sessionStorage.setItem('accessToken', '${token}');
+      })();
+      true;
+    `);
   }, [token, uri]);
 
   const onNavigationStateChange = (navState: WebViewNavigation) => {
@@ -90,15 +89,17 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
         }
         case 'STORAGE_DATA': {
           const {key, data: item} = data.data;
-          if (key === 'accessToken') {
-            authContext?.setToken(item);
-          } else if (key === 'Onboarding') {
+          if (key === 'Onboarding') {
             return authContext?.setOnboarding(item);
           }
           break;
         }
         case 'LOGOUT': {
           authContext?.setToken(null);
+          break;
+        }
+        case 'CONSOLE_LOG': {
+          console.log(data.data);
           break;
         }
         default:

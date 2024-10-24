@@ -2,13 +2,14 @@ import {useAuthContext} from '@app/AuthContextProvider';
 import appleAuth from '@invertase/react-native-apple-authentication';
 import {login} from '@react-native-seoul/kakao-login';
 import {useMutateFetcher} from '@shared/hooks/useMutateFetcher';
+import WebView from 'react-native-webview';
 import useSWRMutation from 'swr/mutation';
 
 type Provider = 'KAKAO' | 'APPLE';
 
 type Response = {
   accessToken: string;
-  isSignUp: boolean;
+  signUp: boolean;
 };
 
 export const useLogin = () => {
@@ -66,8 +67,7 @@ export const useLogin = () => {
       {provider, token: idToken},
       {
         onSuccess(data: Response) {
-          auth?.setToken(data.accessToken);
-          console.log(data);
+          data.accessToken && auth?.setToken(data.accessToken);
         },
       },
     );

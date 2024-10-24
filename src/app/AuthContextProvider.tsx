@@ -25,8 +25,8 @@ export function AuthContextProvider({children}: {children: React.ReactNode}) {
   };
 
   const setToken = async (token: string | null) => {
-    _setToken(token);
     await setStorage('accessToken', token);
+    _setToken(token);
   };
 
   const getOnboarding = async () => {
@@ -35,8 +35,8 @@ export function AuthContextProvider({children}: {children: React.ReactNode}) {
   };
 
   const setOnboarding = async (onboarding: boolean) => {
-    _setOnboarding(onboarding);
     await setStorage('onboarding', onboarding);
+    _setOnboarding(onboarding);
   };
 
   useEffect(() => {
