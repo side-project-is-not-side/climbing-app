@@ -34,16 +34,6 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
 
   const token = authContext?.token;
 
-  React.useEffect(() => {
-    _webview.current?.injectJavaScript(`
-      (function() {
-        document.cookie = 'accessToken=${token}; path=/; secure; samesite=strict';
-        sessionStorage.setItem('accessToken', '${token}');
-      })();
-      true;
-    `);
-  }, [token, uri]);
-
   const onNavigationStateChange = (navState: WebViewNavigation) => {
     const navLinks = Object.values(LINKING_URI);
 
@@ -132,6 +122,14 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
           document.body.style.msUserSelect = 'none';
           true;
         `}
+        onLoadEnd={() => {
+          if (token) {
+            _webview.current?.injectJavaScript(`
+              document.cookie = "token=${token}";
+              window.dispatchEvent(new Event('cookieReady'));
+            `);
+          }
+        }}
         onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
         onNavigationStateChange={navState => {
           onNavigationStateChange(navState);
