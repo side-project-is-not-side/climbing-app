@@ -125,8 +125,12 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
         onLoadEnd={() => {
           if (token) {
             _webview.current?.injectJavaScript(`
-              document.cookie = "token=${token}";
-              window.dispatchEvent(new Event('cookieReady'));
+              (function() {
+                const token = '${token}';
+                document.cookie = 'accessToken=' + token + '; Secure; SameSite=Strict; path=/';
+                window.dispatchEvent(new CustomEvent('tokenReceived', { detail: token }));
+              })();
+              true;
             `);
           }
         }}

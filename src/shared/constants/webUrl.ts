@@ -5,8 +5,7 @@ const isDev = false ?? Config.NODE_ENV === 'development';
 
 export const BASE_URL = isDev
   ? Platform.OS === 'android'
-    ? // ? 'http://192.168.219.106:3000'
-      'http://10.0.2.2:3000'
+    ? 'http://192.168.219.106:3000'
     : 'http://localhost:3000'
   : 'https://www.grabbers.co.kr';
 
