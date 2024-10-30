@@ -46,6 +46,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = grabbers/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		88A4CE3C2384903E8450BC86 /* libPods-grabbers.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-grabbers.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93F6D0CC111D9ACE0AD9C4EF /* Pods-grabbers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabbers.debug.xcconfig"; path = "Target Support Files/Pods-grabbers/Pods-grabbers.debug.xcconfig"; sourceTree = "<group>"; };
+		C863EA4F2CD2458A0079EAF9 /* grabbersRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = grabbersRelease.entitlements; path = grabbers/grabbersRelease.entitlements; sourceTree = "<group>"; };
 		C8A23AE22C68846C00136303 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		C8DAC0012CAF7C65004139DF /* PretendardVariable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = PretendardVariable.ttf; path = Fonts/PretendardVariable.ttf; sourceTree = "<group>"; };
 		CC7E348E68DD4CC56EF8BD44 /* Pods-grabbers-grabbersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabbers-grabbersTests.release.xcconfig"; path = "Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -94,6 +95,7 @@
 		13B07FAE1A68108700A75B9A /* grabbers */ = {
 			isa = PBXGroup;
 			children = (
+				C863EA4F2CD2458A0079EAF9 /* grabbersRelease.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -489,8 +491,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = APFT7BU5LL;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = APFT7BU5LL;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = grabbers/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = grabbers;
@@ -507,6 +513,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.grabbers;
 				PRODUCT_NAME = grabbers;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = GrabbersAppProfile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -519,6 +527,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = grabbers/grabbersRelease.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;

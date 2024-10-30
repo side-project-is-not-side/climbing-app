@@ -1,7 +1,8 @@
 PODS:
+  - Alamofire (5.9.1)
   - Base64 (1.1.2)
   - boost (1.83.0)
-  - CodePush (8.3.0):
+  - CodePush (8.3.1):
     - Base64 (~> 1.1)
     - JWT (~> 3.0.0-beta.12)
     - React-Core
@@ -15,6 +16,22 @@ PODS:
   - hermes-engine/Pre-built (0.74.3)
   - JWT (3.0.0-beta.14):
     - Base64 (~> 1.1.2)
+  - kakao-login (5.4.1):
+    - KakaoSDKAuth (= 2.22.0)
+    - KakaoSDKCommon (= 2.22.0)
+    - KakaoSDKUser (= 2.22.0)
+    - React
+  - KakaoSDKAuth (2.22.0):
+    - KakaoSDKCommon (= 2.22.0)
+  - KakaoSDKCommon (2.22.0):
+    - KakaoSDKCommon/Common (= 2.22.0)
+    - KakaoSDKCommon/Network (= 2.22.0)
+  - KakaoSDKCommon/Common (2.22.0)
+  - KakaoSDKCommon/Network (2.22.0):
+    - Alamofire (~> 5.9.0)
+    - KakaoSDKCommon/Common (= 2.22.0)
+  - KakaoSDKUser (2.22.0):
+    - KakaoSDKAuth (= 2.22.0)
   - mj-studio-react-native-naver-map (1.5.9):
     - DoubleConversion
     - glog
@@ -968,9 +985,9 @@ PODS:
   - React-Mapbuffer (0.74.3):
     - glog
     - React-debug
-  - react-native-config (1.5.2):
-    - react-native-config/App (= 1.5.2)
-  - react-native-config/App (1.5.2):
+  - react-native-config (1.5.3):
+    - react-native-config/App (= 1.5.3)
+  - react-native-config/App (1.5.3):
     - React-Core
   - react-native-context-menu-view (1.16.0):
     - React
@@ -999,11 +1016,11 @@ PODS:
     - Yoga
   - react-native-image-resizer (3.0.10):
     - React-Core
-  - react-native-safe-area-context (4.10.8):
+  - react-native-safe-area-context (4.11.0):
     - React-Core
   - react-native-splash-screen (3.3.0):
     - React-Core
-  - react-native-webview (13.10.5):
+  - react-native-webview (13.12.3):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1253,11 +1270,13 @@ PODS:
     - React-logger (= 0.74.3)
     - React-perflogger (= 0.74.3)
     - React-utils (= 0.74.3)
+  - RNAppleAuthentication (2.4.0):
+    - React-Core
   - RNCAsyncStorage (1.24.0):
     - React-Core
-  - RNDeviceInfo (13.0.0):
+  - RNDeviceInfo (13.1.0):
     - React-Core
-  - RNGestureHandler (2.18.1):
+  - RNGestureHandler (2.20.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1280,7 +1299,30 @@ PODS:
     - Yoga
   - RNPermissions (4.1.5):
     - React-Core
-  - RNReanimated (3.14.0):
+  - RNReanimated (3.15.5):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - RNReanimated/reanimated (= 3.15.5)
+    - RNReanimated/worklets (= 3.15.5)
+    - Yoga
+  - RNReanimated/reanimated (3.15.5):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1301,7 +1343,28 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.32.0):
+  - RNReanimated/worklets (3.15.5):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - RNScreens (3.34.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1323,7 +1386,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNSVG (15.3.0):
+  - RNSVG (15.7.1):
     - React-Core
   - SocketRocket (0.7.0)
   - SSZipArchive (2.2.3)
@@ -1337,6 +1400,7 @@ DEPENDENCIES:
   - fmt (from `../node_modules/react-native/third-party-podspecs/fmt.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
+  - "kakao-login (from `../node_modules/@react-native-seoul/kakao-login`)"
   - "mj-studio-react-native-naver-map (from `../node_modules/@mj-studio/react-native-naver-map`)"
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
@@ -1395,6 +1459,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNAppleAuthentication (from `../node_modules/@invertase/react-native-apple-authentication`)"
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -1406,8 +1471,12 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - Base64
     - JWT
+    - KakaoSDKAuth
+    - KakaoSDKCommon
+    - KakaoSDKUser
     - NMapsGeometry
     - NMapsMap
     - SocketRocket
@@ -1429,6 +1498,8 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2024-06-28-RNv0.74.3-7bda0c267e76d11b68a585f84cfdd65000babf85
+  kakao-login:
+    :path: "../node_modules/@react-native-seoul/kakao-login"
   mj-studio-react-native-naver-map:
     :path: "../node_modules/@mj-studio/react-native-naver-map"
   RCT-Folly:
@@ -1541,6 +1612,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNAppleAuthentication:
+    :path: "../node_modules/@invertase/react-native-apple-authentication"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNDeviceInfo:
@@ -1559,15 +1632,20 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
-  CodePush: 8c28cdffd7fe685351cce700c8a86d672d433161
+  CodePush: d892f13c5012e9e2cb36640f4929654b7be21fe5
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   FBLazyVector: 7e977dd099937dc5458851233141583abba49ff2
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
   glog: fdfdfe5479092de0c4bdbebedd9056951f092c4f
   hermes-engine: 1f547997900dd0752dc0cc0ae6dd16173c49e09b
   JWT: ef71dfb03e1f842081e64dc42eef0e164f35d251
+  kakao-login: 6f7a39583ae9e1a4e76240e66ae3ec575d461d1e
+  KakaoSDKAuth: 569b377eda622d93d4575240b8031cd658163eef
+  KakaoSDKCommon: d57127c339fc79e73aa8b236a4c77211c29924f1
+  KakaoSDKUser: 043bcd7e91454ebf3bf64f150c430e6f65f0a08d
   mj-studio-react-native-naver-map: c6722b2818010ab937a4185c22b8aaaa2594d9ee
   NMapsGeometry: 4e02554fa9880ef02ed96b075dc84355d6352479
   NMapsMap: 36dc18a1f5f315121b33fccd2398c7a702bf0fc8
@@ -1595,14 +1673,14 @@ SPEC CHECKSUMS:
   React-jsitracing: 6b3c8c98313642140530f93c46f5a6ca4530b446
   React-logger: fa92ba4d3a5d39ac450f59be2a3cec7b099f0304
   React-Mapbuffer: 9f68550e7c6839d01411ac8896aea5c868eff63a
-  react-native-config: d7d8a0c65f7fa523197879f6b777997abbfc987e
+  react-native-config: 8f7283449bbb048902f4e764affbbf24504454af
   react-native-context-menu-view: 30915369a9b5887904c571b616653acf3f1c8edb
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-image-picker: c3afe5472ef870d98a4b28415fc0b928161ee5f7
   react-native-image-resizer: fd0c333eca55147bd55c5e054cac95dcd0da6814
-  react-native-safe-area-context: b7daa1a8df36095a032dff095a1ea8963cb48371
+  react-native-safe-area-context: 851c62c48dce80ccaa5637b6aa5991a1bc36eca9
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
-  react-native-webview: 553abd09f58e340fdc7746c9e2ae096839e99911
+  react-native-webview: 445e447f227f775d8dd2b4823bca55c458d4eff7
   React-nativeconfig: fa5de9d8f4dbd5917358f8ad3ad1e08762f01dcb
   React-NativeModulesApple: 585d1b78e0597de364d259cb56007052d0bda5e5
   React-perflogger: 7bb9ba49435ff66b666e7966ee10082508a203e8
@@ -1626,13 +1704,14 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 0c80752bceb80924cb8a4babc2a8e3ed70d41e87
   React-utils: a06061b3887c702235d2dac92dacbd93e1ea079e
   ReactCommon: f00e436b3925a7ae44dfa294b43ef360fbd8ccc4
+  RNAppleAuthentication: e00c76acb03351f5544373c78fa7f359bef6d5d3
   RNCAsyncStorage: ec53e44dc3e75b44aa2a9f37618a49c3bc080a7a
-  RNDeviceInfo: 55264dd7cc939dad6e9c231a7621311f5277f1dc
-  RNGestureHandler: efed690b8493a00b99654043daeb1335276ac4a2
+  RNDeviceInfo: e13b7d68878fba693c9fbb13ca4d56ad57d95917
+  RNGestureHandler: 28078232f2868d3dcb4d4b6c8ab8691700187664
   RNPermissions: fdeab83cb5e1d49fd53b14b7070b081c1d7dba7a
-  RNReanimated: f4ff116e33e0afc3d127f70efe928847c7c66355
-  RNScreens: 5aeecbb09aa7285379b6e9f3c8a3c859bb16401c
-  RNSVG: a48668fd382115bc89761ce291a81c4ca5f2fd2e
+  RNReanimated: e4f45f26ac30208ad2c53dadc304d070aa262bfd
+  RNScreens: aa943ad421c3ced3ef5a47ede02b0cbfc43a012e
+  RNSVG: 4590aa95758149fa27c5c83e54a6a466349a1688
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Yoga: 88480008ccacea6301ff7bf58726e27a72931c8d
