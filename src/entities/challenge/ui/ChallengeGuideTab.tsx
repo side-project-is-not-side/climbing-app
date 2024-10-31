@@ -45,7 +45,7 @@ const ChallengeGuideTab = forwardRef(
           borderRadius: 4,
           backgroundColor: '#4E4E4E',
         }}
-        snapPoints={activityType === 'PICTURE' ? [1, '84%'] : [1, 440]}
+        snapPoints={activityType === 'PICTURE' ? [1, '84%'] : [1, 260]}
         backgroundStyle={{backgroundColor: '#151518'}}
         enableContentPanningGesture={false}
         enablePanDownToClose>

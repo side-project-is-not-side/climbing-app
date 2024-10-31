@@ -18,7 +18,7 @@ const MapNavigation = () => {
         headerTitleStyle: {
           color: '#fff',
           fontSize: 16,
-          fontWeight: 700,
+          fontWeight: '700',
         },
       }}>
       <Stack.Screen name={MAP_ROUTES.NEARBY} component={MapScreen} options={{title: '지도'}} />

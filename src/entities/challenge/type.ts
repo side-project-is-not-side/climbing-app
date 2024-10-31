@@ -40,4 +40,6 @@ export type ChallengeGym = {
   thumbnailImageUrl: string;
   latitude: number;
   longitude: number;
+  distance: number;
+  canChanllenge: boolean;
 };

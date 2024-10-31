@@ -1,10 +1,10 @@
-import {useCurrentLocation} from '../../map/hooks';
 import Marker from '../../map/ui/Marker';
+import {useCurrentLocation} from '../hooks';
 import {useGetChallengeGyms} from '../queries/useGetChallengeGyms';
-import {useGetGymsByLocation} from '@entities/gym/queries';
-import {NaverMapView} from '@mj-studio/react-native-naver-map';
+import {INITIAL_CENTER} from '@entities/map/constants/location';
+import {NaverMapView, NaverMapViewRef} from '@mj-studio/react-native-naver-map';
 import {colors} from '@shared/constants';
-import {useMemo} from 'react';
+import {useEffect, useRef} from 'react';
 import {View} from 'react-native';
 
 type Props = {
@@ -16,8 +16,9 @@ type Props = {
 };
 
 const VerifyMap = ({challengeId, selectedMarkerIdx, setSelectedMarkerIdx, showTab, closeTab}: Props) => {
-  const {currentLocation} = useCurrentLocation(15);
+  const ref = useRef<NaverMapViewRef>(null);
 
+  const {currentLocation} = useCurrentLocation();
   const {data} = useGetChallengeGyms(challengeId);
 
   const onTabMap = () => {
@@ -30,16 +31,23 @@ const VerifyMap = ({challengeId, selectedMarkerIdx, setSelectedMarkerIdx, showTa
     showTab(id);
   };
 
+  useEffect(() => {
+    if (currentLocation) {
+      ref.current?.animateCameraTo({...currentLocation, zoom: 15});
+    }
+  }, [currentLocation]);
+
   return (
     <View style={{flex: 1}}>
-      <NaverMapView mapType="Basic" style={{flex: 1}} camera={{...currentLocation, zoom: 16}} onTapMap={onTabMap}>
+      <NaverMapView ref={ref} mapType="Basic" style={{flex: 1}} onTapMap={onTabMap} isShowLocationButton={false}>
         {/* 내 위치 */}
-        <Marker latitude={currentLocation.latitude} longitude={currentLocation.longitude} type={'circle'} />
+        {currentLocation && (
+          <Marker latitude={currentLocation.latitude} longitude={currentLocation.longitude} type={'circle'} />
+        )}
 
         {data &&
           data.map(gym => {
-            const canVerify = true;
-            // const canVerify = gym.distance < 100;
+            const canVerify = gym.canChanllenge;
             return (
               <Marker
                 key={gym.id}

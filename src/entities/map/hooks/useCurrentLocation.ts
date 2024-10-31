@@ -43,6 +43,18 @@ export const useCurrentLocation = (zoomLevel: number) => {
   }, []);
 
   useEffect(() => {
+    Geolocation.getCurrentPosition(position => {
+      const {latitude, longitude} = position.coords;
+      if (latitude && longitude) {
+        const [latitudeDelta, longitudeDelta] = getLatLongDelta(zoomLevel, latitude);
+        setCurrentLocation({
+          latitude,
+          longitude,
+          latitudeDelta,
+          longitudeDelta,
+        });
+      }
+    });
     // 위치 업데이트 설정
     const watchId = Geolocation.watchPosition(
       position => {

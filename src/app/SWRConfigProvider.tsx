@@ -1,6 +1,7 @@
 'use client';
-import {SWRConfig} from 'swr';
+
 import {useAuthContext} from './AuthContextProvider';
+import {SWRConfig} from 'swr';
 
 type Props = {
   children: React.ReactNode;
@@ -19,7 +20,7 @@ function SWRConfigProvider({children}: Props) {
               headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
-              }
+              },
             });
 
             if (!res.ok) {

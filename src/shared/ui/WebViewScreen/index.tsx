@@ -9,11 +9,10 @@ import {
   WEB_URL,
   userAgent,
 } from '../../constants';
-import AnimatedSpinner from '../AnimatedSpinner';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React from 'react';
-import {Image, Linking, NativeModules, Platform, Text, View, ViewStyle} from 'react-native';
+import {Linking, Platform, View, ViewStyle} from 'react-native';
 import WebViewComponent, {WebViewNavigation} from 'react-native-webview';
 import {ShouldStartLoadRequest, WebViewMessageEvent} from 'react-native-webview/lib/WebViewTypes';
 
@@ -34,16 +33,6 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
   const authContext = useAuthContext();
 
   const token = authContext?.token;
-
-  React.useEffect(() => {
-    if (Platform.OS === 'android' && token) {
-      NativeModules.CookieManager?.setCookie(uri || '', `accessToken=${token};`, (error: any) => {
-        if (error) {
-          console.error('Failed to set cookie:', error);
-        }
-      });
-    }
-  }, [token, uri]);
 
   const onNavigationStateChange = (navState: WebViewNavigation) => {
     const navLinks = Object.values(LINKING_URI);
@@ -90,16 +79,17 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
         }
         case 'STORAGE_DATA': {
           const {key, data: item} = data.data;
-
-          if (key === 'accessToken') {
-            authContext?.setToken(item);
-          } else if (key === 'isFirstVisit') {
-            authContext?.setIsFirstVisit(item);
+          if (key === 'Onboarding') {
+            return authContext?.setOnboarding(item);
           }
           break;
         }
         case 'LOGOUT': {
           authContext?.setToken(null);
+          break;
+        }
+        case 'CONSOLE_LOG': {
+          console.log(data.data);
           break;
         }
         default:
@@ -132,6 +122,18 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
           document.body.style.msUserSelect = 'none';
           true;
         `}
+        onLoadEnd={() => {
+          if (token) {
+            _webview.current?.injectJavaScript(`
+              (function() {
+                const token = '${token}';
+                document.cookie = 'accessToken=' + token + '; Secure; SameSite=Strict; path=/';
+                window.dispatchEvent(new CustomEvent('tokenReceived', { detail: token }));
+              })();
+              true;
+            `);
+          }
+        }}
         onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
         onNavigationStateChange={navState => {
           onNavigationStateChange(navState);

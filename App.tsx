@@ -1,4 +1,4 @@
-import {AuthContextProvider, Navigation, SWRConfigProvider} from '@app/index';
+import {AuthContextProvider, Navigation, SWRConfigProvider, ToastProvider} from '@app/index';
 import React, {useEffect} from 'react';
 import {View} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -23,6 +23,7 @@ function App(): React.JSX.Element {
           </View>
         </SWRConfigProvider>
       </AuthContextProvider>
+      <ToastProvider />
     </SafeAreaProvider>
   );
 }

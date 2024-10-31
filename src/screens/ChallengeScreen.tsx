@@ -1,4 +1,4 @@
-import {Challenges} from '../widgets';
+import Challenges from '@widgets/Challenges';
 import React from 'react';
 import {Text, View} from 'react-native';
 

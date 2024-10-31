@@ -55,6 +55,7 @@ export type ChallengeRoute = {
     activityType: ActivityType;
   };
   verification_detail: {
+    challengeId: number;
     challengeTitle: string;
     activityType: ActivityType;
     verificationInfo: VerificationInfo;

@@ -30,6 +30,8 @@ export {default as MarkerSelected} from './MarkerSelected';
 export {default as MarkerActive} from './MarkerActive';
 export {default as MarkerDisabled} from './MarkerDisabled';
 export {default as MarkerInactive} from './MarkerInactive';
+export {default as MarkerCircle} from './MarkerCircle';
+export {default as EllipsisVertical} from './EllipsisVertical';
 export {default as My} from './My';
 export {default as NaverMap} from './NaverMap';
 export {default as Naver} from './Naver';
