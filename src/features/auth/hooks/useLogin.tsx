@@ -2,7 +2,6 @@ import {useAuthContext} from '@app/AuthContextProvider';
 import appleAuth from '@invertase/react-native-apple-authentication';
 import {login} from '@react-native-seoul/kakao-login';
 import {useMutateFetcher} from '@shared/hooks/useMutateFetcher';
-import WebView from 'react-native-webview';
 import useSWRMutation from 'swr/mutation';
 
 type Provider = 'KAKAO' | 'APPLE';
