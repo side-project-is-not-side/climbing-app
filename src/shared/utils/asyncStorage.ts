@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-type StorageKey = 'accessToken' | 'onboarding';
+type StorageKey = 'authToken' | 'onboarding';
 
 export const setStorage = async (key: StorageKey, data: any) => {
   return await AsyncStorage.setItem(key, JSON.stringify(data));

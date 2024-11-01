@@ -19,13 +19,13 @@ export function AuthContextProvider({children}: {children: React.ReactNode}) {
   const [onboarding, _setOnboarding] = useState(false);
 
   const getToken = async () => {
-    const token = await getStorage<string | null>('accessToken');
+    const token = await getStorage<string | null>('authToken');
     _setToken(token);
     return token;
   };
 
   const setToken = async (token: string | null) => {
-    await setStorage('accessToken', token);
+    await setStorage('authToken', token);
     _setToken(token);
   };
 
