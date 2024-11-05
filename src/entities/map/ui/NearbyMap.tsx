@@ -37,7 +37,7 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
 
   useEffect(() => {
     if (!grantStatus) return;
-    console.log({grantStatus});
+
     if (grantStatus === 'denied' || grantStatus === 'blocked') {
       setShowModal(true);
     }

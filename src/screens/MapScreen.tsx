@@ -15,7 +15,7 @@ const MapScreen = () => {
 
   useEffect(() => {
     if (selected && bottomSheetRef.current) {
-      bottomSheetRef.current.snapToPosition(1);
+      bottomSheetRef.current.snapToIndex(1);
     }
   }, [selected]);
 

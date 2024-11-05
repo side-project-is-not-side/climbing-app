@@ -17,8 +17,6 @@ const DAY_LABEL: Record<keyof TBusinessHours, string> = {
 };
 
 function BusinessHours({businessHours}: Props) {
-  console.log(businessHours);
-
   return (
     <View className="flex-col flex-wrap h-[92px] mb-5">
       {Object.entries(businessHours).map(([key, value]) => (
