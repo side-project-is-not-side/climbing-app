@@ -87,12 +87,12 @@ const styles = StyleSheet.create({
   buttonText: {
     color: colors.primary400,
     fontSize: 14,
-    fontWeight: 700,
+    fontWeight: '700',
   },
   modalText: {
     textAlign: 'center',
     fontSize: 16,
     color: 'white',
-    fontWeight: 700,
+    fontWeight: '700',
   },
 });

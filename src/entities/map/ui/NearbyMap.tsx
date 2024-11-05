@@ -13,7 +13,7 @@ type NearbyMapProps = {
   setSelected: React.Dispatch<React.SetStateAction<number | undefined>>;
 };
 const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
-  const {currentLocation, bounds, onCameraChanged, grantStatus, initialLocation} = useCurrentLocation(DEFAULT_ZOOM);
+  const {bounds, onCameraChanged, grantStatus, initialLocation} = useCurrentLocation(DEFAULT_ZOOM);
   const [showModal, setShowModal] = useState(false);
 
   const ref = useRef<NaverMapViewRef>(null);
@@ -37,8 +37,8 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
 
   useEffect(() => {
     if (!grantStatus) return;
-
-    if (grantStatus === 'denied') {
+    console.log({grantStatus});
+    if (grantStatus === 'denied' || grantStatus === 'blocked') {
       setShowModal(true);
     }
   }, [grantStatus]);
