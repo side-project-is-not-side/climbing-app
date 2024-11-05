@@ -11,6 +11,8 @@ import ScrollViewCarousel from './ScrollViewCarousel';
 import SquareImage from './SquareImage';
 import WebViewScreen from './WebViewScreen';
 
+export * from './PermissionModal';
+
 export {
   WebViewScreen,
   Icon,
