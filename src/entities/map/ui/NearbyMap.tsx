@@ -41,8 +41,7 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
       zoom: DEFAULT_ZOOM,
     });
 
-    ref.current?.setLocationTrackingMode('Follow');
-    setCurrentBounds(bounds);
+    ref.current?.setLocationTrackingMode('NoFollow');
   }, [granted]);
 
   const handlePress = () => {
