@@ -1,4 +1,5 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {ExternalPageScreen} from '@screens/ExternalPageScreen';
 import MyScreen from '@screens/MyScreen';
 import UserInfoScreen from '@screens/UserInfoScreen';
 import {MY_ROUTES, MyRoute} from '@shared/constants';
@@ -39,6 +40,18 @@ const MyNavigation = () => {
           }}
           name={MY_ROUTES.USER_INFO}
           component={UserInfoScreen}
+        />
+        <Stack.Screen
+          options={({navigation}) => ({
+            headerTitle: '',
+            headerLeft: () => (
+              <Pressable onPress={navigation.goBack} className="items-center justify-center w-6 h-6">
+                <Icon name="Close" size={14} />
+              </Pressable>
+            ),
+          })}
+          name={MY_ROUTES.EXTERNAL}
+          component={ExternalPageScreen}
         />
       </Stack.Navigator>
     </SafeAreaView>

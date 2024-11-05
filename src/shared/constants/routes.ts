@@ -28,6 +28,7 @@ export const AUTH_ROUTES = {
 export const MY_ROUTES = {
   MY: 'my',
   USER_INFO: 'user_info',
+  EXTERNAL: 'external_page',
 } as const;
 
 export const MAP_ROUTES = {
@@ -90,6 +91,9 @@ export type AuthRoute = {
 export type MyRoute = {
   my: undefined;
   user_info: undefined;
+  external_page: {
+    name: 'NOTICE' | 'TERMS' | 'POLICY';
+  };
 };
 
 export type AllRoute = RootRoute & ChallengeRoute & AuthRoute;

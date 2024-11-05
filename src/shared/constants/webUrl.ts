@@ -1,13 +1,15 @@
 import {Platform} from 'react-native';
 import Config from 'react-native-config';
 
-const isDev = false ?? Config.NODE_ENV === 'development';
+const isDev = Config.NODE_ENV === 'development';
 
-export const BASE_URL = isDev
-  ? Platform.OS === 'android'
-    ? 'http://192.168.219.106:3000'
-    : 'http://localhost:3000'
-  : 'https://www.grabbers.co.kr';
+// export const BASE_URL = isDev
+//   ? Platform.OS === 'android'
+//     ? 'http://192.168.219.106:3000'
+//     : 'http://localhost:3000'
+//   : 'https://www.grabbers.co.kr';
+
+export const BASE_URL = 'http://localhost:3000';
 
 export const LINKING_URI = {
   MY: 'my',
@@ -30,3 +32,10 @@ export const WEB_URL = {
 
 export const KAKAO_LOGIN_URL = 'https://accounts.kakao.com';
 export const KAKAO_AUTH_URL = 'https://kauth.kakao.com';
+export const NOTION_URLS = ['https://phantom-lake-336.notion.site', 'https://aif.notion.so'];
+
+export const MYPAGE_LINKS = {
+  NOTICE: 'https://phantom-lake-336.notion.site/1c81ec2d352e49edab1cfd79bfe836bd?pvs=74',
+  POLICY: 'https://phantom-lake-336.notion.site/6b575903cd994210b767d1eacb67c8c7',
+  TERMS: 'https://phantom-lake-336.notion.site/5267348ff1e94a7aab94e7caa1b2aeed',
+} as const;
