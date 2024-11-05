@@ -18,14 +18,15 @@ export type Link = {
   scheme: string;
   link: string;
 };
-export type DurationTime = {
-  startAt: string;
-  endAt: string;
-};
 
-export type BusinessHours = {
-  weekday: DurationTime;
-  weekend: DurationTime;
+export type TBusinessHours = {
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+  saturday: string;
+  sunday: string;
 };
 
 export type GetSelectedBoulderingGymResponse = {
@@ -49,7 +50,7 @@ export type GetBoulderingGymDetailResponse = {
   roadNameAddress: string;
   instagram: Link;
   naver: Link;
-  businessHours: BusinessHours;
+  businessHours: TBusinessHours;
 };
 
 export type GetNearestGymsRequest = {
@@ -77,7 +78,7 @@ export type GetGymDetailResponse = {
   thumbnailImageUrl: string;
   tags: string[];
   description: string;
-  businessHours: BusinessHours;
+  businessHours: TBusinessHours;
   roadNameAddress: string;
   distance: number;
   location: Location;
