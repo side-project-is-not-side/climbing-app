@@ -14,6 +14,8 @@ export const useGetNearbyGyms = (bounds: Bounds) => {
     {
       keepPreviousData: true,
       revalidateOnFocus: false,
+      revalidateIfStale: false,
+      revalidateOnReconnect: false,
     },
   );
 };
