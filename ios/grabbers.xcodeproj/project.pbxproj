@@ -11,12 +11,12 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		77C930D8B24AC94B60AF1DCD /* libPods-grabbers-grabbersTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3819AB6C0C8284AA1464C236 /* libPods-grabbers-grabbersTests.a */; };
+		4518F57E1E063C82A08C1C2D /* libPods-grabbers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D885EE0660446B663D7CBDB /* libPods-grabbers.a */; };
+		66E54A60DE74E234787B4EAA /* libPods-grabbers-grabbersTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03584F3FCA1270568C55C040 /* libPods-grabbers-grabbersTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9D8CA10CBF2C2D7C146FEE3D /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 48A77C0E487134DFB2F9D408 /* PrivacyInfo.xcprivacy */; };
 		C8A23AE32C68846C00136303 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = C8A23AE22C68846C00136303 /* main.jsbundle */; };
 		C8DAC0022CAF7C65004139DF /* PretendardVariable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8DAC0012CAF7C65004139DF /* PretendardVariable.ttf */; };
-		DB757FB1E4088739B30432A9 /* libPods-grabbers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88A4CE3C2384903E8450BC86 /* libPods-grabbers.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +33,8 @@
 		00E356EE1AD99517003FC87E /* grabbersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = grabbersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* grabbersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = grabbersTests.m; sourceTree = "<group>"; };
+		03584F3FCA1270568C55C040 /* libPods-grabbers-grabbersTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-grabbers-grabbersTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		10C6AFC8F297F1FE2D9B59F5 /* Pods-grabbers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabbers.release.xcconfig"; path = "Target Support Files/Pods-grabbers/Pods-grabbers.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* grabbers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = grabbers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = grabbers/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = grabbers/AppDelegate.mm; sourceTree = "<group>"; };
@@ -40,18 +42,16 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = grabbers/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = grabbers/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = grabbers/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		3819AB6C0C8284AA1464C236 /* libPods-grabbers-grabbersTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-grabbers-grabbersTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D885EE0660446B663D7CBDB /* libPods-grabbers.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-grabbers.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D0520A71E786F09D1F9FFA8 /* Pods-grabbers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabbers.debug.xcconfig"; path = "Target Support Files/Pods-grabbers/Pods-grabbers.debug.xcconfig"; sourceTree = "<group>"; };
 		48A77C0E487134DFB2F9D408 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = grabbers/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		7660720968CC456FAC3E7BF5 /* PretendardVariable.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = PretendardVariable.ttf; path = ../assets/fonts/PretendardVariable.ttf; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = grabbers/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		88A4CE3C2384903E8450BC86 /* libPods-grabbers.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-grabbers.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		93F6D0CC111D9ACE0AD9C4EF /* Pods-grabbers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabbers.debug.xcconfig"; path = "Target Support Files/Pods-grabbers/Pods-grabbers.debug.xcconfig"; sourceTree = "<group>"; };
+		8489A43B69743A1D29401F01 /* Pods-grabbers-grabbersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabbers-grabbersTests.release.xcconfig"; path = "Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests.release.xcconfig"; sourceTree = "<group>"; };
 		C863EA4F2CD2458A0079EAF9 /* grabbersRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = grabbersRelease.entitlements; path = grabbers/grabbersRelease.entitlements; sourceTree = "<group>"; };
 		C8A23AE22C68846C00136303 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		C8DAC0012CAF7C65004139DF /* PretendardVariable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = PretendardVariable.ttf; path = Fonts/PretendardVariable.ttf; sourceTree = "<group>"; };
-		CC7E348E68DD4CC56EF8BD44 /* Pods-grabbers-grabbersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabbers-grabbersTests.release.xcconfig"; path = "Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests.release.xcconfig"; sourceTree = "<group>"; };
-		D20810BEF7F27BF870E01495 /* Pods-grabbers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabbers.release.xcconfig"; path = "Target Support Files/Pods-grabbers/Pods-grabbers.release.xcconfig"; sourceTree = "<group>"; };
-		E2035C3FFE7847F9C4C9D676 /* Pods-grabbers-grabbersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabbers-grabbersTests.debug.xcconfig"; path = "Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D3A91FB8FBF65FCA6F021669 /* Pods-grabbers-grabbersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabbers-grabbersTests.debug.xcconfig"; path = "Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -60,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77C930D8B24AC94B60AF1DCD /* libPods-grabbers-grabbersTests.a in Frameworks */,
+				66E54A60DE74E234787B4EAA /* libPods-grabbers-grabbersTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,7 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB757FB1E4088739B30432A9 /* libPods-grabbers.a in Frameworks */,
+				4518F57E1E063C82A08C1C2D /* libPods-grabbers.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,8 +112,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				88A4CE3C2384903E8450BC86 /* libPods-grabbers.a */,
-				3819AB6C0C8284AA1464C236 /* libPods-grabbers-grabbersTests.a */,
+				2D885EE0660446B663D7CBDB /* libPods-grabbers.a */,
+				03584F3FCA1270568C55C040 /* libPods-grabbers-grabbersTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -155,10 +155,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				93F6D0CC111D9ACE0AD9C4EF /* Pods-grabbers.debug.xcconfig */,
-				D20810BEF7F27BF870E01495 /* Pods-grabbers.release.xcconfig */,
-				E2035C3FFE7847F9C4C9D676 /* Pods-grabbers-grabbersTests.debug.xcconfig */,
-				CC7E348E68DD4CC56EF8BD44 /* Pods-grabbers-grabbersTests.release.xcconfig */,
+				3D0520A71E786F09D1F9FFA8 /* Pods-grabbers.debug.xcconfig */,
+				10C6AFC8F297F1FE2D9B59F5 /* Pods-grabbers.release.xcconfig */,
+				D3A91FB8FBF65FCA6F021669 /* Pods-grabbers-grabbersTests.debug.xcconfig */,
+				8489A43B69743A1D29401F01 /* Pods-grabbers-grabbersTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -178,12 +178,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "grabbersTests" */;
 			buildPhases = (
-				AC6124D31D375D6C997ABB8F /* [CP] Check Pods Manifest.lock */,
+				1C73B4CDB04FC0EF79D268BB /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				0E58854B28940E85530502F8 /* [CP] Embed Pods Frameworks */,
-				A20539961AE7E5F692D2F06C /* [CP] Copy Pods Resources */,
+				2965A0DC60039185172835AC /* [CP] Embed Pods Frameworks */,
+				D26B496FD4D9915424E526B1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -199,13 +199,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "grabbers" */;
 			buildPhases = (
-				06147CAEB735D2034E1C7A2C /* [CP] Check Pods Manifest.lock */,
+				5B1C4FF8544A0F1F6818320D /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				CCFBA481A6D6619B08168DBD /* [CP] Embed Pods Frameworks */,
-				92BD67E981DC04559AC2AA4E /* [CP] Copy Pods Resources */,
+				A7A121D4966076B150A35CC4 /* [CP] Embed Pods Frameworks */,
+				0DA6DA1760E50A484EDD7CF6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -291,46 +291,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		06147CAEB735D2034E1C7A2C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-grabbers-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		0E58854B28940E85530502F8 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		92BD67E981DC04559AC2AA4E /* [CP] Copy Pods Resources */ = {
+		0DA6DA1760E50A484EDD7CF6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -347,24 +308,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-grabbers/Pods-grabbers-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A20539961AE7E5F692D2F06C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AC6124D31D375D6C997ABB8F /* [CP] Check Pods Manifest.lock */ = {
+		1C73B4CDB04FC0EF79D268BB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -386,7 +330,46 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CCFBA481A6D6619B08168DBD /* [CP] Embed Pods Frameworks */ = {
+		2965A0DC60039185172835AC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5B1C4FF8544A0F1F6818320D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-grabbers-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7A121D4966076B150A35CC4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -401,6 +384,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-grabbers/Pods-grabbers-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D26B496FD4D9915424E526B1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-grabbers-grabbersTests/Pods-grabbers-grabbersTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -436,7 +436,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E2035C3FFE7847F9C4C9D676 /* Pods-grabbers-grabbersTests.debug.xcconfig */;
+			baseConfigurationReference = D3A91FB8FBF65FCA6F021669 /* Pods-grabbers-grabbersTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -463,7 +463,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CC7E348E68DD4CC56EF8BD44 /* Pods-grabbers-grabbersTests.release.xcconfig */;
+			baseConfigurationReference = 8489A43B69743A1D29401F01 /* Pods-grabbers-grabbersTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -487,7 +487,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 93F6D0CC111D9ACE0AD9C4EF /* Pods-grabbers.debug.xcconfig */;
+			baseConfigurationReference = 3D0520A71E786F09D1F9FFA8 /* Pods-grabbers.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -523,7 +523,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D20810BEF7F27BF870E01495 /* Pods-grabbers.release.xcconfig */;
+			baseConfigurationReference = 10C6AFC8F297F1FE2D9B59F5 /* Pods-grabbers.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

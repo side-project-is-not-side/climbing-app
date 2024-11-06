@@ -1,10 +1,8 @@
 import {GetGymDetailResponse} from '@entities/gym/api/types';
-import {useGetGymDetailInfo} from '@entities/gym/queries';
 import Chips from '@entities/gym/ui/Chips';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {MAP_ROUTES, MapRoute} from '@shared/constants';
-import {LoadingSpinner} from '@shared/ui';
 import React, {PropsWithChildren} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 

@@ -15,5 +15,6 @@
   "dimensions": false,
   "ignoreExisting": true,
   "outDir": "src/shared/ui/Icons",
-  "native": true
+  "native": true,
+  "plugins": ["@svgr/plugin-jsx"]
 }

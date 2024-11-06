@@ -1,9 +1,8 @@
-
-import { DEFAULT_ZOOM } from '@entities/map/constants/location';
-import { useCurrentLocation } from '@entities/map/hooks';
-import { getUrlWithoutHost } from '@shared/utils';
+import {GymInfo} from '../api/types';
+import {DEFAULT_ZOOM} from '@entities/map/constants/location';
+import {useCurrentLocation} from '@entities/map/hooks';
+import {getUrlWithoutHost} from '@shared/utils';
 import useSWRInfinite, {SWRInfiniteKeyLoader} from 'swr/infinite';
-import { GymInfo } from '../api/types';
 
 export const useGetGymsByLocation = () => {
   const {
@@ -22,5 +21,10 @@ export const useGetGymsByLocation = () => {
     return url;
   };
 
-  return useSWRInfinite<GymInfo[]>(getKey, {revalidateFirstPage: false});
+  return useSWRInfinite<GymInfo[]>(getKey, {
+    revalidateFirstPage: false,
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
+    revalidateOnReconnect: false,
+  });
 };

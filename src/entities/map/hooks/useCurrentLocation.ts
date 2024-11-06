@@ -2,13 +2,13 @@ import {DEFAULT_ZOOM, INITIAL_CENTER} from '../constants/location';
 import {getLatLongDelta} from '../utils';
 import {getBoundByRegion} from '../utils/getBoundByRegion';
 import {Camera} from '@mj-studio/react-native-naver-map';
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import {Platform} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
-import {PERMISSIONS, request, requestLocationAccuracy} from 'react-native-permissions';
+import {PERMISSIONS, PermissionStatus, request, requestLocationAccuracy} from 'react-native-permissions';
 
 export const useCurrentLocation = (zoomLevel: number) => {
-  const [granted, setGranted] = useState(false);
+  const [grantStatus, setGrantStatus] = useState<PermissionStatus>();
   const [latitudeDelta, longitudeDelta] = getLatLongDelta(zoomLevel, INITIAL_CENTER.latitude);
 
   const [currentLocation, setCurrentLocation] = useState({
@@ -17,86 +17,101 @@ export const useCurrentLocation = (zoomLevel: number) => {
     longitudeDelta,
   });
 
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(status => {
-        if (status === 'granted') {
-          setGranted(true);
-          return;
-        }
-        setGranted(false);
-      });
-    }
+  const [initialLocation, setInitialLocation] = useState<typeof currentLocation>();
 
-    if (Platform.OS === 'ios') {
-      request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE).then(status => {
+  // 권한 요청을 한 번만 실행
+  useEffect(() => {
+    const requestPermissions = async () => {
+      if (Platform.OS === 'android') {
+        const status: PermissionStatus = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+        setGrantStatus(status);
+      } else if (Platform.OS === 'ios') {
+        const status = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+        setGrantStatus(status);
         if (status === 'granted') {
-          requestLocationAccuracy({
-            purposeKey: 'common-purpose',
-          });
-          setGranted(true);
-          return;
+          await requestLocationAccuracy({purposeKey: 'common-purpose'});
         }
-        setGranted(false);
-      });
-    }
+      }
+    };
+
+    requestPermissions();
   }, []);
 
+  // 위치 추적 및 상태 업데이트를 최적화
   useEffect(() => {
-    Geolocation.getCurrentPosition(position => {
-      const {latitude, longitude} = position.coords;
-      if (latitude && longitude) {
-        const [latitudeDelta, longitudeDelta] = getLatLongDelta(zoomLevel, latitude);
-        setCurrentLocation({
+    if (!grantStatus) return;
+
+    const updateLocation = (latitude: number, longitude: number) => {
+      const [newLatitudeDelta, newLongitudeDelta] = getLatLongDelta(zoomLevel, latitude);
+
+      if (!initialLocation) {
+        setInitialLocation({
           latitude,
           longitude,
-          latitudeDelta,
-          longitudeDelta,
+          latitudeDelta: newLatitudeDelta,
+          longitudeDelta: newLongitudeDelta,
         });
       }
-    });
-    // 위치 업데이트 설정
+
+      setCurrentLocation(prevLocation => {
+        if (prevLocation.latitude === latitude && prevLocation.longitude === longitude) {
+          return prevLocation;
+        }
+        return {
+          latitude,
+          longitude,
+          latitudeDelta: newLatitudeDelta,
+          longitudeDelta: newLongitudeDelta,
+        };
+      });
+    };
+
+    Geolocation.getCurrentPosition(
+      position => {
+        const {latitude, longitude} = position.coords;
+        updateLocation(latitude, longitude);
+      },
+      error => console.log(error),
+      {enableHighAccuracy: true},
+    );
+
     const watchId = Geolocation.watchPosition(
       position => {
         const {latitude, longitude} = position.coords;
-        // currentLocation에 위도, 경도 저장
-        if (latitude && longitude) {
-          const [latitudeDelta, longitudeDelta] = getLatLongDelta(zoomLevel, latitude);
-          setCurrentLocation({
-            latitude,
-            longitude,
-            latitudeDelta,
-            longitudeDelta,
-          });
-        }
+        updateLocation(latitude, longitude);
       },
-      error => {
-        console.log(error);
-      },
+      error => console.log(error),
       {
-        enableHighAccuracy: true, // 배터리를 더 소모하여 보다 정확한 위치 추적
-        distanceFilter: 1,
+        enableHighAccuracy: true,
+        distanceFilter: 5, // 5미터 이상 이동 시에만 업데이트
         interval: 20000,
       },
     );
-    // 컴포넌트 언마운트 시 위치 업데이트 중지
+
     return () => {
       Geolocation.clearWatch(watchId);
     };
-  }, []);
+  }, [grantStatus, zoomLevel]);
 
-  const onCameraChanged = (params: Camera) => {
+  // 카메라 변경 시 현재 위치 업데이트 최적화
+  const onCameraChanged = useCallback((params: Camera) => {
     const {latitude, longitude, zoom} = params;
     const [latitudeDelta, longitudeDelta] = getLatLongDelta(zoom ?? DEFAULT_ZOOM, latitude);
-    setCurrentLocation({
-      latitude,
-      longitude,
-      latitudeDelta,
-      longitudeDelta,
+
+    setCurrentLocation(prevLocation => {
+      if (prevLocation.latitude === latitude && prevLocation.longitude === longitude) {
+        return prevLocation;
+      }
+      return {
+        latitude,
+        longitude,
+        latitudeDelta,
+        longitudeDelta,
+      };
     });
-  };
+  }, []);
 
-  const bounds = getBoundByRegion({region: currentLocation});
+  const bounds = useMemo(() => getBoundByRegion({region: currentLocation}), [currentLocation]);
 
-  return {currentLocation, bounds, onCameraChanged, granted};
+  return {currentLocation, bounds, onCameraChanged, grantStatus, initialLocation};
 };

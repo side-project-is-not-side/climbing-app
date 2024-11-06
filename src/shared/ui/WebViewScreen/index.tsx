@@ -5,6 +5,8 @@ import {
   KAKAO_AUTH_URL,
   KAKAO_LOGIN_URL,
   LINKING_URI,
+  MYPAGE_LINKS,
+  NOTION_URLS,
   ROOT_ROUTES,
   WEB_URL,
   userAgent,
@@ -23,7 +25,7 @@ type WebViewProps = {
   token?: string | null;
 } & React.ComponentProps<typeof WebViewComponent>;
 
-const WEBVIEW_URLS = [BASE_URL, KAKAO_LOGIN_URL, KAKAO_AUTH_URL];
+const WEBVIEW_URLS = [BASE_URL, KAKAO_LOGIN_URL, KAKAO_AUTH_URL, ...NOTION_URLS];
 
 const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
   const {uri, html, style, ...rest} = props;
@@ -37,7 +39,7 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
   const onNavigationStateChange = (navState: WebViewNavigation) => {
     const navLinks = Object.values(LINKING_URI);
 
-    if (!navState.url.includes(BASE_URL) && !navState.url.includes('kakao')) {
+    if (!WEBVIEW_URLS.some(webviewUrl => navState.url.includes(webviewUrl))) {
       Linking.openURL(navState.url);
       return;
     }
@@ -65,15 +67,15 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
 
       switch (data.type) {
         case 'NAVIGATE': {
-          const {route, id, isStack, parent} = data.data;
+          const {route, isStack, parent, ...params} = data.data;
 
           if (isStack && parent) {
             navigation.navigate(parent, {
               screen: route,
-              params: {id},
+              params,
             });
           } else {
-            navigation.navigate(route, {id});
+            navigation.navigate(route, params);
           }
           break;
         }

@@ -1,8 +1,8 @@
-
-import { Bounds } from '@entities/map/types';
+import {getNearByBoulderingGyms} from '../api';
+import {GetAroundBoulderingGymResponse} from '../api/types';
+import {Bounds} from '@entities/map/types';
 import useSWR from 'swr';
-import { GetAroundBoulderingGymResponse } from '../api/types';
-import { getNearByBoulderingGyms } from '../api';
+
 const ENDPOINT = '/v1/gyms/map';
 
 export const useGetNearbyGyms = (bounds: Bounds) => {
@@ -13,6 +13,9 @@ export const useGetNearbyGyms = (bounds: Bounds) => {
     () => getNearByBoulderingGyms(bounds),
     {
       keepPreviousData: true,
+      revalidateOnFocus: false,
+      revalidateIfStale: false,
+      revalidateOnReconnect: false,
     },
   );
 };

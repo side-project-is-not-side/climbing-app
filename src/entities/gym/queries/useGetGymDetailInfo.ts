@@ -11,5 +11,8 @@ export const useGetGymDetailInfo = (id?: number | null) => {
   const url = getUrlWithoutHost(`/v1/gyms/${id}`, {latitude: String(latitude), longitude: String(longitude)});
   return useSWR<GetGymDetailResponse>(id ? url : null, {
     keepPreviousData: true,
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
+    revalidateOnReconnect: false,
   });
 };

@@ -1,7 +1,6 @@
+import {TBusinessHours} from '../api/types';
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { TBusinessHours } from '../api/types';
-
+import {StyleSheet, Text, View} from 'react-native';
 
 type Props = {
   businessHours: TBusinessHours;
@@ -17,19 +16,17 @@ const DAY_LABEL: Record<keyof TBusinessHours, string> = {
   sunday: '일',
 };
 
-function BusinessHours({ businessHours }: Props) {
- 
+function BusinessHours({businessHours}: Props) {
   return (
-    <View className='flex-col flex-wrap h-[92px] mb-5'>
+    <View className="flex-col flex-wrap h-[92px] mb-5">
       {Object.entries(businessHours).map(([key, value]) => (
-        <View key={key} className='flex-row w-1/2'>
-          <Text className='font-text-2 text-white mr-[10px]'>{DAY_LABEL[key]}</Text>
-          <Text className='font-text-2 text-neutral-400'>{value}</Text>
+        <View key={key} className="flex-row w-1/2">
+          <Text className="font-text-2 text-white mr-[10px]">{DAY_LABEL[key as keyof TBusinessHours]}</Text>
+          <Text className="font-text-2 text-neutral-400">{value}</Text>
         </View>
       ))}
     </View>
   );
 }
-
 
 export default BusinessHours;
