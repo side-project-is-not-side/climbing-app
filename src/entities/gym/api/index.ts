@@ -1,7 +1,6 @@
-
-import { getUrl } from '@shared/utils';
-import { GetNearestGymsRequest} from './types';
-import { Bounds } from '@entities/map/types';
+import {GetNearestGymsRequest} from './types';
+import {Bounds} from '@entities/location';
+import {getUrl} from '@shared/utils';
 
 export const getNearByBoulderingGyms = async (bounds: Bounds | undefined) => {
   if (!bounds) return;
@@ -13,10 +12,7 @@ export const getNearByBoulderingGyms = async (bounds: Bounds | undefined) => {
 };
 
 // 현재 위치로부터 가장 가까운 암장 두 개를 가져오는 API
-export const getNearestGyms = async ({
-  latitude,
-  longitude,
-}: GetNearestGymsRequest) => {
+export const getNearestGyms = async ({latitude, longitude}: GetNearestGymsRequest) => {
   const ENDPOINT = 'api/gyms/map';
 
   const url = getUrl(ENDPOINT, {

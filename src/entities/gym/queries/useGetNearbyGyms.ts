@@ -1,6 +1,6 @@
 import {getNearByBoulderingGyms} from '../api';
 import {GetAroundBoulderingGymResponse} from '../api/types';
-import {Bounds} from '@entities/map/types';
+import {Bounds} from '@entities/location';
 import useSWR from 'swr';
 
 const ENDPOINT = '/v1/gyms/map';

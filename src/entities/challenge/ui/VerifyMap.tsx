@@ -32,6 +32,10 @@ const VerifyMap = ({challengeId, selectedMarkerIdx, setSelectedMarkerIdx, showTa
   };
 
   useEffect(() => {
+    ref.current?.setLocationTrackingMode('NoFollow');
+  }, []);
+
+  useEffect(() => {
     if (currentLocation) {
       ref.current?.animateCameraTo({...currentLocation, zoom: 15});
     }
@@ -40,11 +44,6 @@ const VerifyMap = ({challengeId, selectedMarkerIdx, setSelectedMarkerIdx, showTa
   return (
     <View style={{flex: 1}}>
       <NaverMapView ref={ref} mapType="Basic" style={{flex: 1}} onTapMap={onTabMap} isShowLocationButton={false}>
-        {/* 내 위치 */}
-        {currentLocation && (
-          <Marker latitude={currentLocation.latitude} longitude={currentLocation.longitude} type={'circle'} />
-        )}
-
         {data &&
           data.map(gym => {
             const canVerify = gym.canChanllenge;

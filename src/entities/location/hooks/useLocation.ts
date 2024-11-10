@@ -1,13 +1,14 @@
-import {usePermissionStore} from '../store';
+import {useLocationStore} from '../store';
+import {getBoundByRegion} from '@entities/map/utils/getBoundByRegion';
 import {useEffect} from 'react';
 import {Platform} from 'react-native';
 import {PERMISSIONS, PermissionStatus, request, requestLocationAccuracy} from 'react-native-permissions';
 
 export const useLocation = () => {
-  const {location, setLocationStatus} = usePermissionStore();
+  const {status, setLocationStatus, currentLocation, setCurrentLocation, currentBounds, setBounds} = useLocationStore();
 
   useEffect(() => {
-    if (!location) {
+    if (!status) {
       const requestPermissions = async () => {
         if (Platform.OS === 'android') {
           const status: PermissionStatus = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
@@ -23,7 +24,15 @@ export const useLocation = () => {
 
       requestPermissions();
     }
-  }, [location]);
+  }, [status]);
 
-  return {permissionStatus: location};
+  const getBounds = () => getBoundByRegion({region: currentLocation});
+
+  const setBoundsByRegion = () => {
+    const bounds = getBounds();
+    console.log(currentLocation, bounds);
+    setBounds(bounds);
+  };
+
+  return {permissionStatus: status, currentLocation, setCurrentLocation, setBoundsByRegion, currentBounds};
 };

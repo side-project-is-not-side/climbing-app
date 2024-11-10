@@ -1,7 +1,5 @@
-
-import { Region } from '@mj-studio/react-native-naver-map';
-import { Bounds } from '../types';
-
+import {Bounds} from '@entities/location';
+import {Region} from '@mj-studio/react-native-naver-map';
 
 type GetBoundByRegionProps = {
   region: Region;
@@ -40,20 +38,14 @@ const calcMaxLngByOffset = (lng: number, offset: number) => {
   return factValue;
 };
 
-export const getBoundByRegion = ({
-  region,
-  scale = 1,
-}: GetBoundByRegionProps): Bounds => {
+export const getBoundByRegion = ({region, scale = 1}: GetBoundByRegionProps): Bounds => {
   /*
    * Latitude : max/min +90 to -90
    * Longitude : max/min +180 to -180
    */
 
   const latOffset = (region.latitudeDelta / 2) * scale;
-  const lngD =
-    region.longitudeDelta < -180
-      ? 360 + region.longitudeDelta
-      : region.longitudeDelta;
+  const lngD = region.longitudeDelta < -180 ? 360 + region.longitudeDelta : region.longitudeDelta;
   const lngOffset = (lngD / 2) * scale;
 
   return {
