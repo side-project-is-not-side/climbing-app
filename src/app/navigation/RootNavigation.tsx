@@ -87,7 +87,7 @@ const RootNavigation = () => {
         }}
       />
       <Tab.Screen
-        name={'challenge_group'}
+        name={ROOT_ROUTES.CHALLENGE}
         component={ChallengeNavigation}
         options={{
           headerShown: false,
