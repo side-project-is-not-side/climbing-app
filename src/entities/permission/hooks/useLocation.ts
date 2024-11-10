@@ -1,0 +1,29 @@
+import {usePermissionStore} from '../store';
+import {useEffect} from 'react';
+import {Platform} from 'react-native';
+import {PERMISSIONS, PermissionStatus, request, requestLocationAccuracy} from 'react-native-permissions';
+
+export const useLocation = () => {
+  const {location, setLocationStatus} = usePermissionStore();
+
+  useEffect(() => {
+    if (!location) {
+      const requestPermissions = async () => {
+        if (Platform.OS === 'android') {
+          const status: PermissionStatus = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+          setLocationStatus(status);
+        } else if (Platform.OS === 'ios') {
+          const status = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+          setLocationStatus(status);
+          if (status === 'granted') {
+            await requestLocationAccuracy({purposeKey: 'common-purpose'});
+          }
+        }
+      };
+
+      requestPermissions();
+    }
+  }, [location]);
+
+  return {permissionStatus: location};
+};
