@@ -2,13 +2,19 @@ import {DEFAULT_ZOOM} from '../constants/location';
 import {getLatLongDelta} from '../utils';
 import {useLocation} from '@entities/location';
 import {NaverMapViewProps} from '@mj-studio/react-native-naver-map';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import Geolocation from 'react-native-geolocation-service';
 
 export const useCurrentLocation = (zoomLevel: number) => {
-  const {permissionStatus, currentLocation, setCurrentLocation, currentBounds, setBoundsByRegion} = useLocation();
-
-  const [initialLocation, setInitialLocation] = useState<typeof currentLocation>();
+  const {
+    permissionStatus,
+    currentLocation,
+    setCurrentLocation,
+    currentBounds,
+    setBoundsByRegion,
+    initialLocation,
+    setInitialLocation,
+  } = useLocation();
 
   // 위치 추적 및 상태 업데이트를 최적화
   useEffect(() => {
@@ -60,6 +66,12 @@ export const useCurrentLocation = (zoomLevel: number) => {
       Geolocation.clearWatch(watchId);
     };
   }, [permissionStatus, zoomLevel]);
+
+  useEffect(() => {
+    if (initialLocation) {
+      setBoundsByRegion();
+    }
+  }, [initialLocation]);
 
   const onCameraChanged: NaverMapViewProps['onCameraChanged'] = params => {
     const {latitude, longitude, zoom, reason} = params;

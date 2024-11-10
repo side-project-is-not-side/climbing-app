@@ -51,8 +51,6 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
       zoom: DEFAULT_ZOOM,
     });
 
-    setBoundsByRegion();
-
     ref.current?.setLocationTrackingMode('NoFollow');
   }, [initialLocation]);
 

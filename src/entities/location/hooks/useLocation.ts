@@ -5,7 +5,7 @@ import {Platform} from 'react-native';
 import {PERMISSIONS, PermissionStatus, request, requestLocationAccuracy} from 'react-native-permissions';
 
 export const useLocation = () => {
-  const {status, setLocationStatus, currentLocation, setCurrentLocation, currentBounds, setBounds} = useLocationStore();
+  const {status, setLocationStatus, currentLocation, setBounds, ...props} = useLocationStore();
 
   useEffect(() => {
     if (!status) {
@@ -33,5 +33,5 @@ export const useLocation = () => {
     setBounds(bounds);
   };
 
-  return {permissionStatus: status, currentLocation, setCurrentLocation, setBoundsByRegion, currentBounds};
+  return {permissionStatus: status, currentLocation, setBoundsByRegion, ...props};
 };
