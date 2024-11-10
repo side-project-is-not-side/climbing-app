@@ -30,7 +30,6 @@ export const useLocation = () => {
 
   const setBoundsByRegion = () => {
     const bounds = getBounds();
-    console.log(currentLocation, bounds);
     setBounds(bounds);
   };
 

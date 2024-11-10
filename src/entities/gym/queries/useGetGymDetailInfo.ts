@@ -1,14 +1,18 @@
-import {GetGymDetailResponse} from '../api/types';
-import {INITIAL_CENTER, ZOOM_LEVEL} from '@entities/map/constants/location';
-import {useCurrentLocation} from '@entities/map/hooks';
+import {GetGymDetailResponse, Location} from '../api/types';
+import {CurrentLocation, useLocationStore} from '@entities/location';
 import {getUrlWithoutHost} from '@shared/utils';
+import {useState} from 'react';
 import useSWR from 'swr';
 
 export const useGetGymDetailInfo = (id?: number | null) => {
-  const {currentLocation} = useCurrentLocation(ZOOM_LEVEL.시군구);
-  const {latitude, longitude} = currentLocation ?? INITIAL_CENTER;
+  const {currentLocation} = useLocationStore();
 
-  const url = getUrlWithoutHost(`/v1/gyms/${id}`, {latitude: String(latitude), longitude: String(longitude)});
+  const [location] = useState<CurrentLocation>(currentLocation);
+
+  const url = getUrlWithoutHost(`/v1/gyms/${id}`, {
+    latitude: String(location.latitude),
+    longitude: String(location.longitude),
+  });
   return useSWR<GetGymDetailResponse>(id ? url : null, {
     keepPreviousData: true,
     revalidateOnFocus: false,
