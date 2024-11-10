@@ -51,7 +51,7 @@ const ChallengeNavigation = () => {
             title: '',
             headerLeft: () => (
               <Pressable onPress={() => navigation.navigate('challenge')}>
-                <Icon name={'ArrowBack'} size={24} color={'#fff'} />
+                <Icon name="ArrowBack" size={24} color={'#fff'} />
               </Pressable>
             ),
           })}

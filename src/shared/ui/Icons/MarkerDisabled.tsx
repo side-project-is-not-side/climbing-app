@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Svg, {G, Mask, Path} from 'react-native-svg';
+import Svg, {ClipPath, Defs, G, Mask, Path, Rect} from 'react-native-svg';
 import type {SvgProps} from 'react-native-svg';
 
 const SvgMarkerDisabled = (props: SvgProps) => (
