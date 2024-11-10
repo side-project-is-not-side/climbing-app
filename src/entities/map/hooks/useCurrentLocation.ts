@@ -1,45 +1,24 @@
-import {DEFAULT_ZOOM, INITIAL_CENTER} from '../constants/location';
+import {DEFAULT_ZOOM} from '../constants/location';
 import {getLatLongDelta} from '../utils';
-import {getBoundByRegion} from '../utils/getBoundByRegion';
-import {Camera} from '@mj-studio/react-native-naver-map';
-import {useCallback, useEffect, useMemo, useState} from 'react';
-import {Platform} from 'react-native';
+import {useLocation} from '@entities/location';
+import {NaverMapViewProps} from '@mj-studio/react-native-naver-map';
+import {useEffect} from 'react';
 import Geolocation from 'react-native-geolocation-service';
-import {PERMISSIONS, PermissionStatus, request, requestLocationAccuracy} from 'react-native-permissions';
 
 export const useCurrentLocation = (zoomLevel: number) => {
-  const [grantStatus, setGrantStatus] = useState<PermissionStatus>();
-  const [latitudeDelta, longitudeDelta] = getLatLongDelta(zoomLevel, INITIAL_CENTER.latitude);
-
-  const [currentLocation, setCurrentLocation] = useState({
-    ...INITIAL_CENTER,
-    latitudeDelta,
-    longitudeDelta,
-  });
-
-  const [initialLocation, setInitialLocation] = useState<typeof currentLocation>();
-
-  // 권한 요청을 한 번만 실행
-  useEffect(() => {
-    const requestPermissions = async () => {
-      if (Platform.OS === 'android') {
-        const status: PermissionStatus = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
-        setGrantStatus(status);
-      } else if (Platform.OS === 'ios') {
-        const status = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
-        setGrantStatus(status);
-        if (status === 'granted') {
-          await requestLocationAccuracy({purposeKey: 'common-purpose'});
-        }
-      }
-    };
-
-    requestPermissions();
-  }, []);
+  const {
+    permissionStatus,
+    currentLocation,
+    setCurrentLocation,
+    currentBounds,
+    setBoundsByRegion,
+    initialLocation,
+    setInitialLocation,
+  } = useLocation();
 
   // 위치 추적 및 상태 업데이트를 최적화
   useEffect(() => {
-    if (!grantStatus) return;
+    if (!permissionStatus) return;
 
     const updateLocation = (latitude: number, longitude: number) => {
       const [newLatitudeDelta, newLongitudeDelta] = getLatLongDelta(zoomLevel, latitude);
@@ -53,16 +32,11 @@ export const useCurrentLocation = (zoomLevel: number) => {
         });
       }
 
-      setCurrentLocation(prevLocation => {
-        if (prevLocation.latitude === latitude && prevLocation.longitude === longitude) {
-          return prevLocation;
-        }
-        return {
-          latitude,
-          longitude,
-          latitudeDelta: newLatitudeDelta,
-          longitudeDelta: newLongitudeDelta,
-        };
+      setCurrentLocation({
+        latitude,
+        longitude,
+        latitudeDelta: newLatitudeDelta,
+        longitudeDelta: newLongitudeDelta,
       });
     };
 
@@ -91,27 +65,27 @@ export const useCurrentLocation = (zoomLevel: number) => {
     return () => {
       Geolocation.clearWatch(watchId);
     };
-  }, [grantStatus, zoomLevel]);
+  }, [permissionStatus, zoomLevel]);
 
-  // 카메라 변경 시 현재 위치 업데이트 최적화
-  const onCameraChanged = useCallback((params: Camera) => {
-    const {latitude, longitude, zoom} = params;
+  useEffect(() => {
+    if (initialLocation) {
+      setBoundsByRegion();
+    }
+  }, [initialLocation]);
+
+  const onCameraChanged: NaverMapViewProps['onCameraChanged'] = params => {
+    const {latitude, longitude, zoom, reason} = params;
+
+    if (reason === 'Developer' || reason === 'Location') return;
+
     const [latitudeDelta, longitudeDelta] = getLatLongDelta(zoom ?? DEFAULT_ZOOM, latitude);
 
-    setCurrentLocation(prevLocation => {
-      if (prevLocation.latitude === latitude && prevLocation.longitude === longitude) {
-        return prevLocation;
-      }
-      return {
-        latitude,
-        longitude,
-        latitudeDelta,
-        longitudeDelta,
-      };
+    setCurrentLocation({
+      latitude,
+      longitude,
+      latitudeDelta,
+      longitudeDelta,
     });
-  }, []);
-
-  const bounds = useMemo(() => getBoundByRegion({region: currentLocation}), [currentLocation]);
-
-  return {currentLocation, bounds, onCameraChanged, grantStatus, initialLocation};
+  };
+  return {currentLocation, permissionStatus, initialLocation, onCameraChanged, currentBounds, setBoundsByRegion};
 };

@@ -6,18 +6,18 @@ import {useGetNearbyGyms} from '@entities/gym/queries';
 import {NaverMapView, NaverMapViewRef} from '@mj-studio/react-native-naver-map';
 import {Icon, PermissionModal} from '@shared/ui';
 import React, {useEffect, useRef, useState} from 'react';
-import {Linking, Modal, Pressable, SafeAreaView, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {Pressable, Text, View} from 'react-native';
 
 type NearbyMapProps = {
   selected?: number;
   setSelected: React.Dispatch<React.SetStateAction<number | undefined>>;
 };
 const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
-  const {bounds, onCameraChanged, grantStatus, initialLocation} = useCurrentLocation(DEFAULT_ZOOM);
+  const {permissionStatus, initialLocation, onCameraChanged, currentBounds, setBoundsByRegion} =
+    useCurrentLocation(DEFAULT_ZOOM);
   const [showModal, setShowModal] = useState(false);
 
   const ref = useRef<NaverMapViewRef>(null);
-  const [currentBounds, setCurrentBounds] = useState(bounds);
   const {data} = useGetNearbyGyms(currentBounds);
 
   const onMarkerTap =
@@ -36,12 +36,12 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
     };
 
   useEffect(() => {
-    if (!grantStatus) return;
+    if (!permissionStatus) return;
 
-    if (grantStatus === 'denied' || grantStatus === 'blocked') {
+    if (permissionStatus === 'denied' || permissionStatus === 'blocked') {
       setShowModal(true);
     }
-  }, [grantStatus]);
+  }, [permissionStatus]);
 
   useEffect(() => {
     if (!initialLocation) return;
@@ -55,7 +55,7 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
   }, [initialLocation]);
 
   const handlePress = () => {
-    setCurrentBounds(bounds);
+    setBoundsByRegion();
   };
 
   return (
