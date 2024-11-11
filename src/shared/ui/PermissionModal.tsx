@@ -1,5 +1,5 @@
 import {colors} from '@shared/constants';
-import React, {useCallback} from 'react';
+import React from 'react';
 import {Linking, Modal, Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 
 export const PermissionModal = ({
