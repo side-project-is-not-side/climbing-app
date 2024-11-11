@@ -95,7 +95,6 @@ const ChallengeNavigation = () => {
           component={VerificationDetailScreen}
           options={{
             title: '인증 기록',
-            presentation: 'modal',
             headerStyle: {backgroundColor: colors.gray800},
             contentStyle: {backgroundColor: colors.gray800},
           }}

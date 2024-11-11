@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     position: 'relative',
     borderRadius: 10,
+    aspectRatio: 1,
   },
   image: {
     width: '100%',
