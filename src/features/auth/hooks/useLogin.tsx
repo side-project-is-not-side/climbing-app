@@ -1,3 +1,4 @@
+import {signInApple} from '../utils';
 import {useAuthContext} from '@app/AuthContextProvider';
 import appleAuth from '@invertase/react-native-apple-authentication';
 import {login} from '@react-native-seoul/kakao-login';
@@ -27,27 +28,8 @@ export const useLogin = () => {
   };
 
   const SignInWithApple = async () => {
-    try {
-      const appleAuthRequestResponse = await appleAuth.performRequest({
-        requestedOperation: appleAuth.Operation.LOGIN,
-        requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
-      });
-
-      const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
-
-      if (credentialState === appleAuth.State.AUTHORIZED) {
-        const {identityToken} = appleAuthRequestResponse;
-        console.log(appleAuthRequestResponse);
-
-        if (identityToken) {
-          return identityToken;
-        } else {
-          // 오류 처리
-        }
-      }
-    } catch (err) {
-      console.error('apple login err', err);
-    }
+    const data = await signInApple();
+    return data?.identityToken;
   };
 
   return async (provider: Provider) => {

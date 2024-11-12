@@ -11,6 +11,7 @@ import {
   WEB_URL,
   userAgent,
 } from '../../constants';
+import {useWithdraw} from '@features/auth';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React from 'react';
@@ -33,6 +34,7 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
   const _webview = React.useRef<WebViewComponent>(null);
   const navigation = useNavigation<NativeStackNavigationProp<AllRoute>>();
   const authContext = useAuthContext();
+  const {handleAppleWithdraw} = useWithdraw();
 
   const token = authContext?.token;
 
@@ -61,7 +63,7 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
     return true;
   };
 
-  const onMessage = (event: WebViewMessageEvent) => {
+  const onMessage = async (event: WebViewMessageEvent) => {
     try {
       const data = JSON.parse(event.nativeEvent.data);
 
@@ -92,6 +94,10 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
         }
         case 'CONSOLE_LOG': {
           console.log(data.data);
+          break;
+        }
+        case 'APPLE_WITHDRAW': {
+          await handleAppleWithdraw();
           break;
         }
         default:
