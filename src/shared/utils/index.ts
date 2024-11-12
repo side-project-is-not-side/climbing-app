@@ -1,4 +1,4 @@
-export * from './asyncStorage';
+export * from './storage';
 export * from './dateFormat';
 export * from './getUrl';
-export * from './typing'
+export * from './typing';

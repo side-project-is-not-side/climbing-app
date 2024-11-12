@@ -36,6 +36,7 @@
     "react-native-context-menu-view": "^1.16.0",
     "react-native-device-info": "^13.0.0",
     "react-native-dotenv": "^3.4.11",
+    "react-native-encrypted-storage": "^4.0.3",
     "react-native-geolocation-service": "^5.3.1",
     "react-native-gesture-handler": "^2.18.1",
     "react-native-image-picker": "^7.1.2",

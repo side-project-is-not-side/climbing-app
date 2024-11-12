@@ -1,4 +1,4 @@
-import {getStorage, setStorage} from '../shared/utils';
+import {getStorageItem, setStorage} from '../shared/utils';
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import {ActivityIndicator, View} from 'react-native';
 
@@ -19,7 +19,7 @@ export function AuthContextProvider({children}: {children: React.ReactNode}) {
   const [onboarding, _setOnboarding] = useState(false);
 
   const getToken = async () => {
-    const token = await getStorage<string | null>('authToken');
+    const token = await getStorageItem<string | null>('authToken');
     _setToken(token);
     return token;
   };
@@ -30,7 +30,7 @@ export function AuthContextProvider({children}: {children: React.ReactNode}) {
   };
 
   const getOnboarding = async () => {
-    const onboarding = await getStorage<boolean>('onboarding');
+    const onboarding = await getStorageItem<boolean | null>('onboarding');
     _setOnboarding(!!onboarding);
   };
 
