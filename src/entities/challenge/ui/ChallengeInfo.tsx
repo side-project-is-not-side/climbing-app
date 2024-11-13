@@ -15,7 +15,7 @@ const ChallengeInfo = ({challenge}: {challenge?: ChallengeDetail}) => {
   const successCount = Number(challenge?.successCount) || 0;
   const progress = (activityCount / successCount) * 100;
 
-  const isSuccess = activityCount === successCount;
+  const isCompleted = activityCount === successCount;
 
   const chartConfig: AbstractChartConfig = {
     backgroundGradientFromOpacity: 0,
@@ -34,17 +34,17 @@ const ChallengeInfo = ({challenge}: {challenge?: ChallengeDetail}) => {
       <View className="relative h-[300px] justify-center items-center">
         <Image
           source={
-            isSuccess
+            isCompleted
               ? require('../../../../assets/images/buri_v4.png')
               : require('../../../../assets/images/buri_v4_inactive.png')
           }
           alt="challenge progress image"
           className={`w-[240px] ml-4`}
-          style={{opacity: isSuccess ? 1 : 0.3}}
+          style={{opacity: isCompleted ? 1 : 0.3}}
           resizeMode="contain"
-          blurRadius={isSuccess ? 0 : 4}
+          blurRadius={isCompleted ? 0 : 4}
         />
-        {!isSuccess && (
+        {!isCompleted && (
           <>
             <View className={`absolute`}>
               {challenge && (

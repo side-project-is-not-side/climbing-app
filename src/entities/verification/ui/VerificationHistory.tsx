@@ -14,15 +14,13 @@ const VerificationHistory = () => {
   const route = useRoute<RouteProp<ChallengeRoute, 'verification_history'>>();
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
 
-  const {challengeId, challengeTitle, activityType} = route.params;
+  const {challengeId, activityType} = route.params;
 
   const {data} = useGetActivities(challengeId, activityType);
 
   const handlePressHistory = (item: VerificationInfo) => {
     navigation.navigate(CHALLENGE_ROUTES.VERIFICATION_DETAIL, {
-      challengeId,
-      challengeTitle,
-      activityType,
+      ...route.params,
       verificationInfo: item,
     });
   };

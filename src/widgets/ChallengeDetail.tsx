@@ -35,6 +35,7 @@ const ChallengeDetail = () => {
               challengeId={challenge.id}
               challengeTitle={challenge.title || ''}
               activityType={challenge.activityType}
+              isCompleted={challenge.activityCount === challenge.successCount}
               recentActivities={challenge.records || []}
             />
           )}

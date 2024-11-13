@@ -12,24 +12,29 @@ type Props = {
   challengeId: number;
   challengeTitle: string;
   activityType: ActivityType;
+  isCompleted: boolean;
   recentActivities: Activity[];
 };
 
 const {width} = Dimensions.get('screen');
 
-const VerificationHistoryPreview = ({challengeId, challengeTitle, activityType, recentActivities}: Props) => {
+const VerificationHistoryPreview = ({
+  challengeId,
+  challengeTitle,
+  activityType,
+  isCompleted,
+  recentActivities,
+}: Props) => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
 
-  const handlePressMoreHistory = (seeMore: boolean, activity: Activity) => {
+  const handlePressMoreHistory = () => {
     if (!challengeId) return;
-    // if (seeMore) return
-    navigation.navigate(CHALLENGE_ROUTES.VERIFICATION_HISTORY, {challengeId, challengeTitle, activityType});
-
-    // navigation.navigate(CHALLENGE_ROUTES.VERIFICATION_DETAIL, {
-    //   challengeTitle,
-    //   activityType,
-    //   verificationInfo: activity,
-    // });
+    navigation.navigate(CHALLENGE_ROUTES.VERIFICATION_HISTORY, {
+      challengeId,
+      challengeTitle,
+      activityType,
+      isCompleted,
+    });
   };
 
   return (
@@ -42,7 +47,7 @@ const VerificationHistoryPreview = ({challengeId, challengeTitle, activityType, 
               <Pressable
                 key={`${activity.id}_${i}`}
                 className="rounded-[10px] overflow-hidden bg-neutral-700 items-center justify-center gap-1 p-2"
-                onPress={() => handlePressMoreHistory(i === 2, activity)}
+                onPress={() => handlePressMoreHistory()}
                 style={{width: (width - 48) / 3, height: (width - 48) / 3}}>
                 <Image
                   source={require('../../../../assets/images/buri_pin.png')}
@@ -65,7 +70,7 @@ const VerificationHistoryPreview = ({challengeId, challengeTitle, activityType, 
               <Pressable
                 key={`${activity.id}_${i}`}
                 className=" rounded-[10px] overflow-hidden bg-neutral-700"
-                onPress={() => handlePressMoreHistory(i === 2, activity)}>
+                onPress={() => handlePressMoreHistory()}>
                 <SquareImage
                   source={{uri: activity.imageUrl}}
                   alt={'verification photo'}

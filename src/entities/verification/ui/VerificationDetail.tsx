@@ -16,47 +16,51 @@ const VerificationDetail = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
   const route = useRoute<RouteProp<ChallengeRoute, 'verification_detail'>>();
 
-  const {activityType, verificationInfo, challengeTitle, challengeId} = route.params;
+  const {activityType, verificationInfo, challengeTitle, challengeId, isCompleted} = route.params;
 
   const {trigger} = useDeleteActivity(verificationInfo.id);
 
   useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <MenuButton
-          actions={[{title: '삭제하기'}, {title: '공유하기'}]}
-          onPress={e => {
-            switch (e.nativeEvent.index) {
-              case 0:
-                Alert.alert(
-                  '정말로 인증 기록을 삭제하시겠습니까?',
-                  '해당 사진을 삭제하면 진행한 인증도 삭제가 됩니다.',
-                  [
-                    {text: '취소하기', style: 'cancel'},
-                    {
-                      text: '삭제하기',
-                      style: 'destructive',
-                      onPress: () => {
-                        trigger(null, {
-                          onSuccess() {
-                            mutate(`/v1/challenges/${challengeId}/${activityType}`);
-                            mutate(`/v1/records/${activityType}?challengeId=${challengeId}`);
-                            Alert.alert('삭제가 완료되었습니다.');
-                            navigation.goBack();
-                          },
-                        });
+    !isCompleted &&
+      navigation.setOptions({
+        headerRight: () => (
+          <MenuButton
+            actions={[
+              {title: '삭제하기'},
+              // , {title: '공유하기'}
+            ]}
+            onPress={e => {
+              switch (e.nativeEvent.index) {
+                case 0:
+                  Alert.alert(
+                    '정말로 인증 기록을 삭제하시겠습니까?',
+                    '해당 사진을 삭제하면 진행한 인증도 삭제가 됩니다.',
+                    [
+                      {text: '취소하기', style: 'cancel'},
+                      {
+                        text: '삭제하기',
+                        style: 'destructive',
+                        onPress: () => {
+                          trigger(null, {
+                            onSuccess() {
+                              mutate(`/v1/challenges/${challengeId}/${activityType}`);
+                              mutate(`/v1/records/${activityType}?challengeId=${challengeId}`);
+                              Alert.alert('삭제가 완료되었습니다.');
+                              navigation.goBack();
+                            },
+                          });
+                        },
                       },
-                    },
-                  ],
-                );
-                return;
-              case 1:
-                return console.log('공유하기');
-            }
-          }}
-        />
-      ),
-    });
+                    ],
+                  );
+                  return;
+                case 1:
+                  return console.log('공유하기');
+              }
+            }}
+          />
+        ),
+      });
   }, []);
 
   return (
