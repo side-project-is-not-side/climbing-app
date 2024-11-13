@@ -54,11 +54,13 @@ export type ChallengeRoute = {
     challengeTitle: string;
     challengeId: number;
     activityType: ActivityType;
+    isCompleted: boolean;
   };
   verification_detail: {
     challengeId: number;
     challengeTitle: string;
     activityType: ActivityType;
+    isCompleted: boolean;
     verificationInfo: VerificationInfo;
   };
   verify_photo: {

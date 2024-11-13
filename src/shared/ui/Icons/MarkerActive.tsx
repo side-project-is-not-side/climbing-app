@@ -8,7 +8,6 @@ const SvgMarkerActive = (props: SvgProps) => (
   <Svg
     viewBox="0 0 51 48"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg"
     width={props.width || 24}
     height={props.height || 24}
     style={props.style || {}}
@@ -54,7 +53,7 @@ const SvgMarkerActive = (props: SvgProps) => (
         <Path
           d="M28.0812 8.79016L39.2823 28.3095C40.4579 30.3578 38.9794 32.9105 36.6174 32.9105H14.2152C11.8543 32.9105 10.3747 30.3578 11.5503 28.3095L22.7514 8.79016C23.9324 6.7332 26.9002 6.7332 28.0812 8.79016Z"
           fill={props.color || '#FF5544'}
-          stroke="#8B8D8E"
+          stroke="#222"
           strokeWidth={2.17899}
           strokeMiterlimit={10}
         />

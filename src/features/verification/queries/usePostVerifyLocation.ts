@@ -2,6 +2,7 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {CHALLENGE_ROUTES, ChallengeRoute} from '@shared/constants';
 import {useMutateFetcher} from '@shared/hooks/useMutateFetcher';
+import {Alert} from 'react-native';
 import {mutate} from 'swr';
 import useSWRMutation from 'swr/mutation';
 
@@ -12,11 +13,16 @@ export const usePostVerifyLocation = (challengeId: number) => {
 
   return useSWRMutation(`/v1/challenges/${challengeId}/activities/location`, fetcher, {
     onSuccess(data) {
-      mutate(`/v1/challenges/${challengeId}/LOCATION`);
-      navigation.navigate(CHALLENGE_ROUTES.VERIFY_COMPLETE, {
-        challengeId: route.params.challengeId,
-        activityType: 'LOCATION',
-      });
+      if (!data.err) {
+        mutate(`/v1/challenges/${challengeId}/LOCATION`);
+        navigation.navigate(CHALLENGE_ROUTES.VERIFY_COMPLETE, {
+          challengeId: route.params.challengeId,
+          activityType: 'LOCATION',
+        });
+      } else if (data.err === 400) {
+        Alert.alert('인증이 완료된 챌린지입니다.');
+        navigation.goBack();
+      }
     },
     onError(err) {
       console.log(err);
