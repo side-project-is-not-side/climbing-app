@@ -1,10 +1,11 @@
+import {Location} from '@entities/gym/api/types';
 import {useEffect, useState} from 'react';
 import {Platform} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import {PERMISSIONS, request, requestLocationAccuracy} from 'react-native-permissions';
 
 export const useCurrentLocation = () => {
-  const [currentLocation, setCurrentLocation] = useState<{latitude: number; longitude: number}>();
+  const [currentLocation, setCurrentLocation] = useState<Location>();
 
   useEffect(() => {
     if (Platform.OS === 'android') {

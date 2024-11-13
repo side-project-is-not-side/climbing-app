@@ -28,9 +28,10 @@ export const usePostVerifyPicture = (challengeId: number) => {
           case 401:
           case 403:
             // 토큰 만료 또는 권한 없음
-            return authContext?.setToken(null);
+            authContext?.setToken(null);
+            return;
           default:
-            return console.log('err code: ' + res.status);
+            return {err: res.status};
         }
       }
 
@@ -55,8 +56,9 @@ export const usePostVerifyPicture = (challengeId: number) => {
           challengeId,
           activityType: 'PICTURE',
         });
-      } else {
-        Alert.alert('잠시 후 다시 시도해주세요.');
+      } else if (data.err === 400) {
+        Alert.alert('인증이 완료된 챌린지입니다.');
+        navigation.goBack();
       }
     },
     onError(err) {

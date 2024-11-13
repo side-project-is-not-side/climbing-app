@@ -1,9 +1,7 @@
 import {usePostVerifyLocation} from '../queries/usePostVerifyLocation';
 import {GetGymDetailResponse} from '@entities/gym/api/types';
 import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {CHALLENGE_ROUTES, ChallengeRoute, colors} from '@shared/constants';
+import {colors} from '@shared/constants';
 import {Button} from '@shared/ui';
 import React, {ForwardedRef, forwardRef} from 'react';
 import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
@@ -19,7 +17,7 @@ type Props = {
 };
 
 const VerifyMapBottomSheet = forwardRef(({challengeId, gym, onClose}: Props, ref: ForwardedRef<BottomSheet>) => {
-  const {trigger} = usePostVerifyLocation(challengeId);
+  const {trigger, isMutating} = usePostVerifyLocation(challengeId);
 
   const handleVerify = () => {
     if (!gym) return;
@@ -62,7 +60,7 @@ const VerifyMapBottomSheet = forwardRef(({challengeId, gym, onClose}: Props, ref
               ))}
           </View>
         </View>
-        <Button onPress={handleVerify} disabled={!gym}>
+        <Button onPress={handleVerify} disabled={!gym || isMutating}>
           이 위치로 인증하기
         </Button>
       </BottomSheetView>

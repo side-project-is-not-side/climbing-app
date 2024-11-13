@@ -13,7 +13,7 @@ const {width} = Dimensions.get('window');
 const VerifyPhoto = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
   const route = useRoute<RouteProp<ChallengeRoute, 'verify_photo'>>();
-  const {trigger} = usePostVerifyPicture(route.params.challengeId);
+  const {trigger, isMutating} = usePostVerifyPicture(route.params.challengeId);
 
   const {openGallery, selectedImage} = useImagePicker();
 
@@ -72,7 +72,9 @@ const VerifyPhoto = () => {
       </View>
 
       {selectedImage ? (
-        <Button onPress={handleVerify}>인증하기</Button>
+        <Button onPress={handleVerify} disabled={isMutating}>
+          인증하기
+        </Button>
       ) : (
         <Button onPress={openGallery}>사진 선택하기</Button>
       )}

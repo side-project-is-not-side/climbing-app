@@ -41,5 +41,5 @@ export type ChallengeGym = {
   latitude: number;
   longitude: number;
   distance: number;
-  canChanllenge: boolean;
+  canChallenge: boolean;
 };

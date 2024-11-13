@@ -21,6 +21,7 @@ const VerificationDetail = () => {
   const {trigger} = useDeleteActivity(verificationInfo.id);
 
   useLayoutEffect(() => {
+    // 완료 된 인증 -> 더보기 버튼 숨김. 공유하기 기능 완성 시 삭제하기만 따로 숨김처리
     !isCompleted &&
       navigation.setOptions({
         headerRight: () => (
