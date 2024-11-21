@@ -23,7 +23,7 @@ const Challenges = () => {
   return (
     <>
       <Tabs tabState={tabState} handleTabPress={handleTabPress} />
-      <CardList data={challenges} handlePaging={handlePaging} />
+      <CardList data={challenges} tabState={tabState} handlePaging={handlePaging} />
     </>
   );
 };
