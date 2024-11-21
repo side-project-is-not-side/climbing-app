@@ -1,13 +1,27 @@
 import {LoginScreen, OnboardingScreen} from '../../screens';
 import {AUTH_ROUTES, AuthRoute} from '../../shared/constants/routes';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp, createNativeStackNavigator} from '@react-navigation/native-stack';
 import {colors} from '@shared/constants';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView} from 'react-native';
 
 const Stack = createNativeStackNavigator<AuthRoute>();
 
-const AuthNavigation = ({initialRouteName}: {initialRouteName: keyof AuthRoute | undefined}) => {
+const AuthNavigation = ({
+  initialRouteName,
+  onboarding,
+}: {
+  initialRouteName: keyof AuthRoute | undefined;
+  onboarding: boolean;
+}) => {
+  const navigation = useNavigation<NativeStackNavigationProp<AuthRoute>>();
+
+  useEffect(() => {
+    if (onboarding) {
+      navigation.navigate('login');
+    }
+  }, [onboarding]);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#000'}}>
       <Stack.Navigator

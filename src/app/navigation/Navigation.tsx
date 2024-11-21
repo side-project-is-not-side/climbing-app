@@ -29,7 +29,10 @@ const Navigation = () => {
 
   return (
     <NavigationContainer theme={theme}>
-      <AuthNavigation initialRouteName={onboarding ? AUTH_ROUTES.LOGIN : AUTH_ROUTES.ONBOARDING} />
+      <AuthNavigation
+        initialRouteName={onboarding ? AUTH_ROUTES.LOGIN : AUTH_ROUTES.ONBOARDING}
+        onboarding={onboarding}
+      />
     </NavigationContainer>
   );
 };
