@@ -2,7 +2,7 @@
 
 import {CHALLENGE_ROUTES, ChallengeRoute, colors} from '../../../shared/constants';
 import {Badge} from '../../../shared/ui';
-import {Challenge} from '../type';
+import {Challenge, ChallengeStatus} from '../type';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React from 'react';
@@ -14,9 +14,10 @@ const activityTypes = {
   LOCATION: '암장도전',
 };
 
-const Card = ({challenge}: {challenge: Challenge}) => {
+const Card = ({challenge, tabState}: {challenge: Challenge; tabState: ChallengeStatus}) => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
 
+  console.log(challenge);
   const handlePressCard = () => {
     navigation.navigate(CHALLENGE_ROUTES.CHALLENGE_DETAIL, {
       challengeId: challenge.id,
@@ -26,15 +27,15 @@ const Card = ({challenge}: {challenge: Challenge}) => {
 
   return (
     <Pressable
-      className="flex-row gap-4 py-5 pl-5 pr-4 my-[5px] mx-auto bg-neutral-700 rounded-2xl"
+      className="flex-row py-5 pl-5 pr-4 my-[5px] mx-auto bg-neutral-700 rounded-2xl"
       onPress={handlePressCard}>
       <Image
-        source={require('../../../../assets/images/fire_full.png')}
+        source={{uri: tabState === 'SUCCESS' ? challenge.imageUrl.black : challenge.imageUrl.color}}
         alt="progress fire image"
         width={100}
         height={100}
-        resizeMode="contain"
-        className="w-[100px] h-[100px]"
+        resizeMode="cover"
+        className="w-[100px] h-[100px] border border-white mr-4"
       />
       <View className="flex-1">
         <Text className="mb-1 text-xs font-bold text-primary-400">{activityTypes[challenge.activityType]}</Text>
