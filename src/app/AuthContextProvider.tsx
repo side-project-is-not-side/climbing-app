@@ -12,6 +12,9 @@ type AuthContext = {
 
 const AuthContext = createContext<AuthContext | null>(null);
 
+const AUTHTOKEN = 'authToken';
+const ONBOARDING = 'onboarding';
+
 export function AuthContextProvider({children}: {children: React.ReactNode}) {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,23 +22,23 @@ export function AuthContextProvider({children}: {children: React.ReactNode}) {
   const [onboarding, _setOnboarding] = useState(false);
 
   const getToken = async () => {
-    const token = await getStorage<string | null>('authToken');
+    const token = await getStorage<string | null>(AUTHTOKEN);
     _setToken(token);
     return token;
   };
 
   const setToken = async (token: string | null) => {
-    await setStorage('authToken', token);
+    await setStorage(AUTHTOKEN, token);
     _setToken(token);
   };
 
   const getOnboarding = async () => {
-    const onboarding = await getStorage<boolean>('onboarding');
+    const onboarding = await getStorage<boolean>(ONBOARDING);
     _setOnboarding(!!onboarding);
   };
 
   const setOnboarding = async (onboarding: boolean) => {
-    await setStorage('onboarding', onboarding);
+    await setStorage(ONBOARDING, onboarding);
     _setOnboarding(onboarding);
   };
 
