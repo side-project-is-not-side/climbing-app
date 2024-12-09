@@ -40,7 +40,7 @@ const ChallengeInfo = ({challenge}: {challenge?: ChallengeDetail}) => {
           }
           alt="challenge progress image"
           className={`w-[240px] ml-4`}
-          style={{opacity: isCompleted ? 1 : 0.3}}
+          style={{opacity: isCompleted ? 1 : 0.2}}
           resizeMode="contain"
           blurRadius={isCompleted ? 0 : 4}
         />
@@ -62,9 +62,9 @@ const ChallengeInfo = ({challenge}: {challenge?: ChallengeDetail}) => {
                 />
               )}
             </View>
-            <View className="absolute bg-[#9ca3af22] w-[184px] h-[184px] rounded-full justify-center items-center">
+            <View className="absolute bg-[#9ca3af11] w-[184px] h-[184px] rounded-full justify-center items-center">
               <Text className="text-grayscale-200 opacity-60">진행률</Text>
-              <Text className="mb-2 text-[40px] font-black text-primary-400">
+              <Text className="mb-2 text-[40px] font-bold text-primary-400">
                 {activityCount}/{successCount}
               </Text>
               <Text className="text-white">뱃지 획득까지 {successCount - activityCount}개</Text>

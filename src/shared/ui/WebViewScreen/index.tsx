@@ -87,7 +87,11 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
           break;
         }
         case 'LOGOUT': {
-          authContext?.setToken(null);
+          authContext?.logout(data.data);
+          break;
+        }
+        case 'WITHDRAW': {
+          authContext?.withdraw(data.data);
           break;
         }
         case 'CONSOLE_LOG': {

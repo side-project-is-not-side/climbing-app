@@ -2,8 +2,10 @@ import {AUTH_ROUTES} from '../../shared/constants';
 import {useAuthContext} from '../AuthContextProvider';
 import AuthNavigation from './AuthNavigation';
 import RootNavigation from './RootNavigation';
+import {unlink} from '@react-native-seoul/kakao-login';
 import {DefaultTheme, NavigationContainer, Theme} from '@react-navigation/native';
-import React from 'react';
+import {clearStorage} from '@shared/utils';
+import React, {useEffect} from 'react';
 
 const Navigation = () => {
   const authContext = useAuthContext();
@@ -20,7 +22,14 @@ const Navigation = () => {
     },
   };
 
-  if (token)
+  console.log('app token: ' + token);
+
+  // 스토리지 리셋 테스트
+  // useEffect(() => {
+  //   clearStorage();
+  //   unlink();
+  // }, []);
+  if (token && token !== '')
     return (
       <NavigationContainer theme={theme}>
         <RootNavigation />

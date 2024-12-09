@@ -1,6 +1,10 @@
-import {getStorage, setStorage} from '../shared/utils';
+import {clearStorage, getStorage, setStorage} from '../shared/utils';
+import appleAuth from '@invertase/react-native-apple-authentication';
+import {logout as KakaoLogout, unlink} from '@react-native-seoul/kakao-login';
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import {ActivityIndicator, View} from 'react-native';
+
+type AuthProvider = 'KAKAO' | 'APPLE';
 
 type AuthContext = {
   token: string | null;
@@ -8,6 +12,8 @@ type AuthContext = {
   setToken: (token: string | null) => void;
   onboarding: boolean;
   setOnboarding: (onboarding: boolean) => void;
+  logout: (provider: AuthProvider) => void;
+  withdraw: (provider: AuthProvider) => void;
 };
 
 const AuthContext = createContext<AuthContext | null>(null);
@@ -42,6 +48,47 @@ export function AuthContextProvider({children}: {children: React.ReactNode}) {
     _setOnboarding(onboarding);
   };
 
+  const logout = async (provider: AuthProvider) => {
+    switch (provider) {
+      case 'KAKAO':
+        KakaoLogout();
+        break;
+      case 'APPLE':
+        // 애플 로그아웃
+        break;
+    }
+
+    await setStorage(AUTHTOKEN, null);
+    _setToken(null);
+
+    console.log('logout with ' + provider);
+  };
+
+  const withdraw = async (provider: AuthProvider) => {
+    switch (provider) {
+      case 'KAKAO':
+        unlink();
+        break;
+      case 'APPLE':
+        const appleAuthRequestResponse = await appleAuth.performRequest({
+          requestedOperation: appleAuth.Operation.LOGOUT,
+        });
+
+        const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
+
+        if (credentialState === appleAuth.State.REVOKED) {
+          //애플 로그아웃 완료
+        }
+        break;
+    }
+
+    await clearStorage();
+    _setToken(null);
+    _setOnboarding(false);
+
+    console.log('withdraw with ' + provider);
+  };
+
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -64,7 +111,7 @@ export function AuthContextProvider({children}: {children: React.ReactNode}) {
     );
 
   return (
-    <AuthContext.Provider value={{token, getToken, setToken, onboarding, setOnboarding}}>
+    <AuthContext.Provider value={{token, getToken, setToken, onboarding, setOnboarding, logout, withdraw}}>
       {children}
     </AuthContext.Provider>
   );

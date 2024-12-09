@@ -17,7 +17,6 @@ const activityTypes = {
 const Card = ({challenge, tabState}: {challenge: Challenge; tabState: ChallengeStatus}) => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
 
-  console.log(challenge);
   const handlePressCard = () => {
     navigation.navigate(CHALLENGE_ROUTES.CHALLENGE_DETAIL, {
       challengeId: challenge.id,
