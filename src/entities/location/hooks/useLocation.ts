@@ -1,5 +1,6 @@
 import {useLocationStore} from '../store';
 import {getBoundByRegion} from '@entities/map/utils/getBoundByRegion';
+import {Region} from '@mj-studio/react-native-naver-map';
 import {useEffect} from 'react';
 import {Platform} from 'react-native';
 import {PERMISSIONS, PermissionStatus, request, requestLocationAccuracy} from 'react-native-permissions';
@@ -33,5 +34,10 @@ export const useLocation = () => {
     setBounds(bounds);
   };
 
-  return {permissionStatus: status, currentLocation, setBoundsByRegion, ...props};
+  const setBoundsByCamera = (currentRegion: Region) => {
+    const bounds = getBoundByRegion({region: currentRegion});
+    setBounds(bounds);
+  };
+
+  return {permissionStatus: status, currentLocation, setBoundsByRegion, setBoundsByCamera, ...props};
 };

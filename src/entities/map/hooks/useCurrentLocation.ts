@@ -1,5 +1,6 @@
 import {DEFAULT_ZOOM} from '../constants/location';
 import {getLatLongDelta} from '../utils';
+import {GymInfo} from '@entities/gym/api/types';
 import {useLocation} from '@entities/location';
 import {NaverMapViewProps} from '@mj-studio/react-native-naver-map';
 import {useEffect} from 'react';
@@ -14,6 +15,7 @@ export const useCurrentLocation = (zoomLevel: number) => {
     setBoundsByRegion,
     initialLocation,
     setInitialLocation,
+    setBoundsByCamera,
   } = useLocation();
 
   // 위치 추적 및 상태 업데이트를 최적화
@@ -80,12 +82,33 @@ export const useCurrentLocation = (zoomLevel: number) => {
 
     const [latitudeDelta, longitudeDelta] = getLatLongDelta(zoom ?? DEFAULT_ZOOM, latitude);
 
-    setCurrentLocation({
+    setBoundsByCamera({
       latitude,
       longitude,
       latitudeDelta,
       longitudeDelta,
     });
   };
-  return {currentLocation, permissionStatus, initialLocation, onCameraChanged, currentBounds, setBoundsByRegion};
+
+  const onSelectedChanged = ({latitude, longitude}: GymInfo['location']) => {
+    const [latitudeDelta, longitudeDelta] = getLatLongDelta(DEFAULT_ZOOM, latitude);
+
+    setBoundsByCamera({
+      latitude,
+      longitude,
+      latitudeDelta,
+      longitudeDelta,
+    });
+  };
+
+  return {
+    currentLocation,
+    permissionStatus,
+    initialLocation,
+    onCameraChanged,
+    currentBounds,
+    setBoundsByRegion,
+    onSelectedChanged,
+    setBoundsByCamera,
+  };
 };

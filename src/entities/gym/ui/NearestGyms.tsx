@@ -5,7 +5,7 @@ import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 import React, {useCallback} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-const NearestGyms = ({onClick}: {onClick: (id: number) => () => void}) => {
+const NearestGyms = ({onClick}: {onClick: (id: number, location: GymInfo['location']) => () => void}) => {
   const {data: gymInfos} = useGetGymsByLocation();
 
   const nearestData = gymInfos?.[0].slice(0, 2);

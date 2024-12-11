@@ -5,16 +5,16 @@ import {Image, Text, TouchableOpacity, View} from 'react-native';
 
 type Props = {
   item: GymInfo;
-  onClick: (id: number) => () => void;
+  onClick: (id: number, location: GymInfo['location']) => () => void;
 };
 
 const DefaultGymCard = ({item, onClick}: Props) => {
-  const {id, name, thumbnailImageUrl, roadNameAddress, lotNumberAddress, distance, tags} = item;
+  const {id, name, thumbnailImageUrl, roadNameAddress, lotNumberAddress, distance, tags, location} = item;
 
   return (
     <TouchableOpacity
       className="flex-row self-stretch min-w-full p-5 justify-between items-center rounded-[20px] bg-grayscale-700 mx-0"
-      onPress={onClick(id)}>
+      onPress={onClick(id, location)}>
       <View className="w-[72px] h-[72px] overflow-hidden rounded-[10px] flex-shrink-0 mr-[14px]">
         <Image source={{uri: thumbnailImageUrl}} width={72} height={72} />
       </View>
