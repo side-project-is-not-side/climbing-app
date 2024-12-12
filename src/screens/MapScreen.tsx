@@ -1,6 +1,9 @@
 import {MapBottomSheet, NearbyMap} from '../entities/map/ui';
 import {GymInfo} from '@entities/gym/api/types';
 import {GymList, NearestGyms, SelectedGymCard} from '@entities/gym/ui';
+import {useLocation} from '@entities/location';
+import {DEFAULT_ZOOM} from '@entities/map/constants/location';
+import {getLatLongDelta} from '@entities/map/utils';
 import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet';
 import {RouteProp, useFocusEffect, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -18,6 +21,7 @@ const MapScreen = () => {
   const [showList, setShowList] = useState(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const navigation = useNavigation<NativeStackNavigationProp<MapRoute>>();
+  const {setBoundsByCamera} = useLocation();
 
   useEffect(() => {
     if (selected.id && bottomSheetRef.current) {
@@ -57,6 +61,17 @@ const MapScreen = () => {
   const onItemClick = useCallback(
     (id: number, location: GymInfo['location']) => () => {
       setSelected({id, location});
+
+      const {latitude, longitude} = location;
+
+      const [latitudeDelta, longitudeDelta] = getLatLongDelta(DEFAULT_ZOOM, latitude);
+
+      setBoundsByCamera({
+        latitude,
+        longitude,
+        latitudeDelta,
+        longitudeDelta,
+      });
     },
     [],
   );

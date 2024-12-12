@@ -13,7 +13,7 @@ type NearbyMapProps = {
   setSelected: React.Dispatch<React.SetStateAction<Partial<Pick<GymInfo, 'id' | 'location'>>>>;
 };
 const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
-  const {permissionStatus, initialLocation, onCameraChanged, currentBounds, onSelectedChanged, setBoundsByRegion} =
+  const {permissionStatus, initialLocation, onCameraChanged, currentBounds, setBoundsByRegion} =
     useCurrentLocation(DEFAULT_ZOOM);
   const [showModal, setShowModal] = useState(false);
 
@@ -49,8 +49,6 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
     if (!selected.location) return;
 
     const {latitude, longitude} = selected.location;
-
-    onSelectedChanged(selected.location);
 
     if (ref.current) {
       ref.current.animateCameraTo({
