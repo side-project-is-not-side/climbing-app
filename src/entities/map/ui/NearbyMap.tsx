@@ -1,7 +1,7 @@
 import {DEFAULT_ZOOM} from '../constants/location';
 import {useCurrentLocation} from '../hooks';
 import Marker from './Marker';
-import {AroundGym} from '@entities/gym/api/types';
+import {AroundGym, GymInfo} from '@entities/gym/api/types';
 import {useGetNearbyGyms} from '@entities/gym/queries';
 import {NaverMapView, NaverMapViewRef} from '@mj-studio/react-native-naver-map';
 import {Icon, PermissionModal} from '@shared/ui';
@@ -9,8 +9,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import {Pressable, Text, View} from 'react-native';
 
 type NearbyMapProps = {
-  selected?: number;
-  setSelected: React.Dispatch<React.SetStateAction<number | undefined>>;
+  selected: Partial<Pick<GymInfo, 'id' | 'location'>>;
+  setSelected: React.Dispatch<React.SetStateAction<Partial<Pick<GymInfo, 'id' | 'location'>>>>;
 };
 const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
   const {permissionStatus, initialLocation, onCameraChanged, currentBounds, setBoundsByRegion} =
@@ -23,16 +23,7 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
   const onMarkerTap =
     ({id, latitude, longitude}: AroundGym) =>
     () => {
-      setSelected(id);
-      if (ref.current) {
-        ref.current.animateCameraTo({
-          latitude,
-          longitude,
-          duration: 500,
-          easing: 'EaseOut',
-          zoom: DEFAULT_ZOOM,
-        });
-      }
+      setSelected({id, location: {latitude, longitude}});
     };
 
   useEffect(() => {
@@ -54,6 +45,22 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
     ref.current?.setLocationTrackingMode('NoFollow');
   }, [initialLocation]);
 
+  useEffect(() => {
+    if (!selected.location) return;
+
+    const {latitude, longitude} = selected.location;
+
+    if (ref.current) {
+      ref.current.animateCameraTo({
+        latitude,
+        longitude,
+        duration: 500,
+        easing: 'EaseOut',
+        zoom: DEFAULT_ZOOM,
+      });
+    }
+  }, [selected.location]);
+
   const handlePress = () => {
     setBoundsByRegion();
   };
@@ -74,7 +81,7 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
               key={id}
               latitude={latitude}
               longitude={longitude}
-              type={selected === id ? 'active' : 'inactive'}
+              type={selected.id === id ? 'active' : 'inactive'}
               onTap={onMarkerTap({id, latitude, longitude})}
             />
           ))}

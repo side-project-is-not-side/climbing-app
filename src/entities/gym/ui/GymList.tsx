@@ -4,7 +4,7 @@ import DefaultGymCard from './DefaultGymCard';
 import React, {useCallback} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 
-const GymList = ({onClick}: {onClick: (id: number) => () => void}) => {
+const GymList = ({onClick}: {onClick: (id: number, location: GymInfo['location']) => () => void}) => {
   const {data: gymInfos, setSize} = useGetGymsByLocation();
 
   const onEndReached = () => {
