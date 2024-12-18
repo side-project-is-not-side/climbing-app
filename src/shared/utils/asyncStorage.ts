@@ -15,3 +15,7 @@ export const getStorage = async <T extends any>(key: StorageKey) => {
 export const removeStorage = async (key: StorageKey) => {
   return await AsyncStorage.removeItem(key);
 };
+
+export const clearStorage = async () => {
+  return AsyncStorage.clear();
+};

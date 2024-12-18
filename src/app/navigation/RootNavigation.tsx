@@ -5,11 +5,19 @@ import ChallengeNavigation from './ChallengeNavigation';
 import MapNavigation from './MapNavigation';
 import MyNavigation from './MyNavigation';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useEffect} from 'react';
 import {Text} from 'react-native';
 
 const Tab = createBottomTabNavigator<RootRoute>();
 
 const RootNavigation = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootRoute>>();
+
+  useEffect(() => {
+    navigation.navigate(ROOT_ROUTES.HOME);
+  }, []);
   return (
     <Tab.Navigator
       initialRouteName={ROOT_ROUTES.HOME}

@@ -22,6 +22,9 @@ const AuthNavigation = ({
       navigation.navigate('login');
     }
   }, [onboarding]);
+
+  useEffect(() => {}, [navigation.addListener('beforeRemove', e => e.preventDefault())]);
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#000'}}>
       <Stack.Navigator

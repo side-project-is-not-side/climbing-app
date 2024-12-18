@@ -61,7 +61,7 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
     return true;
   };
 
-  const onMessage = (event: WebViewMessageEvent) => {
+  const onMessage = async (event: WebViewMessageEvent) => {
     try {
       const data = JSON.parse(event.nativeEvent.data);
 
@@ -87,11 +87,25 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
           break;
         }
         case 'LOGOUT': {
-          authContext?.setToken(null);
+          authContext?.logout(data.data);
+          break;
+        }
+        case 'WITHDRAW': {
+          authContext?.withdraw(data.data);
           break;
         }
         case 'CONSOLE_LOG': {
           console.log(data.data);
+          break;
+        }
+        case 'TOKEN_RECEIVED': {
+          console.log(data.data);
+          break;
+        }
+        case 'SERVER_ERROR': {
+          if (data.data === 403) {
+            authContext?.logout();
+          }
           break;
         }
         default:
