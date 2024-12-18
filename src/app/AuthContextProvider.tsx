@@ -12,7 +12,7 @@ type AuthContext = {
   setToken: (token: string | null) => void;
   onboarding: boolean;
   setOnboarding: (onboarding: boolean) => void;
-  logout: (provider: AuthProvider) => void;
+  logout: (provider?: AuthProvider) => void;
   withdraw: (provider: AuthProvider) => void;
 };
 
@@ -48,7 +48,7 @@ export function AuthContextProvider({children}: {children: React.ReactNode}) {
     _setOnboarding(onboarding);
   };
 
-  const logout = async (provider: AuthProvider) => {
+  const logout = async (provider?: AuthProvider) => {
     switch (provider) {
       case 'KAKAO':
         KakaoLogout();
@@ -61,7 +61,7 @@ export function AuthContextProvider({children}: {children: React.ReactNode}) {
     await setStorage(AUTHTOKEN, null);
     _setToken(null);
 
-    console.log('logout with ' + provider);
+    console.log('logout with ' + provider || 'token');
   };
 
   const withdraw = async (provider: AuthProvider) => {

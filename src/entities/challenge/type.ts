@@ -1,20 +1,21 @@
 export type ChallengeStatus = 'SUCCESS' | 'ONGOING' | 'NOT_STARTED';
 export type ActivityType = 'PICTURE' | 'VIDEO' | 'LOCATION';
 
-export type Challenge = {
+type ChallengeOrigin = {
   id: number;
   title: string;
   summary: string;
   activityCount: number;
   successCount: number;
   activityType: ActivityType;
-  imageUrl: {
-    black: string;
-    color: string;
-  };
+  successImageUrl: string;
 };
 
-export type ChallengeDetail = Challenge & {
+export type Challenge = ChallengeOrigin & {
+  successAt: string | null;
+};
+
+export type ChallengeDetail = ChallengeOrigin & {
   description: string;
   records: Activity[];
 };

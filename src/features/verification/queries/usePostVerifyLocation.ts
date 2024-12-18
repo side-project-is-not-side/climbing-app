@@ -19,8 +19,8 @@ export const usePostVerifyLocation = (challengeId: number) => {
           challengeId: route.params.challengeId,
           activityType: 'LOCATION',
         });
-      } else if (data.err === 400) {
-        Alert.alert('인증이 완료된 챌린지입니다.');
+      } else if (data.code) {
+        Alert.alert(data.message);
         navigation.goBack();
       }
     },
