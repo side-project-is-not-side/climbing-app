@@ -39,5 +39,5 @@ export const useLocation = () => {
     setBounds(bounds);
   };
 
-  return {permissionStatus: status, currentLocation, setBoundsByRegion, setBoundsByCamera, ...props};
+  return {permissionStatus: status, currentLocation, setBoundsByRegion, setBoundsByCamera, setBounds, ...props};
 };
