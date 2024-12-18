@@ -5,7 +5,7 @@ import {AroundGym, GymInfo} from '@entities/gym/api/types';
 import {useGetNearbyGyms} from '@entities/gym/queries';
 import {NaverMapView, NaverMapViewRef} from '@mj-studio/react-native-naver-map';
 import {Icon, PermissionModal} from '@shared/ui';
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Pressable, Text, View} from 'react-native';
 
 type NearbyMapProps = {

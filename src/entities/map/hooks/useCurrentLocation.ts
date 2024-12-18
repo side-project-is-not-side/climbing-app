@@ -1,11 +1,9 @@
 import {DEFAULT_ZOOM} from '../constants/location';
 import {getLatLongDelta} from '../utils';
 import {GymInfo} from '@entities/gym/api/types';
-import {Bounds, useLocation} from '@entities/location';
+import {useLocation} from '@entities/location';
 import {NaverMapViewProps, Region} from '@mj-studio/react-native-naver-map';
-import {debounce} from 'lodash';
 import {useEffect, useRef} from 'react';
-import {Alert} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 
 export const useCurrentLocation = (zoomLevel: number) => {
