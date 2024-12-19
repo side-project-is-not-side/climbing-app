@@ -31,7 +31,7 @@ export const usePostVerifyPicture = (challengeId: number) => {
             authContext?.setToken(null);
             return;
           default:
-            return {err: res.status};
+            return res.json();
         }
       }
 

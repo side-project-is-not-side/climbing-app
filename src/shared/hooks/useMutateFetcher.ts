@@ -23,7 +23,7 @@ export const useMutateFetcher = () => {
             // 토큰 만료 또는 권한 없음
             return authContext?.setToken(null);
           default:
-            return {err: res.status};
+            return res.json();
         }
       }
 
