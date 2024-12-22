@@ -13,7 +13,7 @@ type NearbyMapProps = {
   setSelected: React.Dispatch<React.SetStateAction<Partial<Pick<GymInfo, 'id' | 'location'>>>>;
 };
 const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
-  const {permissionStatus, initialLocation, onCameraChanged, currentBounds, setBoundsByRegion} =
+  const {permissionStatus, initialLocation, onCameraChanged, currentBounds, fetchOnCurrentScreen} =
     useCurrentLocation(DEFAULT_ZOOM);
   const [showModal, setShowModal] = useState(false);
 
@@ -27,30 +27,24 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
     };
 
   useEffect(() => {
-    if (!permissionStatus) return;
-
     if (permissionStatus === 'denied' || permissionStatus === 'blocked') {
       setShowModal(true);
     }
   }, [permissionStatus]);
 
   useEffect(() => {
-    if (!initialLocation) return;
-
-    ref.current?.animateCameraTo({
-      ...initialLocation,
-      zoom: DEFAULT_ZOOM,
-    });
-
-    ref.current?.setLocationTrackingMode('NoFollow');
+    if (initialLocation && ref.current) {
+      ref.current.animateCameraTo({
+        ...initialLocation,
+        zoom: DEFAULT_ZOOM,
+      });
+      ref.current.setLocationTrackingMode('NoFollow');
+    }
   }, [initialLocation]);
 
   useEffect(() => {
-    if (!selected.location) return;
-
-    const {latitude, longitude} = selected.location;
-
-    if (ref.current) {
+    if (selected.location && ref.current) {
+      const {latitude, longitude} = selected.location;
       ref.current.animateCameraTo({
         latitude,
         longitude,
@@ -60,10 +54,6 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
       });
     }
   }, [selected.location]);
-
-  const handlePress = () => {
-    setBoundsByRegion();
-  };
 
   return (
     <>
@@ -90,7 +80,7 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
         {/* 지도 위에 오버레이된 Pressable */}
         <Pressable
           className="absolute top-[23px] self-center z-10 flex flex-row gap-x-0.5 items-center justify-center w-[188px] bg-neutral-white rounded-[100px] py-[14px] px-10 shadow-md"
-          onPress={handlePress}>
+          onPress={fetchOnCurrentScreen}>
           <Icon className="z-10" name="Redo" size={16} />
           <Text className="z-10 font-text-2">지도에서 재검색</Text>
         </Pressable>
@@ -105,4 +95,4 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
   );
 };
 
-export default NearbyMap;
+export default React.memo(NearbyMap);
