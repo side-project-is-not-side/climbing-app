@@ -9,8 +9,8 @@ export const getNearByBoulderingGyms = async (bounds: Bounds | undefined) => {
   const ENDPOINT = 'v1/gyms/map';
   const url = getUrl(ENDPOINT, bounds);
 
+  await delay(1_000);
   return await fetch(url).then(async res => {
-    await delay(1_000);
     return res.json();
   });
 };

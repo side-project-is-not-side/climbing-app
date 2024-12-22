@@ -45,15 +45,12 @@ export const useCurrentLocation = (zoomLevel: number) => {
     const updateInitialLocation = (latitude: number, longitude: number) => {
       const [newLatitudeDelta, newLongitudeDelta] = getLatLongDelta(zoomLevel, latitude);
 
-      if (!isInitialLocationSet.current) {
-        setInitialLocation({
-          latitude,
-          longitude,
-          latitudeDelta: newLatitudeDelta,
-          longitudeDelta: newLongitudeDelta,
-        });
-        isInitialLocationSet.current = true;
-      }
+      setInitialLocation({
+        latitude,
+        longitude,
+        latitudeDelta: newLatitudeDelta,
+        longitudeDelta: newLongitudeDelta,
+      });
     };
 
     Geolocation.getCurrentPosition(
@@ -84,10 +81,12 @@ export const useCurrentLocation = (zoomLevel: number) => {
   }, [permissionStatus]);
 
   useEffect(() => {
-    if (initialLocation) {
+    if (isInitialLocationSet.current) return;
+    if (initialLocation && currentLocation) {
       setBoundsByRegion();
+      isInitialLocationSet.current = true;
     }
-  }, [initialLocation]);
+  }, [initialLocation, currentLocation]);
 
   const onCameraChanged: NaverMapViewProps['onCameraChanged'] = params => {
     const {latitude, longitude, zoom, reason} = params;
@@ -132,7 +131,7 @@ export const useCurrentLocation = (zoomLevel: number) => {
     currentLocation,
     permissionStatus,
     initialLocation,
-    onCameraChanged: debounce(onCameraChanged, 1_000),
+    onCameraChanged: debounce(onCameraChanged, 500),
     currentBounds,
     fetchOnCurrentScreen,
     onSelectedChanged,

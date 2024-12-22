@@ -11,11 +11,6 @@ export const useGetNearbyGyms = (bounds: Bounds | undefined) => {
   return useSWR<GetAroundBoulderingGymResponse>(
     bounds ? `${ENDPOINT}?${params}` : null,
     async () => await getNearByBoulderingGyms(bounds),
-    {
-      keepPreviousData: true,
-      revalidateOnFocus: false,
-      revalidateIfStale: false,
-      revalidateOnReconnect: false,
-    },
+    {revalidateOnFocus: false, revalidateIfStale: false, revalidateOnReconnect: false},
   );
 };
