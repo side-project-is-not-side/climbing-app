@@ -19,13 +19,19 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
   const [isInit, setIsInit] = useState(false);
 
   const ref = useRef<NaverMapViewRef>(null);
-  const {data, isLoading} = useGetNearbyGyms(currentBounds);
+  const {data, isLoading, mutate} = useGetNearbyGyms(currentBounds);
 
   const onMarkerTap =
     ({id, latitude, longitude}: AroundGym) =>
     () => {
       setSelected({id, location: {latitude, longitude}});
     };
+
+  const onRefetchButtonTap = () => {
+    if (isLoading) return;
+    fetchOnCurrentScreen();
+    mutate();
+  };
 
   useEffect(() => {
     if (permissionStatus === 'denied' || permissionStatus === 'blocked') {
@@ -90,7 +96,7 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
         {/* 지도 위에 오버레이된 Pressable */}
         <Pressable
           className="absolute top-[23px] self-center z-10 flex flex-row gap-x-0.5 items-center justify-center w-[188px] bg-neutral-white rounded-[100px] py-[14px] px-10 shadow-md"
-          onPress={fetchOnCurrentScreen}>
+          onPress={onRefetchButtonTap}>
           <Icon className="z-10" name="Redo" size={16} />
           <Text className="z-10 font-text-2">지도에서 재검색</Text>
         </Pressable>
