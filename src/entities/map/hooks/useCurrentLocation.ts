@@ -1,7 +1,7 @@
 import {DEFAULT_ZOOM} from '../constants/location';
 import {getLatLongDelta} from '../utils';
 import {GymInfo} from '@entities/gym/api/types';
-import {useLocation} from '@entities/location';
+import {LOCATION_강남역, useLocation} from '@entities/location';
 import {NaverMapViewProps, Region} from '@mj-studio/react-native-naver-map';
 import {useEffect, useRef} from 'react';
 import Geolocation from 'react-native-geolocation-service';
@@ -23,6 +23,11 @@ export const useCurrentLocation = (zoomLevel: number) => {
   // 위치 추적 및 상태 업데이트를 최적화
   useEffect(() => {
     if (!permissionStatus) return;
+
+    if (permissionStatus !== 'granted') {
+      setInitialLocation(LOCATION_강남역);
+      return;
+    }
 
     const updateLocation = (latitude: number, longitude: number) => {
       const [newLatitudeDelta, newLongitudeDelta] = getLatLongDelta(zoomLevel, latitude);

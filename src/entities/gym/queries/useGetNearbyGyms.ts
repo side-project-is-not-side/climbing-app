@@ -5,7 +5,7 @@ import useSWR from 'swr';
 
 const ENDPOINT = '/v1/gyms/map';
 
-export const useGetNearbyGyms = (bounds: Bounds) => {
+export const useGetNearbyGyms = (bounds: Bounds | undefined) => {
   const params = new URLSearchParams(bounds);
 
   return useSWR<GetAroundBoulderingGymResponse>(

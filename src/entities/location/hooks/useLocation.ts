@@ -27,10 +27,14 @@ export const useLocation = () => {
     }
   }, [status]);
 
-  const getBounds = () => getBoundByRegion({region: currentLocation});
+  const getBounds = () => {
+    if (!currentLocation) return;
+    return getBoundByRegion({region: currentLocation});
+  };
 
   const setBoundsByRegion = () => {
     const bounds = getBounds();
+    if (!bounds) return;
     setBounds(bounds);
   };
 
