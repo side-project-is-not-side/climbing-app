@@ -48,8 +48,8 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
         zoom: DEFAULT_ZOOM,
       });
       ref.current.setLocationTrackingMode('NoFollow');
+      setIsInit(true);
     }
-    setIsInit(true);
   }, [initialLocation, isInit]);
 
   useEffect(() => {

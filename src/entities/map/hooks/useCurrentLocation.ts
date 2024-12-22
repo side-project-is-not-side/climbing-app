@@ -32,31 +32,6 @@ export const useCurrentLocation = (zoomLevel: number) => {
       return;
     }
 
-    if (!isInitialLocationSet.current) {
-      const updateInitialLocation = (latitude: number, longitude: number) => {
-        const [newLatitudeDelta, newLongitudeDelta] = getLatLongDelta(zoomLevel, latitude);
-
-        if (!isInitialLocationSet.current) {
-          setInitialLocation({
-            latitude,
-            longitude,
-            latitudeDelta: newLatitudeDelta,
-            longitudeDelta: newLongitudeDelta,
-          });
-          isInitialLocationSet.current = true;
-        }
-      };
-
-      Geolocation.getCurrentPosition(
-        position => {
-          const {latitude, longitude} = position.coords;
-          updateInitialLocation(latitude, longitude);
-        },
-        error => console.log(error),
-        {enableHighAccuracy: true},
-      );
-    }
-
     const updateLocation = (latitude: number, longitude: number) => {
       const [newLatitudeDelta, newLongitudeDelta] = getLatLongDelta(zoomLevel, latitude);
       setCurrentLocation({
@@ -66,6 +41,30 @@ export const useCurrentLocation = (zoomLevel: number) => {
         longitudeDelta: newLongitudeDelta,
       });
     };
+
+    const updateInitialLocation = (latitude: number, longitude: number) => {
+      const [newLatitudeDelta, newLongitudeDelta] = getLatLongDelta(zoomLevel, latitude);
+
+      if (!isInitialLocationSet.current) {
+        setInitialLocation({
+          latitude,
+          longitude,
+          latitudeDelta: newLatitudeDelta,
+          longitudeDelta: newLongitudeDelta,
+        });
+        isInitialLocationSet.current = true;
+      }
+    };
+
+    Geolocation.getCurrentPosition(
+      position => {
+        const {latitude, longitude} = position.coords;
+        updateInitialLocation(latitude, longitude);
+        updateLocation(latitude, longitude);
+      },
+      error => console.log(error),
+      {enableHighAccuracy: true},
+    );
 
     const watchId = Geolocation.watchPosition(
       position => {
