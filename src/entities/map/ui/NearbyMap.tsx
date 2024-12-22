@@ -4,7 +4,7 @@ import Marker from './Marker';
 import {AroundGym, GymInfo} from '@entities/gym/api/types';
 import {useGetNearbyGyms} from '@entities/gym/queries';
 import {NaverMapView, NaverMapViewRef} from '@mj-studio/react-native-naver-map';
-import {Icon, PermissionModal} from '@shared/ui';
+import {AnimatedSpinner, Icon, PermissionModal} from '@shared/ui';
 import React, {useEffect, useRef, useState} from 'react';
 import {Pressable, Text, View} from 'react-native';
 
@@ -18,7 +18,7 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
   const [showModal, setShowModal] = useState(false);
 
   const ref = useRef<NaverMapViewRef>(null);
-  const {data} = useGetNearbyGyms(currentBounds);
+  const {data, isLoading} = useGetNearbyGyms(currentBounds);
 
   const onMarkerTap =
     ({id, latitude, longitude}: AroundGym) =>
@@ -76,6 +76,12 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
             />
           ))}
         </NaverMapView>
+
+        {isLoading && (
+          <View className="absolute w-full h-full flex items-center justify-center">
+            <AnimatedSpinner />
+          </View>
+        )}
 
         {/* 지도 위에 오버레이된 Pressable */}
         <Pressable

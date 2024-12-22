@@ -5,7 +5,7 @@ import {useLocation} from '@entities/location';
 import {DEFAULT_ZOOM} from '@entities/map/constants/location';
 import {getLatLongDelta} from '@entities/map/utils';
 import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet';
-import {RouteProp, useFocusEffect, useNavigation, useRoute} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {MAP_ROUTES, MapRoute} from '@shared/constants';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
