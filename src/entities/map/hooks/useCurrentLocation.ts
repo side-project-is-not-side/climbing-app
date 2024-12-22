@@ -21,6 +21,7 @@ export const useCurrentLocation = (zoomLevel: number) => {
     setBounds,
   } = useLocation();
   const cameraBoundRef = useRef<Region>();
+  const isInitialLocationSet = useRef(false);
 
   // 위치 추적 및 상태 업데이트를 최적화
   useEffect(() => {
@@ -31,18 +32,33 @@ export const useCurrentLocation = (zoomLevel: number) => {
       return;
     }
 
+    if (!isInitialLocationSet.current) {
+      const updateInitialLocation = (latitude: number, longitude: number) => {
+        const [newLatitudeDelta, newLongitudeDelta] = getLatLongDelta(zoomLevel, latitude);
+
+        if (!isInitialLocationSet.current) {
+          setInitialLocation({
+            latitude,
+            longitude,
+            latitudeDelta: newLatitudeDelta,
+            longitudeDelta: newLongitudeDelta,
+          });
+          isInitialLocationSet.current = true;
+        }
+      };
+
+      Geolocation.getCurrentPosition(
+        position => {
+          const {latitude, longitude} = position.coords;
+          updateInitialLocation(latitude, longitude);
+        },
+        error => console.log(error),
+        {enableHighAccuracy: true},
+      );
+    }
+
     const updateLocation = (latitude: number, longitude: number) => {
       const [newLatitudeDelta, newLongitudeDelta] = getLatLongDelta(zoomLevel, latitude);
-
-      if (!initialLocation) {
-        setInitialLocation({
-          latitude,
-          longitude,
-          latitudeDelta: newLatitudeDelta,
-          longitudeDelta: newLongitudeDelta,
-        });
-      }
-
       setCurrentLocation({
         latitude,
         longitude,
@@ -50,15 +66,6 @@ export const useCurrentLocation = (zoomLevel: number) => {
         longitudeDelta: newLongitudeDelta,
       });
     };
-
-    Geolocation.getCurrentPosition(
-      position => {
-        const {latitude, longitude} = position.coords;
-        updateLocation(latitude, longitude);
-      },
-      error => console.log(error),
-      {enableHighAccuracy: true},
-    );
 
     const watchId = Geolocation.watchPosition(
       position => {
@@ -75,7 +82,7 @@ export const useCurrentLocation = (zoomLevel: number) => {
     return () => {
       Geolocation.clearWatch(watchId);
     };
-  }, [permissionStatus, zoomLevel]);
+  }, [permissionStatus]);
 
   useEffect(() => {
     if (initialLocation) {
