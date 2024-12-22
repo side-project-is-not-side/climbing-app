@@ -1,10 +1,12 @@
 import {DEFAULT_ZOOM} from '../constants/location';
-import {getLatLongDelta} from '../utils';
+import {checkIsOutsideSeoul, getLatLongDelta} from '../utils';
 import {GymInfo} from '@entities/gym/api/types';
 import {LOCATION_강남역, useLocation} from '@entities/location';
 import {NaverMapViewProps, Region} from '@mj-studio/react-native-naver-map';
+import {debounce} from 'lodash';
 import {useEffect, useRef} from 'react';
 import Geolocation from 'react-native-geolocation-service';
+import Toast from 'react-native-toast-message';
 
 export const useCurrentLocation = (zoomLevel: number) => {
   const {
@@ -92,6 +94,14 @@ export const useCurrentLocation = (zoomLevel: number) => {
       latitudeDelta,
       longitudeDelta,
     };
+
+    if (checkIsOutsideSeoul({latitude, longitude})) {
+      Toast.show({
+        text1: '현재 서울과 수도권 지역에서만 암장 찾기가 가능해요.',
+        type: 'alert',
+        bottomOffset: 100,
+      });
+    }
   };
 
   const onSelectedChanged = ({latitude, longitude}: GymInfo['location']) => {
@@ -116,7 +126,7 @@ export const useCurrentLocation = (zoomLevel: number) => {
     currentLocation,
     permissionStatus,
     initialLocation,
-    onCameraChanged,
+    onCameraChanged: debounce(onCameraChanged, 1_000),
     currentBounds,
     fetchOnCurrentScreen,
     onSelectedChanged,
