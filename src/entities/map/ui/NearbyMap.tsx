@@ -16,6 +16,7 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
   const {permissionStatus, initialLocation, onCameraChanged, currentBounds, fetchOnCurrentScreen} =
     useCurrentLocation(DEFAULT_ZOOM);
   const [showModal, setShowModal] = useState(false);
+  const [isInit, setIsInit] = useState(false);
 
   const ref = useRef<NaverMapViewRef>(null);
   const {data, isLoading} = useGetNearbyGyms(currentBounds);
@@ -33,6 +34,8 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
   }, [permissionStatus]);
 
   useEffect(() => {
+    if (isInit) return;
+
     if (initialLocation && ref.current) {
       ref.current.animateCameraTo({
         ...initialLocation,
@@ -40,7 +43,8 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
       });
       ref.current.setLocationTrackingMode('NoFollow');
     }
-  }, [initialLocation]);
+    setIsInit(true);
+  }, [initialLocation, isInit]);
 
   useEffect(() => {
     if (selected.location && ref.current) {
@@ -95,7 +99,7 @@ const NearbyMap = ({selected, setSelected}: NearbyMapProps) => {
       <PermissionModal
         visible={showModal}
         hide={() => setShowModal(false)}
-        modalText="현재 위치를 사용하기 위해서는 권한 허용이 필요합니다."
+        modalText="주변 암장 정보를 불러오기 위해/n권한 허용이 필요합니다."
       />
     </>
   );
