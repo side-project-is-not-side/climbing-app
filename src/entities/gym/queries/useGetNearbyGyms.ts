@@ -5,17 +5,12 @@ import useSWR from 'swr';
 
 const ENDPOINT = '/v1/gyms/map';
 
-export const useGetNearbyGyms = (bounds: Bounds) => {
+export const useGetNearbyGyms = (bounds: Bounds | undefined) => {
   const params = new URLSearchParams(bounds);
 
   return useSWR<GetAroundBoulderingGymResponse>(
     bounds ? `${ENDPOINT}?${params}` : null,
-    () => getNearByBoulderingGyms(bounds),
-    {
-      keepPreviousData: true,
-      revalidateOnFocus: false,
-      revalidateIfStale: false,
-      revalidateOnReconnect: false,
-    },
+    async () => await getNearByBoulderingGyms(bounds),
+    {revalidateOnFocus: false, revalidateIfStale: false, revalidateOnReconnect: false},
   );
 };

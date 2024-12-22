@@ -1,10 +1,12 @@
 import {DEFAULT_ZOOM} from '../constants/location';
-import {getLatLongDelta} from '../utils';
+import {checkIsOutsideSeoul, getLatLongDelta} from '../utils';
 import {GymInfo} from '@entities/gym/api/types';
-import {useLocation} from '@entities/location';
+import {LOCATION_강남역, useLocation} from '@entities/location';
 import {NaverMapViewProps, Region} from '@mj-studio/react-native-naver-map';
+import {debounce} from 'lodash';
 import {useEffect, useRef} from 'react';
 import Geolocation from 'react-native-geolocation-service';
+import Toast from 'react-native-toast-message';
 
 export const useCurrentLocation = (zoomLevel: number) => {
   const {
@@ -19,24 +21,31 @@ export const useCurrentLocation = (zoomLevel: number) => {
     setBounds,
   } = useLocation();
   const cameraBoundRef = useRef<Region>();
+  const isInitialLocationSet = useRef(false);
 
   // 위치 추적 및 상태 업데이트를 최적화
   useEffect(() => {
     if (!permissionStatus) return;
 
+    if (permissionStatus !== 'granted') {
+      setInitialLocation(LOCATION_강남역);
+      return;
+    }
+
     const updateLocation = (latitude: number, longitude: number) => {
       const [newLatitudeDelta, newLongitudeDelta] = getLatLongDelta(zoomLevel, latitude);
-
-      if (!initialLocation) {
-        setInitialLocation({
-          latitude,
-          longitude,
-          latitudeDelta: newLatitudeDelta,
-          longitudeDelta: newLongitudeDelta,
-        });
-      }
-
       setCurrentLocation({
+        latitude,
+        longitude,
+        latitudeDelta: newLatitudeDelta,
+        longitudeDelta: newLongitudeDelta,
+      });
+    };
+
+    const updateInitialLocation = (latitude: number, longitude: number) => {
+      const [newLatitudeDelta, newLongitudeDelta] = getLatLongDelta(zoomLevel, latitude);
+
+      setInitialLocation({
         latitude,
         longitude,
         latitudeDelta: newLatitudeDelta,
@@ -47,6 +56,7 @@ export const useCurrentLocation = (zoomLevel: number) => {
     Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
+        updateInitialLocation(latitude, longitude);
         updateLocation(latitude, longitude);
       },
       error => console.log(error),
@@ -68,13 +78,15 @@ export const useCurrentLocation = (zoomLevel: number) => {
     return () => {
       Geolocation.clearWatch(watchId);
     };
-  }, [permissionStatus, zoomLevel]);
+  }, [permissionStatus]);
 
   useEffect(() => {
-    if (initialLocation) {
+    if (isInitialLocationSet.current) return;
+    if (initialLocation && currentLocation) {
       setBoundsByRegion();
+      isInitialLocationSet.current = true;
     }
-  }, [initialLocation]);
+  }, [initialLocation, currentLocation]);
 
   const onCameraChanged: NaverMapViewProps['onCameraChanged'] = params => {
     const {latitude, longitude, zoom, reason} = params;
@@ -87,6 +99,14 @@ export const useCurrentLocation = (zoomLevel: number) => {
       latitudeDelta,
       longitudeDelta,
     };
+
+    if (checkIsOutsideSeoul({latitude, longitude})) {
+      Toast.show({
+        text1: '현재 서울과 수도권 지역에서만 암장 찾기가 가능해요.',
+        type: 'alert',
+        bottomOffset: 100,
+      });
+    }
   };
 
   const onSelectedChanged = ({latitude, longitude}: GymInfo['location']) => {
@@ -111,7 +131,7 @@ export const useCurrentLocation = (zoomLevel: number) => {
     currentLocation,
     permissionStatus,
     initialLocation,
-    onCameraChanged,
+    onCameraChanged: debounce(onCameraChanged, 500),
     currentBounds,
     fetchOnCurrentScreen,
     onSelectedChanged,

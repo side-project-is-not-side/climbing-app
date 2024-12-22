@@ -22,13 +22,13 @@ export type Bounds = {
 type PermissionStore = {
   status?: PermissionStatus;
   /** 실시간으로 유저 위치에 따라 설정되는 위치 값 */
-  currentLocation: CurrentLocation;
+  currentLocation: CurrentLocation | undefined;
   /** 지도 렌더링 후 현재 위치에 따라 설정되는 초기값 */
   initialLocation: CurrentLocation | undefined;
-  currentBounds: Bounds;
+  currentBounds: Bounds | undefined;
 };
 
-const LOCATION_강남역 = {
+export const LOCATION_강남역 = {
   // 강남역 기준
   latitude: 37.497957666335616,
   latitudeDelta: 0.0174326,
@@ -38,14 +38,9 @@ const LOCATION_강남역 = {
 
 const initialStore: PermissionStore = {
   status: undefined,
-  currentLocation: LOCATION_강남역,
+  currentLocation: undefined,
   initialLocation: undefined,
-  currentBounds: {
-    maxLatitude: '37.5066683',
-    maxLongitude: '127.03860515',
-    minLatitude: '37.489235699999995',
-    minLongitude: '127.01663245',
-  },
+  currentBounds: undefined,
 };
 
 export const useLocationStore = create(
