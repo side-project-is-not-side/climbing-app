@@ -1,7 +1,7 @@
 import Marker from '../../map/ui/Marker';
-import {useCurrentLocation} from '../hooks';
 import {useGetChallengeGyms} from '../queries/useGetChallengeGyms';
-import {Coord, NaverMapView, NaverMapViewRef} from '@mj-studio/react-native-naver-map';
+import {Location} from '@entities/gym/api/types';
+import {NaverMapView, NaverMapViewRef} from '@mj-studio/react-native-naver-map';
 import {colors} from '@shared/constants';
 import {useEffect, useRef} from 'react';
 import {View} from 'react-native';
@@ -9,15 +9,22 @@ import {View} from 'react-native';
 type Props = {
   challengeId: number;
   selectedMarkerIdx: number | null;
+  currentLocation: Location | undefined;
   setSelectedMarkerIdx: React.Dispatch<React.SetStateAction<number | null>>;
   showTab: (id: number) => void;
   closeTab: () => void;
 };
 
-const VerifyMap = ({challengeId, selectedMarkerIdx, setSelectedMarkerIdx, showTab, closeTab}: Props) => {
+const VerifyMap = ({
+  challengeId,
+  selectedMarkerIdx,
+  currentLocation,
+  setSelectedMarkerIdx,
+  showTab,
+  closeTab,
+}: Props) => {
   const ref = useRef<NaverMapViewRef>(null);
 
-  const {currentLocation} = useCurrentLocation();
   const {data} = useGetChallengeGyms(challengeId, currentLocation);
   const onTabMap = () => {
     setSelectedMarkerIdx(null);
@@ -57,7 +64,7 @@ const VerifyMap = ({challengeId, selectedMarkerIdx, setSelectedMarkerIdx, showTa
                 latitude={gym.latitude}
                 longitude={gym.longitude}
                 type={canVerify ? (selectedMarkerIdx === gym.id ? 'active' : 'inactive') : 'disabled'}
-                onTap={() => canVerify && onTabMarker(gym.id)}
+                onTap={() => (canVerify ? onTabMarker(gym.id) : console.log(gym))}
                 caption={{text: gym.name, color: canVerify ? 'black' : colors.gray700}}
               />
             );

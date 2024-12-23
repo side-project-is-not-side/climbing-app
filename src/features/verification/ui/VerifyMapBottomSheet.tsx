@@ -1,5 +1,6 @@
+import {useGetGymDetail} from '../queries/useGetGymDetail';
 import {usePostVerifyLocation} from '../queries/usePostVerifyLocation';
-import {GetGymDetailResponse} from '@entities/gym/api/types';
+import {Location} from '@entities/gym/api/types';
 import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
 import {colors} from '@shared/constants';
 import {Button} from '@shared/ui';
@@ -10,63 +11,66 @@ const deviceWidth = Dimensions.get('window').width;
 
 type Props = {
   challengeId: number;
-  gym?: GetGymDetailResponse;
-  latitude?: number;
-  longitude?: number;
+  selectedGymId: number;
+  currentLocation: Location;
   onClose: () => void;
 };
 
-const VerifyMapBottomSheet = forwardRef(({challengeId, gym, onClose}: Props, ref: ForwardedRef<BottomSheet>) => {
-  const {trigger, isMutating} = usePostVerifyLocation(challengeId);
+const VerifyMapBottomSheet = forwardRef(
+  ({challengeId, selectedGymId, currentLocation, onClose}: Props, ref: ForwardedRef<BottomSheet>) => {
+    const {data: gym} = useGetGymDetail(selectedGymId, currentLocation);
 
-  const handleVerify = () => {
-    if (!gym) return;
-    trigger({latitude: gym.location.latitude, longitude: gym.location.longitude, gymId: gym.id});
-  };
+    const {trigger, isMutating} = usePostVerifyLocation(challengeId);
 
-  return (
-    <BottomSheet
-      ref={ref}
-      handleStyle={{
-        paddingVertical: 20,
-      }}
-      handleIndicatorStyle={{
-        width: 60,
-        height: 4,
-        borderRadius: 4,
-        backgroundColor: '#4E4E4E',
-      }}
-      snapPoints={[1, 450]}
-      backgroundStyle={{backgroundColor: '#151518'}}
-      onClose={() => onClose()}
-      enablePanDownToClose>
-      <BottomSheetView style={{padding: 20, flex: 1}}>
-        {gym?.thumbnailImageUrl && (
-          <Image src={gym?.thumbnailImageUrl} alt={'verification guide image'} style={styles.image} />
-        )}
-        <View style={{gap: 8, paddingTop: 20, paddingBottom: 40}}>
-          <Text style={styles.name}>{gym?.name}</Text>
-          <View style={styles.description}>
-            <Text style={styles.distance}>{gym?.distance}m</Text>
-            <Text style={styles.address}>|</Text>
-            <Text style={styles.address}>{gym?.roadNameAddress}</Text>
+    const handleVerify = () => {
+      if (!gym) return;
+      trigger({latitude: gym.location.latitude, longitude: gym.location.longitude, gymId: gym.id});
+    };
+
+    return (
+      <BottomSheet
+        ref={ref}
+        handleStyle={{
+          paddingVertical: 20,
+        }}
+        handleIndicatorStyle={{
+          width: 60,
+          height: 4,
+          borderRadius: 4,
+          backgroundColor: '#4E4E4E',
+        }}
+        snapPoints={[480]}
+        backgroundStyle={{backgroundColor: '#151518'}}
+        onClose={() => onClose()}
+        enablePanDownToClose>
+        <BottomSheetView style={{padding: 20, flex: 1}}>
+          {gym?.thumbnailImageUrl && (
+            <Image src={gym?.thumbnailImageUrl} alt={'verification guide image'} style={styles.image} />
+          )}
+          <View style={{gap: 8, paddingTop: 20, paddingBottom: 40}}>
+            <Text style={styles.name}>{gym?.name}</Text>
+            <View style={styles.description}>
+              <Text style={styles.distance}>{gym?.distance}m</Text>
+              <Text style={styles.address}>|</Text>
+              <Text style={styles.address}>{gym?.roadNameAddress}</Text>
+            </View>
+            <View style={styles.tags}>
+              {gym?.tags &&
+                gym.tags.map((tag, index) => (
+                  <View style={styles.tag} key={tag + '_' + index}>
+                    <Text style={styles.tagText}>{tag}</Text>
+                  </View>
+                ))}
+            </View>
           </View>
-          <View style={styles.tags}>
-            {gym?.tags &&
-              gym.tags.map((tag, index) => (
-                <View style={styles.tag} key={tag + '_' + index}>
-                  <Text style={styles.tagText}>{tag}</Text>
-                </View>
-              ))}
-          </View>
-        </View>
-        <Button onPress={handleVerify} disabled={!gym || isMutating}>
-          이 위치로 인증하기
-        </Button>
-      </BottomSheetView>
-    </BottomSheet>
-  );
-});
+          <Button onPress={handleVerify} disabled={!gym || isMutating}>
+            이 위치로 인증하기
+          </Button>
+        </BottomSheetView>
+      </BottomSheet>
+    );
+  },
+);
 
 export default VerifyMapBottomSheet;
 
