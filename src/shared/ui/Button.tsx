@@ -5,55 +5,57 @@ import {GestureResponderEvent, Platform, Pressable, StyleSheet, Text, View} from
 const Button = ({
   onPress = e => {},
   disabled,
-  style,
+  variation = 'default',
+  size = 'md',
   children,
+  classNames = {
+    inner: '',
+    outter: '',
+  },
 }: {
   onPress?: (e: GestureResponderEvent) => void;
-  variation?: 'button' | 'flat';
   disabled?: boolean;
-  style?: StyleSheet.NamedStyles<any>;
+  variation?: 'default' | 'outline';
+  size?: 'md' | 'lg';
   children?: React.ReactNode;
+  classNames?: {
+    inner?: string;
+    outter?: string;
+  };
 }) => {
+  const buttonTheme = {
+    default: {container: 'bg-primary-400', text: 'text-white'},
+    disabled: {container: 'bg-grayscale-600', text: 'text-grayscale-500'},
+    outline: {container: 'border border-primary-400', text: 'text-primary-400'},
+  };
+
+  const buttonSize = {
+    md: 'py-4 px-4',
+    lg: 'py-4 px-10',
+  };
+
   return (
-    <View style={disabled ? styles.disabledButton : styles.button}>
+    <View
+      style={{
+        overflow: 'hidden',
+        borderRadius: 100,
+      }}
+      className={buttonTheme[disabled ? 'disabled' : variation].container + ' ' + classNames?.outter}>
       <Pressable
         onPress={e => {
           !disabled && onPress(e);
         }}
-        style={({pressed}) => [
-          styles.innerContainer,
-          pressed && Platform.OS === 'ios' && {opacity: 0.6},
-          style?.button,
-        ]}
+        className={`${buttonSize[size]} justify-center items-center ` + ' ' + classNames?.inner}
+        style={({pressed}) => pressed && Platform.OS === 'ios' && {opacity: 0.6}}
         android_ripple={{
-          color: colors.primary300,
+          color: disabled ? colors.gray700 : colors.primary300,
         }}>
-        <Text style={disabled ? styles.disabledButtonText : styles.buttonText}>{children}</Text>
+        <Text style={{fontWeight: 700, fontSize: 16}} className={buttonTheme[disabled ? 'disabled' : variation].text}>
+          {children}
+        </Text>
       </Pressable>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: colors.primary400,
-    borderRadius: 100,
-    overflow: 'hidden',
-  },
-  disabledButton: {
-    backgroundColor: colors.gray400,
-    borderRadius: 100,
-    overflow: 'hidden',
-  },
-  innerContainer: {
-    height: 50,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonText: {color: '#fff', fontWeight: '700'},
-  disabledButtonText: {color: '#55575B', fontWeight: '700'},
-});
 
 export default Button;
