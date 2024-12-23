@@ -5,7 +5,6 @@ import {
   KAKAO_AUTH_URL,
   KAKAO_LOGIN_URL,
   LINKING_URI,
-  MYPAGE_LINKS,
   NOTION_URLS,
   ROOT_ROUTES,
   WEB_URL,
@@ -102,14 +101,15 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
           console.log(data.data);
           break;
         }
-        case 'SERVER_ERROR': {
+        case 'SERVER_ERROR':
+        case '_ERROR': {
           if (data.data === 403) {
             authContext?.logout();
           }
           break;
         }
         default:
-          console.warn('Unhandled message type:', data.type);
+          console.warn('Unhandled message type:', JSON.stringify(data));
       }
     } catch (error) {
       console.error('Failed to parse message:', error);
@@ -144,7 +144,13 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
               (function() {
                 const token = '${token}';
                 document.cookie = 'accessToken=' + token + '; Secure; SameSite=Strict; path=/';
-                window.dispatchEvent(new CustomEvent('tokenReceived', { detail: token }));
+                const event = new CustomEvent('tokenReceived', {
+                  detail: {
+                    data: token,
+                  },
+                });
+              
+                window.dispatchEvent(event);
               })();
               true;
             `);
