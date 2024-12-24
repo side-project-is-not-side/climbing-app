@@ -144,13 +144,7 @@ const WebViewScreen = (props: React.PropsWithChildren<WebViewProps>) => {
               (function() {
                 const token = '${token}';
                 document.cookie = 'accessToken=' + token + '; Secure; SameSite=Strict; path=/';
-                const event = new CustomEvent('tokenReceived', {
-                  detail: {
-                    data: token,
-                  },
-                });
-              
-                window.dispatchEvent(event);
+                window.dispatchEvent(new CustomEvent('tokenReceived', { detail: token }));
               })();
               true;
             `);
