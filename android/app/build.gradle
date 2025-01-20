@@ -80,8 +80,8 @@ android {
         applicationId "com.grabbers"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 5
-        versionName "1.0"
+        versionCode 8
+        versionName "1.13"
         resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
         resValue "string", "naver_maps_client_id", project.properties['NAVER_MAPS_CLIENT_ID'] ?: "\"xk9h76bg46\""
     }
