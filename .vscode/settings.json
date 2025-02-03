@@ -2,9 +2,7 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
 
-  "tailwindCSS.experimental.classRegex": [
-    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
-  ],
+  "tailwindCSS.experimental.classRegex": [["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]],
   "editor.codeActionsOnSave": {
     "source.fixAll.stylelint": "explicit",
     "source.fixAll.eslint": "explicit"
@@ -45,5 +43,6 @@
     }
   },
   "java.configuration.updateBuildConfiguration": "interactive",
-  "java.compile.nullAnalysis.mode": "automatic"
+  "java.compile.nullAnalysis.mode": "automatic",
+  "postman.settings.dotenv-detection-notification-visibility": false
 }

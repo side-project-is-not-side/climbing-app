@@ -10,9 +10,11 @@ export const getNearByBoulderingGyms = async (bounds: Bounds | undefined) => {
   const url = getUrl(ENDPOINT, bounds);
 
   await delay(1_000);
-  return await fetch(url).then(async res => {
-    return res.json();
-  });
+  return await fetch(url)
+    .then(async res => {
+      return res.json();
+    })
+    .catch(error => console.log(error));
 };
 
 // 현재 위치로부터 가장 가까운 암장 두 개를 가져오는 API

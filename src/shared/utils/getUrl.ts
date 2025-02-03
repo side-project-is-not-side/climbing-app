@@ -1,6 +1,6 @@
 export const getUrl = (url: string, params: Record<string, string>) => {
   const queryParams = new URLSearchParams(params);
-  const apiUrl = `https://${process.env.API_HOST}/${url}?${queryParams}`;
+  const apiUrl = `https://api.grabbers.co.kr/${url}?${queryParams}`;
   return apiUrl;
 };
 
