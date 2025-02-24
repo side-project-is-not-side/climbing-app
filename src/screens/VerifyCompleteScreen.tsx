@@ -15,17 +15,28 @@ const VerifyCompleteScreen = ({route, navigation}: ScreenProps) => {
         challengeId,
         activityType,
       });
-    }, 1500);
+    }, 3000);
   };
 
   useLayoutEffect(() => {
-    if (!imageUrl) pageOut();
+    // if (!imageUrl) pageOut();
+    pageOut();
   }, []);
   return (
-    <View className="items-center justify-center flex-1 gap-5">
-      {imageUrl && (
+    <View className="items-center justify-center flex-1 gap-2">
+      {/* {imageUrl && (
         <Image src={imageUrl} className="w-[160px] h-[160px] rounded-lg" resizeMode="cover" onLoadEnd={pageOut} />
-      )}
+      )} */}
+      <View className="relative w-[160px] h-[160px]">
+        <Image
+          source={require('/assets/images/fanfare.gif')}
+          className="absolute left-1/2 -top-0 -translate-x-[105px] w-[210px] h-[150px]"
+        />
+        <Image
+          source={require('/assets/images/buri_jump.gif')}
+          className="absolute left-1/2 bottom-0 -translate-x-[61px] w-[122px] h-[139px]"
+        />
+      </View>
       <View className="items-center justify-center gap-1">
         <Text className="text-lg font-bold text-white">인증 완료🔥</Text>
         <Text className="text-base text-neutral-400">계속 도전해보자구 부리!</Text>

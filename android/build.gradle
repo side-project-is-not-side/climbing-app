@@ -27,6 +27,10 @@ allprojects {
         maven{ url "https://repository.map.naver.com/archive/maven"}
         maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
     }
+
+    tasks.withType(Javadoc) {
+        enabled = false
+    }
 }
 
 apply plugin: "com.facebook.react.rootproject"

@@ -80,8 +80,8 @@ android {
         applicationId "com.grabbers"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8
-        versionName "1.13"
+        versionCode 9
+        versionName "1.0.0"
         resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
         resValue "string", "naver_maps_client_id", project.properties['NAVER_MAPS_CLIENT_ID'] ?: "\"xk9h76bg46\""
     }
@@ -121,10 +121,15 @@ android {
 }
 
 dependencies {
+    implementation "com.facebook.react:react-native:+" 
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
     implementation("com.google.android.gms:play-services-base:18.0.1")
     implementation("com.google.android.gms:play-services-location:18.0.0")
+
+    // For animated GIF support
+    implementation 'com.facebook.fresco:fresco:3.6.0'
+    implementation 'com.facebook.fresco:animated-gif:3.6.0'
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android:0.74.3")

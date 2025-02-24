@@ -12,7 +12,7 @@ import {colors} from '../../shared/constants';
 import {Icon, LogoIcon} from '../../shared/ui';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {Button, Pressable} from 'react-native';
+import {Pressable} from 'react-native';
 
 const Stack = createNativeStackNavigator<ChallengeRoute>();
 
