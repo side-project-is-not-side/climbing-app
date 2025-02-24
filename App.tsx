@@ -1,3 +1,4 @@
+import * as amplitude from '@amplitude/analytics-react-native';
 import {AuthContextProvider, Navigation, SWRConfigProvider, ToastProvider} from '@app/index';
 import React, {useEffect} from 'react';
 import {View} from 'react-native';
@@ -10,6 +11,8 @@ function App(): React.JSX.Element {
     setTimeout(() => {
       SplashScreen.hide();
     });
+
+    amplitude.init('954722385765bbcd3765d73b6c0e567e');
   }, []);
 
   return (

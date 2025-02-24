@@ -13,11 +13,12 @@
     "prepare": "sh scripts/set-tool-versions.sh"
   },
   "dependencies": {
+    "@amplitude/analytics-react-native": "^1.4.11",
     "@bam.tech/react-native-image-resizer": "^3.0.10",
     "@gorhom/bottom-sheet": "^4",
     "@invertase/react-native-apple-authentication": "^2.4.0",
     "@mj-studio/react-native-naver-map": "1.5.9",
-    "@react-native-async-storage/async-storage": "^1.24.0",
+    "@react-native-async-storage/async-storage": "^2.1.1",
     "@react-native-seoul/kakao-login": "^5.4.1",
     "@react-navigation/bottom-tabs": "^6.6.0",
     "@react-navigation/native": "^6.1.17",
@@ -79,5 +80,6 @@
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

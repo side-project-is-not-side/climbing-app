@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (5.9.1)
+  - amplitude-react-native (1.4.11):
+    - React-Core
   - Base64 (1.1.2)
   - boost (1.83.0)
   - CodePush (8.3.1):
@@ -1272,7 +1274,7 @@ PODS:
     - React-utils (= 0.74.3)
   - RNAppleAuthentication (2.4.0):
     - React-Core
-  - RNCAsyncStorage (1.24.0):
+  - RNCAsyncStorage (2.1.1):
     - React-Core
   - RNDeviceInfo (13.2.0):
     - React-Core
@@ -1393,6 +1395,7 @@ PODS:
   - Yoga (0.0.0)
 
 DEPENDENCIES:
+  - "amplitude-react-native (from `../node_modules/@amplitude/analytics-react-native`)"
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - CodePush (from `../node_modules/react-native-code-push`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
@@ -1483,6 +1486,8 @@ SPEC REPOS:
     - SSZipArchive
 
 EXTERNAL SOURCES:
+  amplitude-react-native:
+    :path: "../node_modules/@amplitude/analytics-react-native"
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   CodePush:
@@ -1633,6 +1638,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  amplitude-react-native: 9d57e1bcc4175039e36283390aa3daeaea9441a5
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
   CodePush: d892f13c5012e9e2cb36640f4929654b7be21fe5
@@ -1705,7 +1711,7 @@ SPEC CHECKSUMS:
   React-utils: a06061b3887c702235d2dac92dacbd93e1ea079e
   ReactCommon: f00e436b3925a7ae44dfa294b43ef360fbd8ccc4
   RNAppleAuthentication: e00c76acb03351f5544373c78fa7f359bef6d5d3
-  RNCAsyncStorage: ec53e44dc3e75b44aa2a9f37618a49c3bc080a7a
+  RNCAsyncStorage: 03861ec2e1e46b20e51963c62c51dc288beb7c43
   RNDeviceInfo: 29e01d5ae94bdb5a0f6c11a4c438132545b4df80
   RNGestureHandler: 9cb702955da737614c6fd5dd98d7695113f7bef5
   RNPermissions: fdeab83cb5e1d49fd53b14b7070b081c1d7dba7a
@@ -1714,8 +1720,8 @@ SPEC CHECKSUMS:
   RNSVG: 703242a230641638cf72d3891e57db0344d5208c
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
-  Yoga: 04f1db30bb810187397fa4c37dd1868a27af229c
+  Yoga: 88480008ccacea6301ff7bf58726e27a72931c8d
 
 PODFILE CHECKSUM: 2d40e153d651ada08571e9161d6da7b0267b173b
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.15.2
