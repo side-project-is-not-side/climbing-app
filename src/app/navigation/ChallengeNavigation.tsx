@@ -1,6 +1,7 @@
 import {
   ChallengeDetailScreen,
   ChallengeScreen,
+  ChallengeShareScreen,
   VerificationDetailScreen,
   VerificationHistoryScreen,
   VerifyCompleteScreen,
@@ -19,7 +20,7 @@ const Stack = createNativeStackNavigator<ChallengeRoute>();
 const ChallengeNavigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName={'challenge'}
+      initialRouteName={CHALLENGE_ROUTES.CHALLENGE}
       screenOptions={({navigation}) => ({
         headerTitleAlign: 'center',
         headerTitleStyle: {fontSize: 16, fontWeight: '700', color: 'white'},
@@ -97,6 +98,13 @@ const ChallengeNavigation = () => {
             title: '인증 기록',
             headerStyle: {backgroundColor: colors.gray800},
             contentStyle: {backgroundColor: colors.gray800},
+          }}
+        />
+        <Stack.Screen
+          name={CHALLENGE_ROUTES.CHALLENGE_SHARE}
+          component={ChallengeShareScreen}
+          options={{
+            headerShown: false,
           }}
         />
       </Stack.Group>

@@ -29,11 +29,11 @@ const VerifyCompleteScreen = ({route, navigation}: ScreenProps) => {
       )} */}
       <View className="relative w-[160px] h-[160px]">
         <Image
-          source={require('/assets/images/fanfare.gif')}
+          source={require('/assets/images/Mission_completed01.gif')}
           className="absolute left-1/2 -top-0 -translate-x-[105px] w-[210px] h-[150px]"
         />
         <Image
-          source={require('/assets/images/buri_jump.gif')}
+          source={require('/assets/images/Mission_completed02.gif')}
           className="absolute left-1/2 bottom-0 -translate-x-[61px] w-[122px] h-[139px]"
         />
       </View>

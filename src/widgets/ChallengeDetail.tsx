@@ -14,6 +14,8 @@ const ChallengeDetail = ({challengeId, activityType}: Props) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const {data: challenge} = useGetChallengeDetail(challengeId, activityType);
+
+  const isNotStarted = challenge?.activityCount === 0;
   const isSuccess = challenge && challenge.activityCount === challenge.successCount;
 
   const showTab = () => {
@@ -45,7 +47,7 @@ const ChallengeDetail = ({challengeId, activityType}: Props) => {
           padding: 20,
         }}>
         <Button onPress={showTab} disabled={isSuccess}>
-          인증하기
+          {isNotStarted ? '시작하기' : '인증하기'}
         </Button>
       </View>
       {challenge && (
