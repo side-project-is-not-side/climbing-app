@@ -1,4 +1,5 @@
 import {ActivityType, ChallengeGuideTab, ChallengeInfo, useGetChallengeDetail} from '@entities/challenge';
+import {usePostChallenge} from '@entities/challenge/queries/usePostChallenge';
 import VerificationHistoryPreview from '@features/verification/ui/preview/VerificationHistoryPreview';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {Button} from '@shared/ui';
@@ -14,13 +15,16 @@ const ChallengeDetail = ({challengeId, activityType}: Props) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const {data: challenge} = useGetChallengeDetail(challengeId, activityType);
+  const {trigger} = usePostChallenge(challengeId, activityType);
 
-  const isNotStarted = challenge?.activityCount === 0;
+  const isStarted = (challenge?.activityCount || 0) > 0;
   const isSuccess = challenge && challenge.activityCount === challenge.successCount;
 
   const showTab = () => {
     bottomSheetRef.current?.expand();
   };
+
+  const startChallenge = () => trigger({});
 
   useLayoutEffect(() => {
     bottomSheetRef.current?.collapse();
@@ -30,7 +34,7 @@ const ChallengeDetail = ({challengeId, activityType}: Props) => {
     <>
       <ScrollView className="flex-1">
         <View className="px-5">
-          <ChallengeInfo challenge={challenge} />
+          <ChallengeInfo challenge={challenge} isStarted={isStarted} />
           {challenge && (
             <VerificationHistoryPreview
               challengeId={challenge.id}
@@ -46,8 +50,8 @@ const ChallengeDetail = ({challengeId, activityType}: Props) => {
         style={{
           padding: 20,
         }}>
-        <Button onPress={showTab} disabled={isSuccess}>
-          {isNotStarted ? '시작하기' : '인증하기'}
+        <Button onPress={isStarted ? showTab : startChallenge} disabled={isSuccess}>
+          {isStarted ? '인증하기' : '시작하기'}
         </Button>
       </View>
       {challenge && (
