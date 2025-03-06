@@ -3,6 +3,7 @@ import {ChallengeInfo} from '../entities/challenge/ui';
 import {VerificationHistoryPreview} from '../entities/verification/ui';
 import {ChallengeRoute} from '../shared/constants';
 import {Button} from '../shared/ui';
+import {usePostChallenge} from '@entities/challenge/queries/usePostChallenge';
 import ChallengeGuideTab from '@entities/challenge/ui/ChallengeGuideTab';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {RouteProp, useRoute} from '@react-navigation/native';
@@ -16,13 +17,16 @@ const ChallengeDetail = () => {
   const {challengeId, activityType} = route.params;
 
   const {data: challenge} = useGetChallengeDetail(challengeId, activityType);
+  const {trigger} = usePostChallenge(challengeId, activityType);
 
-  const isNotStarted = challenge?.activityCount === 0;
+  const isStarted = (challenge?.activityCount || 0) > 0;
   const isSuccess = challenge && challenge.activityCount === challenge.successCount;
 
   const showTab = () => {
     bottomSheetRef.current?.expand();
   };
+
+  const startChallenge = () => trigger({});
 
   useLayoutEffect(() => {
     bottomSheetRef.current?.collapse();
@@ -31,7 +35,7 @@ const ChallengeDetail = () => {
     <>
       <ScrollView className="flex-1">
         <View className="px-5">
-          <ChallengeInfo challenge={challenge} />
+          <ChallengeInfo challenge={challenge} isStarted={isStarted} />
           {challenge && (
             <VerificationHistoryPreview
               challengeId={challenge.id}
@@ -47,8 +51,8 @@ const ChallengeDetail = () => {
         style={{
           padding: 20,
         }}>
-        <Button onPress={showTab} disabled={isSuccess}>
-          {isNotStarted ? '시작하기' : '인증하기'}
+        <Button onPress={isStarted ? showTab : startChallenge} disabled={isSuccess}>
+          {isStarted ? '인증하기' : '시작하기'}
         </Button>
       </View>
       {challenge && (

@@ -14,10 +14,12 @@ export const usePostVerifyLocation = (challengeId: number) => {
   return useSWRMutation(`/v1/challenges/${challengeId}/activities/location`, fetcher, {
     onSuccess(data) {
       if (!data.err) {
+        console.log(data);
         mutate(`/v1/challenges/${challengeId}/LOCATION`);
         navigation.navigate(CHALLENGE_ROUTES.VERIFY_COMPLETE, {
           challengeId: route.params.challengeId,
           activityType: 'LOCATION',
+          ...data,
         });
       } else if (data.code) {
         Alert.alert(data.message);

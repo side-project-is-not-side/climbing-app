@@ -76,7 +76,9 @@ export type ChallengeRoute = {
   [CHALLENGE_ROUTES.VERIFY_COMPLETE]: {
     challengeId: number;
     activityType: ActivityType;
-    imageUrl?: string;
+    isSuccess: boolean;
+    recordCount: number;
+    successCount: number;
   };
 };
 

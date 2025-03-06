@@ -50,11 +50,12 @@ export const usePostVerifyPicture = (challengeId: number) => {
   return useSWRMutation(`/v1/challenges/${challengeId}/activities/picture`, fetcher, {
     onSuccess(data) {
       if (data?.uploadFileUrl) {
+        console.log(data);
         mutate(`/v1/challenges/${challengeId}/PICTURE`);
         navigation.navigate(CHALLENGE_ROUTES.VERIFY_COMPLETE, {
-          imageUrl: data.uploadFileUrl,
           challengeId,
           activityType: 'PICTURE',
+          ...data,
         });
       } else if (data.code) {
         Alert.alert(data.message);
