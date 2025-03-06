@@ -16,6 +16,8 @@ const ChallengeDetail = () => {
   const {challengeId, activityType} = route.params;
 
   const {data: challenge} = useGetChallengeDetail(challengeId, activityType);
+
+  const isNotStarted = challenge?.activityCount === 0;
   const isSuccess = challenge && challenge.activityCount === challenge.successCount;
 
   const showTab = () => {
@@ -46,7 +48,7 @@ const ChallengeDetail = () => {
           padding: 20,
         }}>
         <Button onPress={showTab} disabled={isSuccess}>
-          인증하기
+          {isNotStarted ? '시작하기' : '인증하기'}
         </Button>
       </View>
       {challenge && (
