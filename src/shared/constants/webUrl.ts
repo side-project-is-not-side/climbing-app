@@ -3,11 +3,7 @@ import Config from 'react-native-config';
 
 const isDev = Config.NODE_ENV === 'development';
 
-export const BASE_URL = isDev
-  ? Platform.OS === 'android'
-    ? 'http://192.168.219.106:3000'
-    : 'http://localhost:3000'
-  : 'https://www.grabbers.co.kr';
+export const BASE_URL = 'http://localhost:3000';
 
 export const LINKING_URI = {
   MY: 'my',
@@ -17,7 +13,7 @@ export const LINKING_URI = {
   ONBOARDING: 'onboarding',
   USER_INFO: 'my/user-info',
   POLICY: 'services/policy',
-  TERMS: 'services/privacy',
+  TERMS: 'services/terms',
 } as const;
 
 export const WEB_URL = {
