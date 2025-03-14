@@ -17,7 +17,7 @@ export const LocationHistoryPreview = ({recentActivities, handlePressMoreHistory
       onPress={() => handlePressMoreHistory()}
       style={{width: (width - 48) / 3, height: (width - 48) / 3}}>
       <Image
-        source={require('../../../../assets/images/buri_pin.png')}
+        source={require('../../../../../assets/images/buri_pin.png')}
         alt={'Verification location Icon'}
         className=""
       />
