@@ -62,3 +62,8 @@ export type ChallengeShare = {
   activityType: ActivityType;
   records: Activity[];
 };
+
+export type ActivityAttendance = {
+  id: number;
+  createdAt: Date;
+};
