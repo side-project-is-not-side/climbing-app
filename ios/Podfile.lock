@@ -1272,7 +1272,7 @@ PODS:
     - React-utils (= 0.74.3)
   - RNAppleAuthentication (2.4.0):
     - React-Core
-  - RNCAsyncStorage (2.1.1):
+  - RNCAsyncStorage (1.24.0):
     - React-Core
   - RNDeviceInfo (13.2.0):
     - React-Core
@@ -1705,7 +1705,7 @@ SPEC CHECKSUMS:
   React-utils: a06061b3887c702235d2dac92dacbd93e1ea079e
   ReactCommon: f00e436b3925a7ae44dfa294b43ef360fbd8ccc4
   RNAppleAuthentication: e00c76acb03351f5544373c78fa7f359bef6d5d3
-  RNCAsyncStorage: 03861ec2e1e46b20e51963c62c51dc288beb7c43
+  RNCAsyncStorage: ec53e44dc3e75b44aa2a9f37618a49c3bc080a7a
   RNDeviceInfo: 29e01d5ae94bdb5a0f6c11a4c438132545b4df80
   RNGestureHandler: 9cb702955da737614c6fd5dd98d7695113f7bef5
   RNPermissions: fdeab83cb5e1d49fd53b14b7070b081c1d7dba7a

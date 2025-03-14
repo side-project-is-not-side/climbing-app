@@ -31,6 +31,7 @@
     "joi": "^17.13.3",
     "react": "18.2.0",
     "react-native": "0.74.3",
+    "react-native-calendars": "^1.1310.0",
     "react-native-chart-kit": "^6.12.0",
     "react-native-code-push": "^8.2.2",
     "react-native-context-menu-view": "^1.16.0",
@@ -79,5 +80,6 @@
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
