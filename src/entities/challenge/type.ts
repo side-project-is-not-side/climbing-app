@@ -1,5 +1,5 @@
 export type ChallengeStatus = 'SUCCESS' | 'ONGOING' | 'NOT_STARTED';
-export type ActivityType = 'PICTURE' | 'VIDEO' | 'LOCATION';
+export type ActivityType = 'PICTURE' | 'VIDEO' | 'LOCATION' | 'ATTENDANCE';
 
 type ChallengeOrigin = {
   id: number;
@@ -20,7 +20,7 @@ export type ChallengeDetail = ChallengeOrigin & {
   records: Activity[];
 };
 
-export type Activity = ActivityLocation | ActivityPicture;
+export type Activity = ActivityLocation | ActivityPicture | ActivityAttendance;
 
 export type ActivityPicture = {
   id: number;
@@ -43,4 +43,9 @@ export type ChallengeGym = {
   longitude: number;
   distance: number;
   canChallenge: boolean;
+};
+
+export type ActivityAttendance = {
+  id: number;
+  createdAt: Date;
 };
