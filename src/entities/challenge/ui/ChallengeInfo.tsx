@@ -1,4 +1,4 @@
-import {ChallengeDetail} from '../type';
+import {ActivityType, ChallengeDetail} from '../type';
 import React from 'react';
 import {Image, Text, View} from 'react-native';
 import {ProgressChart} from 'react-native-chart-kit';
@@ -8,9 +8,10 @@ const activityTypes = {
   PICTURE: '사진 챌린지',
   VIDEO: '레벨도전',
   LOCATION: '암장도전',
+  ATTENDANCE: '출석 챌린지',
 };
 
-const ChallengeInfo = ({challenge}: {challenge?: ChallengeDetail}) => {
+const ChallengeInfo = <A extends ActivityType>({challenge}: {challenge?: ChallengeDetail<A>}) => {
   const activityCount = Number(challenge?.activityCount) || 0;
   const successCount = Number(challenge?.successCount) || 0;
   const progress = (activityCount / successCount) * 100;
