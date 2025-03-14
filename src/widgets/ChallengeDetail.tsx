@@ -1,19 +1,17 @@
-import {useGetChallengeDetail} from '../entities/challenge/queries/useGetChallengeDetail';
-import {ChallengeInfo} from '../entities/challenge/ui';
-import {VerificationHistoryPreview} from '../entities/verification/ui';
-import {ChallengeRoute} from '../shared/constants';
-import {Button} from '../shared/ui';
-import ChallengeGuideTab from '@entities/challenge/ui/ChallengeGuideTab';
+import {ActivityType, ChallengeGuideTab, ChallengeInfo, useGetChallengeDetail} from '@entities/challenge';
+import VerificationHistoryPreview from '@features/verification/ui/preview/VerificationHistoryPreview';
 import BottomSheet from '@gorhom/bottom-sheet';
-import {RouteProp, useRoute} from '@react-navigation/native';
+import {Button} from '@shared/ui';
 import React, {useLayoutEffect, useRef} from 'react';
 import {ScrollView, View} from 'react-native';
 
-const ChallengeDetail = () => {
-  const bottomSheetRef = useRef<BottomSheet>(null);
-  const route = useRoute<RouteProp<ChallengeRoute, 'challenge_detail'>>();
+type Props = {
+  challengeId: number;
+  activityType: ActivityType;
+};
 
-  const {challengeId, activityType} = route.params;
+const ChallengeDetail = ({challengeId, activityType}: Props) => {
+  const bottomSheetRef = useRef<BottomSheet>(null);
 
   const {data: challenge} = useGetChallengeDetail(challengeId, activityType);
   const isSuccess = challenge && challenge.activityCount === challenge.successCount;
@@ -25,6 +23,7 @@ const ChallengeDetail = () => {
   useLayoutEffect(() => {
     bottomSheetRef.current?.collapse();
   });
+
   return (
     <>
       <ScrollView className="flex-1">
