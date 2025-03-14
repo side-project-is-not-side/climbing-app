@@ -1,10 +1,10 @@
-import {CHALLENGE_ROUTES, ChallengeRoute} from '../shared/constants';
 import {ActivityType, ChallengeGuideTab, ChallengeInfo, useGetChallengeDetail} from '@entities/challenge';
 import {usePostChallenge} from '@entities/challenge/queries/usePostChallenge';
 import VerificationHistoryPreview from '@features/verification/ui/preview/VerificationHistoryPreview';
 import BottomSheet from '@gorhom/bottom-sheet';
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {CHALLENGE_ROUTES, ChallengeRoute} from '@shared/constants';
 import {Button} from '@shared/ui';
 import React, {useLayoutEffect, useRef} from 'react';
 import {ScrollView, View} from 'react-native';
@@ -17,6 +17,7 @@ type Props = {
 const ChallengeDetail = ({challengeId, activityType}: Props) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
+  const route = useRoute<RouteProp<ChallengeRoute, 'challenge_detail'>>();
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
   const {data: challenge, mutate} = useGetChallengeDetail(challengeId, activityType);
   const {trigger} = usePostChallenge(challengeId, mutate);
@@ -37,7 +38,6 @@ const ChallengeDetail = ({challengeId, activityType}: Props) => {
     });
   };
 
-  console.log(challenge);
   useLayoutEffect(() => {
     bottomSheetRef.current?.collapse();
   });
