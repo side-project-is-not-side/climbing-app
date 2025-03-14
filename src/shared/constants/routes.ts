@@ -28,6 +28,8 @@ export const AUTH_ROUTES = {
 export const MY_ROUTES = {
   MY: 'my',
   USER_INFO: 'user_info',
+  POLICY: 'policy',
+  TERMS: 'terms',
   EXTERNAL: 'external_page',
 } as const;
 
@@ -93,8 +95,10 @@ export type AuthRoute = {
 export type MyRoute = {
   my: undefined;
   user_info: undefined;
+  policy: undefined;
+  terms: undefined;
   external_page: {
-    name: 'NOTICE' | 'TERMS' | 'POLICY';
+    name: 'NOTICE';
   };
 };
 

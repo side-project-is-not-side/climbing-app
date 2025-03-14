@@ -2,8 +2,6 @@ import {WEB_URL} from '@shared/constants';
 import {WebViewScreen} from '@shared/ui';
 import React from 'react';
 
-const UserInfoScreen = () => {
-  return <WebViewScreen uri={WEB_URL.USER_INFO} />;
+export const MyScreen = () => {
+  return <WebViewScreen uri={WEB_URL.MY} />;
 };
-
-export default UserInfoScreen;
