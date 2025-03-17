@@ -37,13 +37,13 @@ const ChallengeInfo = ({challenge, isStarted}: Props) => {
   return (
     <>
       <View className="relative h-[300px] justify-center items-center">
-        {isCompleted ? (
+        {isCompleted && challenge?.successImageUrl ? (
           <Image
-            source={require('/assets/images/buri_v4.png')}
+            src={challenge?.successImageUrl}
             alt="challenge badge"
-            className={`w-[240px] ml-4`}
-            style={{opacity: isCompleted ? 1 : 0.2}}
-            blurRadius={isCompleted ? 0 : 4}
+            className={`w-[240px] h-[240px] ml-4 `}
+            style={{opacity: 1}}
+            blurRadius={0}
             resizeMode="contain"
           />
         ) : (

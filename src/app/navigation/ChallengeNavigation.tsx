@@ -107,7 +107,11 @@ const ChallengeNavigation = () => {
             title: '',
             headerLeft: () => <></>,
             headerRight: () => (
-              <Pressable onPress={() => navigation.goback()} className="items-center justify-center w-6 h-6">
+              <Pressable
+                onPress={() => {
+                  navigation.goBack();
+                }}
+                className="items-center justify-center w-6 h-6">
                 <Icon name="Close" size={20} />
               </Pressable>
             ),
