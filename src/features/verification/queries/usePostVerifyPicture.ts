@@ -6,7 +6,7 @@ import {Alert} from 'react-native';
 import {mutate} from 'swr';
 import useSWRMutation from 'swr/mutation';
 
-export const usePostVerifyPicture = (challengeId: number) => {
+export const usePostVerifyPicture = (challengeId: number, challengeTitle: string) => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
   const authContext = useAuthContext();
 
@@ -49,16 +49,18 @@ export const usePostVerifyPicture = (challengeId: number) => {
 
   return useSWRMutation(`/v1/challenges/${challengeId}/activities/picture`, fetcher, {
     onSuccess(data) {
-      if (data?.uploadFileUrl) {
-        mutate(`/v1/challenges/${challengeId}/PICTURE`);
-        navigation.navigate(CHALLENGE_ROUTES.VERIFY_COMPLETE, {
-          imageUrl: data.uploadFileUrl,
-          challengeId,
-          activityType: 'PICTURE',
-        });
-      } else if (data.code) {
+      if (data.err) return console.log('Error : ' + data);
+      if (data.code) {
         Alert.alert(data.message);
         navigation.goBack();
+      } else {
+        mutate(`/v1/challenges/${challengeId}/PICTURE`);
+        navigation.navigate(CHALLENGE_ROUTES.VERIFY_COMPLETE, {
+          challengeId,
+          challengeTitle,
+          activityType: 'PICTURE',
+          ...data,
+        });
       }
     },
     onError(err) {

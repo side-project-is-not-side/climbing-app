@@ -1,6 +1,7 @@
 import {
   ChallengeDetailScreen,
   ChallengeScreen,
+  ChallengeShareScreen,
   VerificationDetailScreen,
   VerificationHistoryScreen,
   VerifyCompleteScreen,
@@ -19,7 +20,7 @@ const Stack = createNativeStackNavigator<ChallengeRoute>();
 const ChallengeNavigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName={'challenge'}
+      initialRouteName={CHALLENGE_ROUTES.CHALLENGE}
       screenOptions={({navigation}) => ({
         headerTitleAlign: 'center',
         headerTitleStyle: {fontSize: 16, fontWeight: '700', color: 'white'},
@@ -98,6 +99,23 @@ const ChallengeNavigation = () => {
             headerStyle: {backgroundColor: colors.gray800},
             contentStyle: {backgroundColor: colors.gray800},
           }}
+        />
+        <Stack.Screen
+          name={CHALLENGE_ROUTES.CHALLENGE_SHARE}
+          component={ChallengeShareScreen}
+          options={({navigation}) => ({
+            title: '',
+            headerLeft: () => <></>,
+            headerRight: () => (
+              <Pressable
+                onPress={() => {
+                  navigation.goBack();
+                }}
+                className="items-center justify-center w-6 h-6">
+                <Icon name="Close" size={20} />
+              </Pressable>
+            ),
+          })}
         />
       </Stack.Group>
     </Stack.Navigator>

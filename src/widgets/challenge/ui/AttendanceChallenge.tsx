@@ -78,11 +78,19 @@ const styles = StyleSheet.create({
   },
 });
 
+const isSameDay = (date1: Date, date2: Date): boolean =>
+  date1.getDate() === date2.getDate() &&
+  date1.getMonth() === date2.getMonth() &&
+  date1.getFullYear() === date2.getFullYear();
+
 export const AttendanceChallenge = ({challengeId, activityType}: Props) => {
   const {data: challenge, mutate} = useGetChallengeDetail(challengeId, activityType);
-  const {trigger, isMutating, data} = usePostAttendance(challengeId);
+  const {trigger, isMutating, data} = usePostAttendance(challengeId, challenge?.title ?? '');
 
-  const isSuccess = !!data || (challenge && challenge.activityCount === challenge.successCount);
+  const today = new Date();
+  const isAttendedToday = challenge?.records.find(item => isSameDay(new Date(item.createdAt), today));
+
+  const isSuccess = !!data || !!isAttendedToday;
 
   const records: ActivityAttendance[] = challenge?.records ?? [];
 
@@ -111,7 +119,7 @@ export const AttendanceChallenge = ({challengeId, activityType}: Props) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.contentContainer}>
-        <ChallengeInfo challenge={challenge} />
+        <ChallengeInfo challenge={challenge} isStarted />
 
         <View style={{gap: 20}}>
           <Text className="font-header-3 text-sm text-white">인증 기록</Text>

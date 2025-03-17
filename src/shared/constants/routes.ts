@@ -12,6 +12,7 @@ export const ROOT_ROUTES = {
 export const CHALLENGE_ROUTES = {
   CHALLENGE: 'challenge',
   CHALLENGE_DETAIL: 'challenge_detail',
+  CHALLENGE_SHARE: 'challenge_share',
   VERIFICATION_HISTORY: 'verification_history',
   VERIFICATION_DETAIL: 'verification_detail',
   VERIFY_PHOTO: 'verify_photo',
@@ -47,36 +48,44 @@ export type RootRoute = {
 };
 
 export type ChallengeRoute = {
-  challenge: undefined;
-  challenge_detail: {
+  [CHALLENGE_ROUTES.CHALLENGE]: undefined;
+  [CHALLENGE_ROUTES.CHALLENGE_DETAIL]: {
     challengeId: number;
     activityType: ActivityType;
   };
-  verification_history: {
+  [CHALLENGE_ROUTES.CHALLENGE_SHARE]: {
+    challengeId: number;
+    activityType: ActivityType;
+  };
+  [CHALLENGE_ROUTES.VERIFICATION_HISTORY]: {
     challengeTitle: string;
     challengeId: number;
     activityType: ActivityType;
     isCompleted: boolean;
   };
-  verification_detail: {
+  [CHALLENGE_ROUTES.VERIFICATION_DETAIL]: {
     challengeId: number;
     challengeTitle: string;
     activityType: ActivityType;
     isCompleted: boolean;
     verificationInfo: VerificationInfo;
   };
-  verify_photo: {
+  [CHALLENGE_ROUTES.VERIFY_PHOTO]: {
     challengeTitle: string;
     challengeId: number;
   };
-  verify_location: {
+  [CHALLENGE_ROUTES.VERIFY_LOCATION]: {
     challengeId: number;
     challengeTitle: string;
   };
-  verify_complete: {
+  [CHALLENGE_ROUTES.VERIFY_COMPLETE]: {
     challengeId: number;
+    challengeTitle: string;
     activityType: ActivityType;
-    imageUrl?: string;
+    isSuccess: boolean;
+    recordCount: number;
+    successCount: number;
+    successImageUrl: string;
   };
 };
 

@@ -5,7 +5,7 @@ import {CHALLENGE_ROUTES, ChallengeRoute} from '@shared/constants';
 import {Alert} from 'react-native';
 import useSWRMutation from 'swr/mutation';
 
-export const usePostAttendance = (challengeId: number) => {
+export const usePostAttendance = (challengeId: number, challengeTitle: string) => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
   const authContext = useAuthContext();
 
@@ -50,7 +50,9 @@ export const usePostAttendance = (challengeId: number) => {
       if (!data.err) {
         navigation.navigate(CHALLENGE_ROUTES.VERIFY_COMPLETE, {
           challengeId,
+          challengeTitle,
           activityType: 'ATTENDANCE',
+          ...data,
         });
       } else if (data.code) {
         Alert.alert(data.message);

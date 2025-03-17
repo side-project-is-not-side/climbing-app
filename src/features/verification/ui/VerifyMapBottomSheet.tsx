@@ -11,16 +11,17 @@ const deviceWidth = Dimensions.get('window').width;
 
 type Props = {
   challengeId: number;
+  challengeTitle: string;
   selectedGymId: number;
   currentLocation: Location;
   onClose: () => void;
 };
 
 const VerifyMapBottomSheet = forwardRef(
-  ({challengeId, selectedGymId, currentLocation, onClose}: Props, ref: ForwardedRef<BottomSheet>) => {
+  ({challengeId, challengeTitle, selectedGymId, currentLocation, onClose}: Props, ref: ForwardedRef<BottomSheet>) => {
     const {data: gym} = useGetGymDetail(selectedGymId, currentLocation);
 
-    const {trigger, isMutating} = usePostVerifyLocation(challengeId);
+    const {trigger, isMutating} = usePostVerifyLocation(challengeId, challengeTitle);
 
     const handleVerify = () => {
       if (!gym) return;
