@@ -6,4 +6,3 @@ export {default as ProgressSlide} from './ProgressSlide';
 export {default as ChallengeInfo} from './ChallengeInfo';
 export {default as ChallengeGuideTab} from './ChallengeGuideTab';
 export {default as ShareCard} from './ShareCard';
-export {default as ChallengeGuideTab} from './ChallengeGuideTab';
