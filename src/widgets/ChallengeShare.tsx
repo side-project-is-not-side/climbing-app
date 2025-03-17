@@ -34,7 +34,7 @@ const ChallengeShare = () => {
   const route = useRoute<RouteProp<ChallengeRoute, 'challenge_share'>>();
 
   const {challengeId, activityType} = route.params;
-  const [captureImage, setCaputreImage] = useState<string>();
+  const [captureImage, setCaptureImage] = useState<string>();
   const [theme, setTheme] = useState<'DARK' | 'WHITE'>('DARK');
 
   const {data} = useGetShareData(challengeId, activityType);
@@ -43,7 +43,7 @@ const ChallengeShare = () => {
     if (ref.current) {
       try {
         ref.current.capture?.().then(uri => {
-          setCaputreImage(Platform.OS === 'ios' ? `file://${uri}` : uri);
+          setCaptureImage(Platform.OS === 'ios' ? `file://${uri}` : uri);
           console.log('캡처 성공:', uri);
         });
       } catch {}
