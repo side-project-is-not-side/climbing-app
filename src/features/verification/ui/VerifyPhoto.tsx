@@ -13,7 +13,8 @@ const {width} = Dimensions.get('window');
 const VerifyPhoto = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
   const route = useRoute<RouteProp<ChallengeRoute, 'verify_photo'>>();
-  const {trigger, isMutating} = usePostVerifyPicture(route.params.challengeId);
+  const {challengeId, challengeTitle} = route.params;
+  const {trigger, isMutating} = usePostVerifyPicture(challengeId, challengeTitle);
 
   const {openGallery, selectedImage} = useImagePicker();
 
@@ -58,7 +59,7 @@ const VerifyPhoto = () => {
             <View className="my-5 bg-[#191B1D] p-5 rounded-md">
               <View className="flex-row items-center gap-4 mb-2">
                 <Text className="text-grayscale-400">챌린지명</Text>
-                <Text className="text-white">{route.params.challengeTitle}</Text>
+                <Text className="text-white">{challengeTitle}</Text>
               </View>
               <View className="flex-row items-center gap-4">
                 <Text className="text-grayscale-400">인증날짜</Text>

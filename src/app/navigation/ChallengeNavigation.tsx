@@ -103,9 +103,15 @@ const ChallengeNavigation = () => {
         <Stack.Screen
           name={CHALLENGE_ROUTES.CHALLENGE_SHARE}
           component={ChallengeShareScreen}
-          options={{
-            headerShown: false,
-          }}
+          options={({navigation}) => ({
+            title: '',
+            headerLeft: () => <></>,
+            headerRight: () => (
+              <Pressable onPress={() => navigation.goback()} className="items-center justify-center w-6 h-6">
+                <Icon name="Close" size={20} />
+              </Pressable>
+            ),
+          })}
         />
       </Stack.Group>
     </Stack.Navigator>

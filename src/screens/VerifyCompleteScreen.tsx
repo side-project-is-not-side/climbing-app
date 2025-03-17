@@ -1,12 +1,13 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CHALLENGE_ROUTES, ChallengeRoute} from '@shared/constants';
+import {Button, Icon} from '@shared/ui';
 import React, {useLayoutEffect} from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, Pressable, Text, View} from 'react-native';
 
 type ScreenProps = NativeStackScreenProps<ChallengeRoute, 'verify_complete'>;
 
 const VerifyCompleteScreen = ({route, navigation}: ScreenProps) => {
-  const {challengeId, activityType, isSuccess} = route.params;
+  const {challengeId, activityType, challengeTitle, isSuccess, successImageUrl} = route.params;
 
   const pageOut = () => {
     setTimeout(() => {
@@ -14,18 +15,37 @@ const VerifyCompleteScreen = ({route, navigation}: ScreenProps) => {
         challengeId,
         activityType,
       });
-    }, 3000);
+    }, 4000);
   };
 
   useLayoutEffect(() => {
     !isSuccess && pageOut();
+
+    navigation.setOptions({
+      headerRight: () => (
+        <Pressable
+          onPress={() =>
+            navigation.navigate(CHALLENGE_ROUTES.CHALLENGE_DETAIL, {
+              challengeId,
+              activityType,
+            })
+          }
+          className="items-center justify-center w-6 h-6">
+          <Icon name="Close" size={20} />
+        </Pressable>
+      ),
+    });
   }, []);
   return (
     <View className="items-center justify-center flex-1 gap-2">
       {isSuccess ? (
-        <>
-          {/* <Image src={imageUrl} className="w-[160px] h-[160px] rounded-lg" resizeMode="cover" onLoadEnd={pageOut} /> */}
-        </>
+        <View className="flex-1 w-full p-5">
+          <View className="flex-1 justify-center items-center">
+            <Image src={successImageUrl} className="w-[160px] h-[160px] rounded-lg mb-11" resizeMode="cover" />
+            <Text className="text-white font-bold text-2xl">{challengeTitle} 획득🔥</Text>
+          </View>
+          <Button classNames={{outter: 'w-full'}}>공유하기</Button>
+        </View>
       ) : (
         <>
           <View className="relative w-[160px] h-[160px]">

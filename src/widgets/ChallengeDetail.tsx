@@ -1,7 +1,10 @@
+import {CHALLENGE_ROUTES, ChallengeRoute} from '../shared/constants';
 import {ActivityType, ChallengeGuideTab, ChallengeInfo, useGetChallengeDetail} from '@entities/challenge';
 import {usePostChallenge} from '@entities/challenge/queries/usePostChallenge';
 import VerificationHistoryPreview from '@features/verification/ui/preview/VerificationHistoryPreview';
 import BottomSheet from '@gorhom/bottom-sheet';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Button} from '@shared/ui';
 import React, {useLayoutEffect, useRef} from 'react';
 import {ScrollView, View} from 'react-native';
@@ -14,10 +17,11 @@ type Props = {
 const ChallengeDetail = ({challengeId, activityType}: Props) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const {data: challenge} = useGetChallengeDetail(challengeId, activityType);
-  const {trigger} = usePostChallenge(challengeId, activityType);
+  const navigation = useNavigation<NativeStackNavigationProp<ChallengeRoute>>();
+  const {data: challenge, mutate} = useGetChallengeDetail(challengeId, activityType);
+  const {trigger} = usePostChallenge(challengeId, mutate);
 
-  const isStarted = (challenge?.activityCount || 0) > 0;
+  const isStarted = !!challenge?.isChallenging;
   const isSuccess = challenge && challenge.activityCount === challenge.successCount;
 
   const showTab = () => {
@@ -26,6 +30,14 @@ const ChallengeDetail = ({challengeId, activityType}: Props) => {
 
   const startChallenge = () => trigger({});
 
+  const navigateToShare = () => {
+    navigation.navigate(CHALLENGE_ROUTES.CHALLENGE_SHARE, {
+      challengeId,
+      activityType,
+    });
+  };
+
+  console.log(challenge);
   useLayoutEffect(() => {
     bottomSheetRef.current?.collapse();
   });
@@ -50,9 +62,11 @@ const ChallengeDetail = ({challengeId, activityType}: Props) => {
         style={{
           padding: 20,
         }}>
-        <Button onPress={isStarted ? showTab : startChallenge} disabled={isSuccess}>
-          {isStarted ? '인증하기' : '시작하기'}
-        </Button>
+        {isSuccess ? (
+          <Button onPress={navigateToShare}>공유하기</Button>
+        ) : (
+          <Button onPress={isStarted ? showTab : startChallenge}>{isStarted ? '인증하기' : '시작하기'}</Button>
+        )}
       </View>
       {challenge && (
         <ChallengeGuideTab

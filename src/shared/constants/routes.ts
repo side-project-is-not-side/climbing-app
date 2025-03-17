@@ -53,7 +53,10 @@ export type ChallengeRoute = {
     challengeId: number;
     activityType: ActivityType;
   };
-  [CHALLENGE_ROUTES.CHALLENGE_SHARE]: undefined;
+  [CHALLENGE_ROUTES.CHALLENGE_SHARE]: {
+    challengeId: number;
+    activityType: ActivityType;
+  };
   [CHALLENGE_ROUTES.VERIFICATION_HISTORY]: {
     challengeTitle: string;
     challengeId: number;
@@ -77,10 +80,12 @@ export type ChallengeRoute = {
   };
   [CHALLENGE_ROUTES.VERIFY_COMPLETE]: {
     challengeId: number;
+    challengeTitle: string;
     activityType: ActivityType;
     isSuccess: boolean;
     recordCount: number;
     successCount: number;
+    successImageUrl: string;
   };
 };
 
