@@ -32,7 +32,11 @@ const Card = ({challenge, tabState}: {challenge: Challenge; tabState: ChallengeS
 
     switch (tabState) {
       case 'NOT_STARTED':
-        return {source: require('../../../../assets/images/challenge_lock.png'), ...defaultLayout};
+        if (challenge.isChallenging) {
+          return {source: require('../../../../assets/images/challenge.png'), ...defaultLayout};
+        } else {
+          return {source: require('../../../../assets/images/challenge_lock.png'), ...defaultLayout};
+        }
       case 'ONGOING':
         return {source: require('../../../../assets/images/challenge.png'), ...defaultLayout};
       case 'SUCCESS':

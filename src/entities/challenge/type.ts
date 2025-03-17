@@ -9,6 +9,8 @@ type ChallengeOrigin = {
   successCount: number;
   activityType: ActivityType;
   successImageUrl: string;
+  isChallenging: boolean;
+  isTest: boolean;
 };
 
 export type Challenge = ChallengeOrigin & {
@@ -43,4 +45,15 @@ export type ChallengeGym = {
   longitude: number;
   distance: number;
   canChallenge: boolean;
+};
+
+export type ChallengeShare = {
+  id: number;
+  title: string;
+  successImageUrl: string;
+  userName: string;
+  challengeStartDate: string;
+  challengeEndDate: string;
+  activityType: ActivityType;
+  records: Activity[];
 };

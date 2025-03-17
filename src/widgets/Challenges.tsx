@@ -1,13 +1,16 @@
 import {useTab} from '../entities/challenge/hooks';
 import {useGetChallenge} from '../entities/challenge/queries/useGetChallenge';
 import {CardList, Tabs} from '../entities/challenge/ui';
+import {useIsFocused} from '@react-navigation/native';
 import {Button} from '@shared/ui';
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Text, View} from 'react-native';
 
 const PAGE_SIZE = 10;
 
 const Challenges = () => {
+  const isFocused = useIsFocused();
+
   const [page, setPage] = useState(0);
   const {tabState, handleTabPress} = useTab();
 
@@ -33,6 +36,9 @@ const Challenges = () => {
     }
   };
 
+  useEffect(() => {
+    handleTabPress('NOT_STARTED');
+  }, [isFocused]);
   return (
     <>
       <Tabs tabState={tabState} handleTabPress={handleTabPress} />

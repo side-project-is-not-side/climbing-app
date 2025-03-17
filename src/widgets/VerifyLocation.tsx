@@ -1,5 +1,4 @@
 import {useCurrentLocation} from '@entities/challenge/hooks';
-import {useGetGymDetailInfo} from '@entities/gym/queries';
 import {VerifyMap} from '@entities/verification/ui';
 import {VerifyMapBottomSheet} from '@features/verification/ui';
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -13,7 +12,7 @@ const VerifyLocation = () => {
 
   const {currentLocation} = useCurrentLocation();
 
-  const {challengeId} = route.params;
+  const {challengeId, challengeTitle} = route.params;
 
   const [selectedGymId, setSelectedGymId] = useState<number | null>(null);
 
@@ -43,6 +42,7 @@ const VerifyLocation = () => {
         <VerifyMapBottomSheet
           ref={bottomSheetRef}
           challengeId={challengeId}
+          challengeTitle={challengeTitle}
           selectedGymId={selectedGymId}
           currentLocation={currentLocation}
           onClose={() => setSelectedGymId(null)}

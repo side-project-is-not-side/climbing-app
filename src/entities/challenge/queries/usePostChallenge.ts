@@ -1,17 +1,18 @@
 import {ActivityType} from '../type';
 import {useMutateFetcher} from '@shared/hooks/useMutateFetcher';
 // import {Alert} from 'react-native';
-import {mutate} from 'swr';
+import {KeyedMutator, mutate} from 'swr';
 import useSWRMutation from 'swr/mutation';
 
-export const usePostChallenge = (challengeId: number, activityType: ActivityType) => {
+export const usePostChallenge = (challengeId: number, mutate: KeyedMutator<any>) => {
   const fetcher = useMutateFetcher();
 
-  return useSWRMutation(`/v1/challenges/${challengeId}/${activityType}`, fetcher, {
+  return useSWRMutation(`/v1/challenges/${challengeId}`, fetcher, {
     onSuccess(data) {
+      console.log(`/v1/challenges/${challengeId}`);
       if (!data.err) {
         console.log('success');
-        mutate(`/v1/challenges/${challengeId}`);
+        mutate();
       } else if (data.code) {
         console.log('error');
         // Alert.alert(data.message);
