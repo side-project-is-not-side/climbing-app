@@ -78,22 +78,19 @@ const styles = StyleSheet.create({
   },
 });
 
+const isSameDay = (date1: Date, date2: Date): boolean =>
+  date1.getDate() === date2.getDate() &&
+  date1.getMonth() === date2.getMonth() &&
+  date1.getFullYear() === date2.getFullYear();
+
 export const AttendanceChallenge = ({challengeId, activityType}: Props) => {
   const {data: challenge, mutate} = useGetChallengeDetail(challengeId, activityType);
   const {trigger, isMutating, data} = usePostAttendance(challengeId, challenge?.title ?? '');
 
-  const isSuccess =
-    !!data ||
-    (challenge &&
-      challenge.records.find(item => {
-        const date = new Date(item.createdAt);
-        const today = new Date();
-        return (
-          date.getDate() === today.getDate() &&
-          date.getMonth() === today.getMonth() &&
-          date.getFullYear() === today.getFullYear()
-        );
-      }));
+  const today = new Date();
+  const isAttendedToday = challenge?.records.find(item => isSameDay(new Date(item.createdAt), today));
+
+  const isSuccess = !!data || !!isAttendedToday;
 
   const records: ActivityAttendance[] = challenge?.records ?? [];
 
