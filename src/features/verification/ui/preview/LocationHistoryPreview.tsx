@@ -13,7 +13,7 @@ export const LocationHistoryPreview = ({recentActivities, handlePressMoreHistory
   return recentActivities.slice(0, 3).map((activity, i) => (
     <Pressable
       key={`${activity.id}_${i}`}
-      className="rounded-[10px] overflow-hidden bg-neutral-700 items-center justify-center gap-1 p-2"
+      className="rounded-[10px] overflow-hidden bg-neutral-700 items-center justify-center gap-1 p-2 mx-1"
       onPress={() => handlePressMoreHistory()}
       style={{width: (width - 48) / 3, height: (width - 48) / 3}}>
       <Image

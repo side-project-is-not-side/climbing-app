@@ -14,7 +14,7 @@ export const PictureHistoryPreview = ({recentActivities, handlePressMoreHistory}
   return recentActivities.slice(0, 3).map((activity, i) => (
     <Pressable
       key={`${activity.id}_${i}`}
-      className=" rounded-[10px] overflow-hidden bg-neutral-700"
+      className=" rounded-[10px] overflow-hidden bg-neutral-700 mx-1"
       onPress={() => handlePressMoreHistory()}>
       <SquareImage
         source={{uri: activity.imageUrl}}
