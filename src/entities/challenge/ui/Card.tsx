@@ -11,6 +11,7 @@ const activityTypes = {
   PICTURE: '사진 챌린지',
   VIDEO: '레벨도전',
   LOCATION: '암장도전',
+  ATTENDANCE: '출석 챌린지',
 };
 
 const Card = ({challenge, tabState}: {challenge: Challenge; tabState: ChallengeStatus}) => {

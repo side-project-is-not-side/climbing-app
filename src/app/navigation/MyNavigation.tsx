@@ -1,7 +1,6 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ExternalPageScreen} from '@screens/ExternalPageScreen';
-import MyScreen from '@screens/MyScreen';
-import UserInfoScreen from '@screens/UserInfoScreen';
+import {MyScreen, PolicyScreen, TermsScreen, UserInfoScreen} from '@screens/my';
 import {MY_ROUTES, MyRoute} from '@shared/constants';
 import {Icon} from '@shared/ui';
 import React from 'react';
@@ -40,6 +39,20 @@ const MyNavigation = () => {
           }}
           name={MY_ROUTES.USER_INFO}
           component={UserInfoScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: '개인정보처리방침',
+          }}
+          name={MY_ROUTES.POLICY}
+          component={PolicyScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: '이용 약관',
+          }}
+          name={MY_ROUTES.TERMS}
+          component={TermsScreen}
         />
         <Stack.Screen
           options={({navigation}) => ({

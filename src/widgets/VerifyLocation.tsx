@@ -1,5 +1,5 @@
 import {useCurrentLocation} from '@entities/challenge/hooks';
-import {VerifyMap} from '@entities/verification/ui';
+import VerifyMap from '@entities/challenge/ui/VerifyMap';
 import {VerifyMapBottomSheet} from '@features/verification/ui';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {RouteProp, useRoute} from '@react-navigation/native';
