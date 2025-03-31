@@ -44,7 +44,9 @@ export type ChallengeGym = {
   latitude: number;
   longitude: number;
   distance: number;
+  address: string;
   canChallenge: boolean;
+  tags: string[];
 };
 
 export type ActivityAttendance = {

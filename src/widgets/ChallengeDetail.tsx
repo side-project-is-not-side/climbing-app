@@ -63,7 +63,11 @@ const ChallengeDetail = ({challengeId, activityType}: Props) => {
           padding: 20,
         }}>
         {isSuccess ? (
-          <Button onPress={navigateToShare}>공유하기</Button>
+          <Button
+            onPress={activityType === 'ATTENDANCE' ? () => {} : navigateToShare}
+            disabled={activityType === 'ATTENDANCE'}>
+            {activityType === 'ATTENDANCE' ? '인증완료' : '공유하기'}
+          </Button>
         ) : (
           <Button onPress={isStarted ? showTab : startChallenge}>{isStarted ? '인증하기' : '시작하기'}</Button>
         )}

@@ -54,6 +54,7 @@ export const usePostVerifyPicture = (challengeId: number, challengeTitle: string
         Alert.alert(data.message);
         navigation.goBack();
       } else {
+        console.log(data);
         mutate(`/v1/challenges/${challengeId}/PICTURE`);
         navigation.navigate(CHALLENGE_ROUTES.VERIFY_COMPLETE, {
           challengeId,

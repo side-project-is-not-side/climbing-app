@@ -38,3 +38,5 @@ export {default as NaverGray} from './NaverGray';
 export {default as Near} from './Near';
 export {default as RedStone} from './RedStone';
 export {default as Redo} from './Redo';
+export {default as Photo} from './Photo';
+export {default as Share} from './Share';

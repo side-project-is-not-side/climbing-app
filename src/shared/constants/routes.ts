@@ -82,7 +82,7 @@ export type ChallengeRoute = {
     challengeId: number;
     challengeTitle: string;
     activityType: ActivityType;
-    isSuccess: boolean;
+    success: boolean;
     recordCount: number;
     successCount: number;
     successImageUrl: string;

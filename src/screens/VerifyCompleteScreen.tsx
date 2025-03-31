@@ -7,7 +7,7 @@ import {Image, Pressable, Text, View} from 'react-native';
 type ScreenProps = NativeStackScreenProps<ChallengeRoute, 'verify_complete'>;
 
 const VerifyCompleteScreen = ({route, navigation}: ScreenProps) => {
-  const {challengeId, activityType, challengeTitle, isSuccess, successImageUrl} = route.params;
+  const {challengeId, activityType, challengeTitle, success, successImageUrl} = route.params;
 
   const pageOut = () => {
     setTimeout(() => {
@@ -19,7 +19,7 @@ const VerifyCompleteScreen = ({route, navigation}: ScreenProps) => {
   };
 
   useLayoutEffect(() => {
-    !isSuccess && pageOut();
+    !success && pageOut();
 
     navigation.setOptions({
       headerRight: () => (
@@ -38,7 +38,7 @@ const VerifyCompleteScreen = ({route, navigation}: ScreenProps) => {
   }, []);
   return (
     <View className="items-center justify-center flex-1 gap-2">
-      {isSuccess ? (
+      {success ? (
         <View className="flex-1 w-full p-5">
           <View className="flex-1 justify-center items-center">
             <Image src={successImageUrl} className="w-[160px] h-[160px] rounded-lg mb-11" resizeMode="cover" />

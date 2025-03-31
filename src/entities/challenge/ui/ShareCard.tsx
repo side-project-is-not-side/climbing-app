@@ -1,7 +1,13 @@
 import {ActivityLocation, ActivityPicture, ChallengeShare} from '../type';
 import {formatKST} from '@shared/utils';
-import React from 'react';
-import {Image, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {FlatList, Image, Text, View} from 'react-native';
+
+interface Props {
+  challenge: ChallengeShare;
+  theme: 'DARK' | 'WHITE';
+  setLoadedImages: React.Dispatch<React.SetStateAction<number>>;
+}
 
 const themeStyle = {
   DARK: {
@@ -14,8 +20,11 @@ const themeStyle = {
   },
 };
 
-const ShareCard = ({challenge, theme}: {challenge: ChallengeShare; theme: 'DARK' | 'WHITE'}) => {
+const ShareCard = ({challenge, theme, setLoadedImages}: Props) => {
   const {title, userName, successImageUrl, challengeStartDate, challengeEndDate, records} = challenge;
+
+  const [containerWidth, setContainerWidth] = useState(0);
+  const imageWidth = containerWidth / 5 - 8;
 
   return (
     <View className={`${themeStyle[theme].bg} rounded-[20px] px-[20px] py-[30px] justify-center items-center`}>
@@ -32,19 +41,49 @@ const ShareCard = ({challenge, theme}: {challenge: ChallengeShare; theme: 'DARK'
           </Text>
         </View>
       </View>
-      {challenge.activityType === 'PICTURE' ? (
-        <View className="flex-row justify-center flex-wrap">
-          {(records as ActivityPicture[]).map(record => (
-            <Image key={record.id} src={record.imageUrl} className="w-[50px] h-[50px] m-1 rounded-sm " />
-          ))}
-        </View>
-      ) : (
-        <View>
-          {(records as ActivityLocation[]).map(record => (
-            <></>
-          ))}
-        </View>
-      )}
+
+      <FlatList
+        data={records.slice(0, 8) as ActivityPicture[]}
+        keyExtractor={item => `${item.id}`}
+        onLayout={e => setContainerWidth(e.nativeEvent.layout.width)}
+        style={{
+          width: '100%',
+        }}
+        columnWrapperStyle={{
+          justifyContent: 'center',
+        }}
+        numColumns={5}
+        scrollEnabled={false}
+        renderItem={({item}) => (
+          <>
+            {item.imageUrl ? (
+              <Image
+                key={item.id}
+                src={item.imageUrl}
+                style={{
+                  width: imageWidth,
+                  height: imageWidth,
+                }}
+                className={`m-1 rounded-sm`}
+                onLoadEnd={() => setLoadedImages(prev => prev + 1)}
+              />
+            ) : (
+              <View
+                key={item.id}
+                style={{
+                  width: imageWidth,
+                  height: imageWidth,
+                }}
+                className="bg-grayscale-600 p-1 m-1 rounded-sm justify-center items-center">
+                <Image
+                  source={require('/assets/images/buri_pin.png')}
+                  onLoadEnd={() => setLoadedImages(prev => prev + 1)}
+                />
+              </View>
+            )}
+          </>
+        )}
+      />
     </View>
   );
 };
