@@ -18,6 +18,13 @@ const VerifyCompleteScreen = ({route, navigation}: ScreenProps) => {
     }, 4000);
   };
 
+  const navigateToShare = () => {
+    navigation.navigate(CHALLENGE_ROUTES.CHALLENGE_SHARE, {
+      challengeId,
+      activityType,
+    });
+  };
+
   useLayoutEffect(() => {
     !success && pageOut();
 
@@ -44,7 +51,9 @@ const VerifyCompleteScreen = ({route, navigation}: ScreenProps) => {
             <Image src={successImageUrl} className="w-[160px] h-[160px] rounded-lg mb-11" resizeMode="cover" />
             <Text className="text-white font-bold text-2xl">{challengeTitle} 획득🔥</Text>
           </View>
-          <Button classNames={{outter: 'w-full'}}>공유하기</Button>
+          <Button classNames={{outter: 'w-full'}} onPress={navigateToShare}>
+            공유하기
+          </Button>
         </View>
       ) : (
         <>
