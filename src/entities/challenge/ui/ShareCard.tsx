@@ -29,7 +29,7 @@ const ShareCard = ({challenge, theme, setLoadedImages}: Props) => {
   return (
     <View className={`${themeStyle[theme].bg} rounded-[20px] px-[20px] py-[30px] justify-center items-center`}>
       <View className="gap-[6px]">
-        <Text className="text-center text-primary-400">Challenge complleted!</Text>
+        <Text className="text-center text-primary-400">Challenge completed!</Text>
         <Text className={`text-center ${themeStyle[theme].text} font-bold text-2xl`}>{title}</Text>
       </View>
       <View className="justify-center items-center gap-4 my-4">
