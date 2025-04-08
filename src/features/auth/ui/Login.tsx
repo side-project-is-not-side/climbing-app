@@ -46,12 +46,12 @@ const Login = () => {
           }}>
           <Text>카카오 로그인</Text>
         </LoginButton>
-        <LoginButton icon="Naver" disabled>
+        {/* <LoginButton icon="Naver" disabled>
           <Text>네이버 로그인</Text>
         </LoginButton>
         <LoginButton icon="Google" className="mb-4" disabled>
           <Text>구글 로그인</Text>
-        </LoginButton>
+        </LoginButton> */}
         <View className="w-full h-[1px] bg-white opacity-20 mb-4"></View>
         <LoginButton icon="Guest" onPress={showTab}>
           <Text>일일 계정 로그인</Text>
